@@ -128,7 +128,7 @@ def combine(n, target):
     dfs(candidates, target, 0, [], res)
     return res
     
-# Combinations: combinations of list [candidates] that form a size [target] window (with duplicates, e.g. [1,1])
+# Combinations: combinations of list [candidates] that form a size [target] window with duplicates, e.g. [1,1] (See LeetCode 77)
 def dfs(candidates, target, index, path, res):
     if target < 0:  # backtracking
         return 
@@ -158,7 +158,9 @@ def dfs(self, candidates, path, res):
 
 ```
 
-:heavy_check_mark: [39. Combination Sum](https://leetcode.com/problems/combination-sum/): find unique combination of elements that sum to a number (**DFS for Combinations**)
+:heavy_check_mark: [77. Combinations](https://leetcode.com/problems/combinations/): all possible combinations of k numbers from range 1 to n (**DFS for Combinations**)
+
+:heavy_check_mark: [39. Combination Sum](https://leetcode.com/problems/combination-sum/): find unique combination of elements that sum to a number (**DFS for Combination Sum**)
 
 
 :heavy_check_mark: [46. Permutations](https://leetcode.com/problems/permutations/): all the possible permutations of an array (**DFS for Permutations**)
