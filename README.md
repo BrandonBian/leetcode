@@ -128,7 +128,7 @@ def combine(n, target):
     dfs(candidates, target, 0, [], res)
     return res
     
-# Combinations: combinations of list [candidates] that form a size [target] window
+# Combinations: combinations of list [candidates] that form a size [target] window (with duplicates, e.g. [1,1])
 def dfs(candidates, target, index, path, res):
     if target < 0:  # backtracking
         return 
