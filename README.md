@@ -4,7 +4,7 @@ Here I will record all the useful information that I learned or gained from prat
 Note: :heavy_check_mark: means **very important, typical, or good examples** that should definitely be familiar with
 
 ## Functions and Methods
-### Binary Tree Traversals (Pre/Post/In Order, BFS, DFS)
+### Binary Tree Traversals and Operations
 
 ![tree](https://assets.leetcode.com/users/andvary/image_1556551007.png)
 ```
@@ -17,11 +17,34 @@ def inorder(root):
 def postorder(root):
   return  postorder(root.left) + postorder(root.right) + [root.val] if root else []
 ```
+About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/534/)
+
+```
+# Top-down maximum_depth(root, depth)
+
+1. return if root is null
+2. if root is a leaf node:
+3.     answer = max(answer, depth)         // update the answer if needed
+4. maximum_depth(root.left, depth + 1)     // call the function recursively for left child
+5. maximum_depth(root.right, depth + 1)    // call the function recursively for right child
+
+# Bottom-up maximum_depth(root, depth)
+
+1. return 0 if root is null                 // return 0 for null node
+2. left_depth = maximum_depth(root.left)
+3. right_depth = maximum_depth(root.right)
+4. return max(left_depth, right_depth) + 1  // return depth of the subtree rooted at root
+```
+
 :heavy_check_mark: [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
 
 [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/): check if tree is symmetric (mirrored)
 
 [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+
+[617. Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/)
+
+:heavy_check_mark: [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
 
 ---
 ### Dynamic Programming
@@ -29,6 +52,8 @@ def postorder(root):
 [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/): dynamic programming to find number of ways to climb to a stair
 
 [139. Word Break](https://leetcode.com/problems/word-break/): check if word can be broken down to elements in a word dictionary
+
+:heavy_check_mark: [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/): generate all combinations of well-formed parentheses from given number of pairs
 
 ---
 ### Binary Search
@@ -91,6 +116,55 @@ def Kenighan_algo(n):
 :heavy_check_mark: [338. Counting Bits](https://leetcode.com/problems/counting-bits/): count number of 1 for binary representation of integers up to a limit (dynamic programming)
 
 ---
+### Depth First Search (DFS) / Recursion / Backtracking
+
+**General Backtracking Questions and Template**: [link](https://leetcode.com/problems/combination-sum/discuss/429538/General-Backtracking-questions-solutions-in-Python-for-reference-%3A)
+
+```
+# Base Function
+def combine(n, target):
+    res = []
+    candidates = range(1, n+1)
+    dfs(candidates, target, 0, [], res)
+    return res
+    
+# Combinations: combinations of list [candidates] that form a size [target] window
+def dfs(candidates, target, index, path, res):
+    if target < 0:  # backtracking
+        return 
+    if target == 0:
+        res.append(path)
+        return # backtracking 
+    for i in range(index, len(candidates)):
+        dfs(candidates, target-1, i+1, path+[candidates[i]], res)
+
+# Combination Sum: combinations of list [candidates] that sum up to [target] (See LeetCode 39)
+def dfs(candidates, target, index, path, res):
+    if target < 0:  # backtracking
+        return  
+    if target == 0:
+        res.append(path)
+        return # backtracking
+    for i in range(index, len(candidates)):
+        dfs(candidates, target-candidates[i], i, path+[candidates[i]], res)  
+
+# Permutations: all permutations of list [candidates] (See LeetCode 46)
+def dfs(self, candidates, path, res):
+    if not candidates:
+        res.append(path)
+        return # backtracking
+    for i in range(len(nums)):
+        self.dfs(candidates[:i]+candidates[i+1:], path+[candidates[i]], res)
+
+```
+
+:heavy_check_mark: [39. Combination Sum](https://leetcode.com/problems/combination-sum/): find unique combination of elements that sum to a number (**DFS for Combinations**)
+
+
+:heavy_check_mark: [46. Permutations](https://leetcode.com/problems/permutations/): all the possible permutations of an array (**DFS for Permutations**)
+
+
+---
 ## Data Structures
 ### Dictionary
 [136. Single Number](https://leetcode.com/problems/single-number/): find the number in array that only appeared once (enumerating dict.items())
@@ -121,6 +195,14 @@ class Solution(object):
 
 [160. Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/): find the node at which two linked lists intersect (two pointers OR concatenate lists and find cycle)
 
+:heavy_check_mark: [234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/): check if linked list is a palindrome (using slow/fast pointers & reversing list)
+
+:heavy_check_mark: [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/): using dummy nodes - **with visual guide which is super useful**
+
 ---
 ### Stack
 [155. Min Stack](https://leetcode.com/problems/min-stack/): design a stack that supports push, pop, top, and getMin
+
+
+---
+
