@@ -156,7 +156,8 @@ def dfs(candidates, target, path, res):
     for i in range(len(candidates)):
         # Note the candidates[i+1:] here - we only consider candidates AFTER current node
         # effect: remove duplicates ([3,5] = [5,3]), and to remove itself ([3,3])
-        # since those combinations / paths are already considered when traversing trees with root = prior nodes
+        # since nodes [:i] prior to i are already considered when traversing trees with root = prior nodes
+        # also we don't want selections like [3,3] because that is combination of an element with itself, invalid
         dfs(candidates[i+1:], target-1, path+[candidates[i]], res)
         
 ########################################################################################################
