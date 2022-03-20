@@ -1,7 +1,9 @@
 # [Facebook] Interview Coding Questions
 ## As collected from the LeetCode community
 
-### [Sum To 100](https://leetcode.com/discuss/interview-question/357345/)
+### [Sum To 100](https://leetcode.com/discuss/interview-question/357345/) (Related: DFS/Backtracking)
+
+![sum_100](problem_prompts/sum_100.png)
 
 ```
 # Reference Solution:
