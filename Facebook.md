@@ -9,18 +9,29 @@
 # Reference Solution:
 # https://leetcode.com/discuss/interview-question/357345/Facebook-or-Phone-Screen-or-Sum-to-100/323572
 
-class Solution:
-    def __init__(self):
-        self.ans =[]
-    def dfs(self,s,ans,path=""):
-        if len(s)==0 and ans==100:
-            self.ans.append(path)
-        for i in range(len(s)):
-            self.dfs(s[i+1:],ans+int(s[:i+1]),path+"+"+s[:i+1])
-            self.dfs(s[i+1:],ans-int(s[:i+1]),path+"-"+s[:i+1])
+def dfs(candidates, target, path, res):
 
-a = Solution()
-a.dfs("123456789",0)
-for i in a.ans:
-    print(i)
+    print("Path: " + str(path))
+    print("Candidates: " + str(candidates))
+    print("Result: " + str(res))
+    print('')
+    
+    if target == 10 and len(candidates) == 0:
+        res.append(path)
+        return
+
+    for i in range(len(candidates)):
+        # Note the candidates[i+1:] here - we only consider candidates AFTER current node
+        # candidates[:i+1] -> path to current node (all selections BEFORE and INCLUDING current node)
+        # candidates[i+1:] -> all possible selections AFTER current node
+        
+        dfs(candidates[i+1:], target + int(candidates[:i+1]), path + '+' + candidates[:i+1], res)
+        dfs(candidates[i+1:], target - int(candidates[:i+1]), path + '-' + candidates[:i+1], res)
+        
+res = []
+candidates = "1234"
+dfs(candidates, 0, "", res)
+
+for i in range(len(res)):
+    print(res[i])
 ```
