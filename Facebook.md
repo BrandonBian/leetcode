@@ -3,7 +3,7 @@
 
 ### [Sum To 100](https://leetcode.com/discuss/interview-question/357345/) (Related: DFS/Backtracking)
 
-![sum_100](problem_prompts/sum_100.png)
+![sum_100](images/sum_100.png)
 
 ```
 # Reference Solution:
