@@ -58,11 +58,18 @@ About **General Ideas of Recursion**:
 ---
 ### Dynamic Programming
 
+```
+# To generate a 2D array of dimension m * n:
+dp = [[0]*n for i in range(m)]
+```
+
 [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/): dynamic programming to find number of ways to climb to a stair
 
 [139. Word Break](https://leetcode.com/problems/word-break/): check if word can be broken down to elements in a word dictionary
 
 :heavy_check_mark: [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/): generate all combinations of well-formed parentheses from given number of pairs
+
+[62. Unique Paths](https://leetcode.com/problems/unique-paths/): all unique paths from top-left corner of a grid to bottom-right
 
 ---
 ### Binary Search
@@ -127,7 +134,7 @@ def Kenighan_algo(n):
 ---
 ### Depth First Search (DFS) / Recursion / Backtracking
 
-**General Backtracking Questions and Template**: [link](https://leetcode.com/problems/combination-sum/discuss/429538/General-Backtracking-questions-solutions-in-Python-for-reference-%3A)
+**General Backtracking Questions and Template**: [link-1](https://leetcode.com/problems/combination-sum/discuss/429538/General-Backtracking-questions-solutions-in-Python-for-reference-%3A), [link-2](https://leetcode.com/problems/letter-combinations-of-a-phone-number/discuss/780232/Backtracking-Python-problems%2B-solutions-interview-prep)
 
 **General Idea**: 
 1. Transform problem into a **tree problem**
@@ -215,12 +222,43 @@ def dfs(self, candidates, path, res):
 
 :heavy_check_mark: [39. Combination Sum](https://leetcode.com/problems/combination-sum/): find unique combination of elements that sum to a number (**DFS for Combination Sum**)
 
-
 :heavy_check_mark: [46. Permutations](https://leetcode.com/problems/permutations/): all the possible permutations of an array (**DFS for Permutations**)
 
-
+:heavy_check_mark: [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/): letter combinations that the numbers can form （**DFS for Combinations**）
 
 ---
+### Rotate Matrix
+**General Idea**: [link](https://leetcode.com/problems/rotate-image/discuss/18872/A-common-method-to-rotate-the-image)
+
+```
+/*
+ * clockwise rotate
+ * first reverse up to down, then swap the symmetry (transpose)
+ * 1 2 3     7 8 9     7 4 1
+ * 4 5 6  => 4 5 6  => 8 5 2
+ * 7 8 9     1 2 3     9 6 3
+*/
+
+/*
+ * anticlockwise rotate
+ * first reverse left to right, then swap the symmetry
+ * 1 2 3     3 2 1     3 6 9
+ * 4 5 6  => 6 5 4  => 2 5 8
+ * 7 8 9     9 8 7     1 4 7
+*/
+```
+
+:heavy_check_mark: [48. Rotate Image](https://leetcode.com/problems/rotate-image/): rotate a matrix clockwise
+
+---
+
+### Sliding Window (Usually Related to Substrings)
+![sliding_window](images/sliding_window.png)
+
+:heavy_check_mark: [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/): (using dictionary for seen\[character\] = index)
+
+---
+
 ## Data Structures
 
 ### Binary Trees (See [Relevant Algorithms](https://github.com/BrandonBian/LeetCode-Notes/edit/main/README.md#binary-tree-traversals-and-operations))
@@ -235,6 +273,9 @@ class TreeNode(object):
 ---
 ### Dictionary
 [136. Single Number](https://leetcode.com/problems/single-number/): find the number in array that only appeared once (enumerating dict.items())
+
+[17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/): letter combinations that the numbers can form （mapping digits to corresponding letters）
+
 
 ---
 ### Linked List
@@ -282,7 +323,9 @@ class Solution(object):
 ---
 ### [Collections.defaultdict](https://docs.python.org/3/library/collections.html#collections.defaultdict)
 
-:heavy_check_mark: [494. Target Sum](https://leetcode.com/problems/target-sum/submissions/): combinations of '+' and '-' to build expression up to target sum
+:heavy_check_mark: [494. Target Sum](https://leetcode.com/problems/target-sum/submissions/): combinations of '+' and '-' to build expression up to target sum (KEY = sum; VAL = number of ways to form this sum)
+
+[49. Group Anagrams](https://leetcode.com/problems/group-anagrams/): group anagrams that are made of same set of letters (KEY = tuple of hashed 26 letters; VAL = list of anagrams with KEY combination of letters)
 
 ---
 ### [Collections.Counter](https://docs.python.org/3/library/collections.html#collections.Counter)
