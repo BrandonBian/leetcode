@@ -210,6 +210,7 @@ def dfs(self, candidates, path, res):
 :heavy_check_mark: [46. Permutations](https://leetcode.com/problems/permutations/): all the possible permutations of an array (**DFS for Permutations**)
 
 
+
 ---
 ## Data Structures
 ### Dictionary
@@ -217,6 +218,12 @@ def dfs(self, candidates, path, res):
 
 ---
 ### Linked List
+```
+class ListNode(object):
+   def __init__(self, x):
+       self.val = x
+       self.next = None
+```
 
 **Cycle finding using slow & faster pointers**: [Proof](https://drive.google.com/file/d/1ypA196eeOnzWUTQGtOh5WpedPdM3FFDd/view)
 
@@ -251,4 +258,6 @@ class Solution(object):
 
 
 ---
+### [Collections.DefaultDict](https://docs.python.org/3/library/collections.html#collections.defaultdict)
 
+:heavy_check_mark: [494. Target Sum](https://leetcode.com/problems/target-sum/submissions/): combinations of '+' and '-' to build expression up to target sum
