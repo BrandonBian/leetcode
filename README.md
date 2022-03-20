@@ -4,7 +4,7 @@ Here I will record all the useful information that I learned or gained from prat
 Note: :heavy_check_mark: means **very important, typical, or good examples** that should definitely be familiar with
 
 ## Functions and Methods
-### Binary Tree Traversals and Operations
+### Binary Tree Traversals and Operations (Usually with Recursion)
 
 ![tree](https://assets.leetcode.com/users/andvary/image_1556551007.png)
 ```
@@ -36,6 +36,13 @@ About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/exp
 4. return max(left_depth, right_depth) + 1  // return depth of the subtree rooted at root
 ```
 
+About **General Ideas of Recursion**:
+```
+1. Define stopping conditions (and return)
+2. Assuming the recursion function works perfectly, get results of current stage
+3. Going up one layer by considering the current stage's result and updating it accordingly (assuming results from Step-2 perfect)
+```
+
 :heavy_check_mark: [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
 
 [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/): check if tree is symmetric (mirrored)
@@ -45,6 +52,8 @@ About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/exp
 [617. Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/)
 
 :heavy_check_mark: [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
+
+[226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
 
 ---
 ### Dynamic Programming
@@ -213,6 +222,17 @@ def dfs(self, candidates, path, res):
 
 ---
 ## Data Structures
+
+### Binary Trees (See [Relevant Algorithms](https://github.com/BrandonBian/LeetCode-Notes/edit/main/README.md#binary-tree-traversals-and-operations))
+```
+class TreeNode(object):
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+```
+
+---
 ### Dictionary
 [136. Single Number](https://leetcode.com/problems/single-number/): find the number in array that only appeared once (enumerating dict.items())
 
@@ -252,12 +272,21 @@ class Solution(object):
 
 :heavy_check_mark: [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/): using dummy nodes - **with visual guide which is super useful**
 
+[206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/): using dummy nodes (also including a less obvious but clever solution)
+
 ---
 ### Stack
 [155. Min Stack](https://leetcode.com/problems/min-stack/): design a stack that supports push, pop, top, and getMin
 
 
 ---
-### [Collections.DefaultDict](https://docs.python.org/3/library/collections.html#collections.defaultdict)
+### [Collections.defaultdict](https://docs.python.org/3/library/collections.html#collections.defaultdict)
 
 :heavy_check_mark: [494. Target Sum](https://leetcode.com/problems/target-sum/submissions/): combinations of '+' and '-' to build expression up to target sum
+
+---
+### [Collections.Counter](https://docs.python.org/3/library/collections.html#collections.Counter)
+
+[169. Majority Element](https://leetcode.com/problems/majority-element/): find the mode of a list (using Counter.items())
+
+---
