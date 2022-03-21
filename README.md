@@ -71,10 +71,16 @@ dp = [[0]*n for i in range(m)]
 
 [62. Unique Paths](https://leetcode.com/problems/unique-paths/): all unique paths from top-left corner of a grid to bottom-right
 
+[64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/): minimum path from top-left corner of a grid to bottom-right
+
 ---
 ### Binary Search
 
+![binary_search](images/binary_search.png)
+
 [35. Search Insert Position](https://leetcode.com/problems/search-insert-position/): binary search on list index
+
+[74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/): double binary search on 2D array / matrix
 
 ---
 ### Kadane's Algorithm (Maximum Subarray)
@@ -226,6 +232,8 @@ def dfs(self, candidates, path, res):
 
 :heavy_check_mark: [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/): letter combinations that the numbers can form （**DFS for Combinations**）
 
+[78. Subsets](https://leetcode.com/problems/subsets/): power set of an array of intergers
+
 ---
 ### Rotate Matrix
 **General Idea**: [link](https://leetcode.com/problems/rotate-image/discuss/18872/A-common-method-to-rotate-the-image)
@@ -314,6 +322,10 @@ class Solution(object):
 :heavy_check_mark: [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/): using dummy nodes - **with visual guide which is super useful**
 
 [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/): using dummy nodes (also including a less obvious but clever solution)
+
+[2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/): add two linked lists that represent two numbers in reversed order
+
+:heavy_check_mark: [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/): (using fast/slow pointers to find n-th node from list's end)
 
 ---
 ### Stack
