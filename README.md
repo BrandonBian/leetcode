@@ -342,6 +342,25 @@ class Solution(object):
 ---
 ### [Collections.Counter](https://docs.python.org/3/library/collections.html#collections.Counter)
 
-[169. Majority Element](https://leetcode.com/problems/majority-element/): find the mode of a list (using Counter.items())
+```
+# Initialization
+cnt = Counter()
+    ... # Code to populate the counter (e.g., cnt[key] += value)
+    ... # Or to create counter directly from list (e.g., cnt = Counter(list))
+
+# Counter.items():
+for key, val in counter.items():
+    ... # key is the element, val is its count
+
+# Counter.most_common(k):
+for key, val in cnt.most_common(k):
+    ... # key is the element, val is its count
+
+```
+
+
+[169. Majority Element](https://leetcode.com/problems/majority-element/): find the mode of a list (using **Counter.items()**)
+
+[347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/): (using **Counter.most_common(k)**)
 
 ---
