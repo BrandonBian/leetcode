@@ -76,11 +76,11 @@ dp = [[0]*n for i in range(m)]
 ---
 ### Binary Search
 
-![binary_search](images/binary_search.png)
+![binary_search](figures/binary_search.png)
 
 [35. Search Insert Position](https://leetcode.com/problems/search-insert-position/): binary search on list index
 
-[74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/): double binary search on 2D array / matrix
+:heavy_check_mark: [74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/): double binary search on 2D array / matrix
 
 ---
 ### Kadane's Algorithm (Maximum Subarray)
@@ -261,7 +261,7 @@ def dfs(self, candidates, path, res):
 ---
 
 ### Sliding Window (Usually Related to Substrings)
-![sliding_window](images/sliding_window.png)
+![sliding_window](figures/sliding_window.png)
 
 :heavy_check_mark: [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/): (using dictionary for seen\[character\] = index)
 
