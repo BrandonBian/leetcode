@@ -55,6 +55,10 @@ About **General Ideas of Recursion**:
 
 [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
 
+[102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/): (NOT using recursion)
+
+[95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/): (Advanced version of 102, quite complicated)
+
 ---
 ### Dynamic Programming
 
@@ -234,6 +238,10 @@ def dfs(self, candidates, path, res):
 
 [78. Subsets](https://leetcode.com/problems/subsets/): power set of an array of intergers
 
+:heavy_check_mark: [79. Word Search](https://leetcode.com/problems/word-search/): see if a word can be spelled out from a matrix of letters (**Advanced Backtracking**)
+
+[212. Word Search II](https://leetcode.com/problems/word-search-ii/)
+
 ---
 ### Rotate Matrix
 **General Idea**: [link](https://leetcode.com/problems/rotate-image/discuss/18872/A-common-method-to-rotate-the-image)
@@ -266,17 +274,32 @@ def dfs(self, candidates, path, res):
 :heavy_check_mark: [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/): (using dictionary for seen\[character\] = index)
 
 ---
+### List Sorting and Partitioning
 
+**Dutch National Flag Problem**: [link](https://en.wikipedia.org/wiki/Dutch_national_flag_problem)
+```
+procedure three-way-partition(A : array of values, mid : value):
+    i ← 0
+    j ← 0
+    k ← size of A - 1
+
+    while j <= k:
+        if A[j] < mid:
+            swap A[i] and A[j]
+            i ← i + 1
+            j ← j + 1
+        else if A[j] > mid:
+            swap A[j] and A[k]
+            k ← k - 1
+        else:
+            j ← j + 1
+```
+
+
+:heavy_check_mark: [75. Sort Colors](https://leetcode.com/problems/sort-colors/): sort list of elements 0, 1, 2 in ascending order (**Dutch National Flag Problem**)
+
+---
 ## Data Structures
-
-### Binary Trees (See [Relevant Algorithms](https://github.com/BrandonBian/LeetCode-Notes/edit/main/README.md#binary-tree-traversals-and-operations))
-```
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-```
 
 ---
 ### Dictionary
