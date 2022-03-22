@@ -341,6 +341,7 @@ class Solution(object):
 **Finding the node at half point of the list using slow/fast pointers**:
 ```
 # initially slow and fast are the same, starting from head
+# note that if we set [fast = head.next], then when while stops, slow will be on LAST node of FIRST half
 slow = fast = head
 
 while fast and fast.next:
@@ -348,7 +349,7 @@ while fast and fast.next:
     fast = fast.next.next
     slow = slow.next
 
-# When fast reaches the end or past the end, the slow will reach the middle or past the middle
+# when fast reaches the end or past the end, the slow will reach the middle or past the middle
 if fast:
     # fast is exactly at the end, move slow one step further for comparison (cross middle one)
     slow = slow.next
