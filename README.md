@@ -110,6 +110,11 @@ return max_so_far
 :heavy_check_mark: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/): find subarray whose sum is maximized
 
 ---
+### 3-Sums (and related)
+
+:heavy_check_mark: [15. 3Sum](https://leetcode.com/problems/3sum/): find all set of three numbers summing to 0 (using **3 pointers** with **duplicate checking**)
+
+---
 ### Bit Operations (Including Kernighan's Algorithm - which is a DP algorithm)
 About Python **Bitwise Operators**: [link](https://wiki.python.org/moin/BitwiseOperators) (<<, >>, &, |, ~, and ^)
 
@@ -319,7 +324,7 @@ class ListNode(object):
 
 **Cycle finding using slow & faster pointers**: [Proof](https://drive.google.com/file/d/1ypA196eeOnzWUTQGtOh5WpedPdM3FFDd/view)
 
-**Cycle Detection**: [Ref](https://leetcode.com/problems/linked-list-cycle-ii/discuss/1701128/C%2B%2BJavaPython-Slow-and-Fast-oror-Image-Explanation-oror-Beginner-Friendly) with proof.
+**Cycle detection using slow/fast Pointers**: [Ref](https://leetcode.com/problems/linked-list-cycle-ii/discuss/1701128/C%2B%2BJavaPython-Slow-and-Fast-oror-Image-Explanation-oror-Beginner-Friendly) with proof.
 
 ```
 class Solution(object):
@@ -333,6 +338,26 @@ class Solution(object):
             head, slow = head.next, slow.next
         return head
 ```
+**Finding the node at half point of the list using slow/fast pointers**:
+```
+# initially slow and fast are the same, starting from head
+slow = fast = head
+
+while fast and fast.next:
+    # fast traverses faster and moves to the end of the list if the length is odd
+    fast = fast.next.next
+    slow = slow.next
+
+# When fast reaches the end or past the end, the slow will reach the middle or past the middle
+if fast:
+    # fast is exactly at the end, move slow one step further for comparison (cross middle one)
+    slow = slow.next
+    
+# now slow should be at the STARTING node of the SECOND half of the list
+
+
+```
+
 
 [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/): find if cycle present in linked list (using walker/slow and runner/fast pointers)
 
@@ -349,6 +374,8 @@ class Solution(object):
 [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/): add two linked lists that represent two numbers in reversed order
 
 :heavy_check_mark: [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/): (using fast/slow pointers to find n-th node from list's end)
+
+:heavy_check_mark: [148. Sort List](https://leetcode.com/problems/sort-list/): (using **merge sort** - recursion of sorting -, cutting the list into two halves using slow/fast pointers - see also [234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/))
 
 ---
 ### Stack
