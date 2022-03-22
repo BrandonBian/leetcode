@@ -1,7 +1,7 @@
 # Binary Trees
 Note: :heavy_check_mark: means **very important, typical, or good examples** that should definitely be familiar with
 
-## Binary Tree Traversals and Operations (Usually with Recursion)
+## - Binary Tree Traversals and Operations (Usually with Recursion)
 
 ![tree](https://assets.leetcode.com/users/andvary/image_1556551007.png)
 ```
@@ -14,7 +14,7 @@ def inorder(root):
 def postorder(root):
   return  postorder(root.left) + postorder(root.right) + [root.val] if root else []
 ```
-About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/534/)
+- About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/534/)
 
 ```
 # Top-down maximum_depth(root, depth)
@@ -33,12 +33,16 @@ About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/exp
 4. return max(left_depth, right_depth) + 1  // return depth of the subtree rooted at root
 ```
 
-About **General Ideas of Recursion**:
+- About **General Ideas of Recursion**:
 ```
 1. Define stopping conditions (and return)
 2. Assuming the recursion function works perfectly, get results of current stage
 3. Going up one layer by considering the current stage's result and updating it accordingly (assuming results from Step-2 perfect)
 ```
+
+## - LeetCode Problems
+
+### - Easy
 
 :heavy_check_mark: [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
 
@@ -52,8 +56,11 @@ About **General Ideas of Recursion**:
 
 [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
 
+
+---
+
+### - Medium
+
 [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/): (NOT using recursion)
 
 [95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/): (Advanced version of 102, quite complicated)
-
----
