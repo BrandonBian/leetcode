@@ -1,7 +1,19 @@
-# Binary Trees
-Note: :heavy_check_mark: means **very important, typical, or good examples** that should definitely be familiar with
+# Binary Trees & Binary Search Trees
+* **Note**: 
+  * :heavy_check_mark: means **MUST DO (i.e., very important, typical, or good) problems** that should definitely be familiar with
+  * :wavy_dash: means problems that are less typical
+  * :green_book: means **EASY problems** as defined by LeetCode
+  * :orange_book: means **MEDIUM problems** as defined by LeetCode
+  * :closed_book: means **HARD problems** as defined by LeetCode
+
+- **LeetCode Problems**: [List](https://leetcode.com/tag/binary-tree/)
+
+- **Reference 1**: [Study Guide - LeetCode Problems](https://leetcode.com/tag/binary-tree/discuss/1212004/Binary-Trees-study-guide)
+
+- **Reference 2**: [Study Guide - Concepts](https://leetcode.com/tag/binary-tree/discuss/1820334/Become-Master-in-Tree)
 
 ## - Binary Tree Traversals and Operations (Usually with Recursion)
+- About **Binary Tree Traversals Algorithms**:
 
 ![tree](https://assets.leetcode.com/users/andvary/image_1556551007.png)
 ```
@@ -42,11 +54,25 @@ def postorder(root):
 
 ## - LeetCode Problems
 
-### - Easy
+### - Basic Traversal Problems
 
-:heavy_check_mark: [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+:heavy_check_mark: :green_book: [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/): (DFS, Recursion)
 
-[101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/): check if tree is symmetric (mirrored)
+:heavy_check_mark: :green_book: [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/): (DFS, Recursion)
+
+:heavy_check_mark: :green_book: [145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/): (DFS, Recursion)
+
+:heavy_check_mark: :orange_book: [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/): (NOT using recursion, BFS & Queue instead)
+
+:wavy_dash: :orange_book: [103. Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/): a variation of level-order traversal (BFS & Queue with altenating insertion directions)
+
+:wavy_dash: :orange_book: [107. Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/): a variation of level-order traversal 
+
+### - Basic Binary Tree Operations
+ 
+:wavy_dash: :green_book:[100. Same Tree](https://leetcode.com/problems/same-tree/)
+
+[101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
 
 [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
 
@@ -57,10 +83,11 @@ def postorder(root):
 [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
 
 
+
 ---
 
 ### - Medium
 
-[102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/): (NOT using recursion)
+
 
 [95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/): (Advanced version of 102, quite complicated)
