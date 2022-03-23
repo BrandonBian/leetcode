@@ -102,21 +102,74 @@ TODO
 
 ---
 
-### - Binary Search Trees
-
+### - Binary Search Trees (BSTs)
+- **In-order Traversal**
 ```
-# Useful code for doing in-order traversal of binary search trees
-
 result = []
 
 def inorder(node):
     if node:
-    inorder(node.left)
-    if node.val >= low and node.val <= high:
-        result.append(node.val)
-    inorder(node.right)
+        inorder(node.left)
+        # do something to your node here
+        if node.val >= low and node.val <= high:
+            result.append(node.val)
+        inorder(node.right)
     
 # result will have node values ordered in ascending order
+```
+- **Deleting a Node from BST**
+```
+def deleteNode(self, root, key):
+    
+    # Reference Solution:
+    # https://leetcode.com/problems/delete-node-in-a-bst/discuss/821420/Python-O(h)-solution-explained
+    
+    if not root:
+        return None
+
+    if root.val == key:
+        if not root.right: return root.left
+        if not root.left: return root.right
+            
+        if root.left and root.right:
+                
+            # go right one step and go to the left most node, replace current node value with that
+            temp = root.right
+            while temp.left: temp = temp.left
+                    
+            root.val = temp.val
+            root.right = self.deleteNode(root.right, root.val) # delete the replaced value from right tree
+                
+    elif root.val > key:
+        root.left = self.deleteNode(root.left, key)
+    else:
+        root.right = self.deleteNode(root.right, key)
+            
+    return root
+
+```
+- **Inserting a Node to BST**
+
+```
+def insertIntoBST(self, root, val):
+        """
+        :type root: TreeNode
+        :type val: int
+        :rtype: TreeNode
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/insert-into-a-binary-search-tree/discuss/180244/Python-4-line-clean-recursive-solution
+        
+        if not root:
+            return TreeNode(val)
+        
+        if root.val < val:
+            root.right = self.insertIntoBST(root.right, val)
+        else:
+            root.left = self.insertIntoBST(root.left, val)
+            
+        return root
 ```
 
 :heavy_check_mark: :green_book: [700. Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
@@ -127,4 +180,12 @@ def inorder(node):
 
 :wavy_dash: :green_book: [938. Range Sum of BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/): (using **in-order traversal** to traverse in ascending order, rather trivial)
 
+:wavy_dash: :orange_book: [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/): (using **in-order traversal** to traverse in ascending order)
+
+:heavy_check_mark: :orange_book: [450. Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/)
+
+:heavy_check_mark: :orange_book: [669. Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/)
+
+<!-- 
 [95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/): (Advanced version of 102, quite complicated)
+ -->
