@@ -29,27 +29,41 @@ def postorder(root):
 - About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/534/)
 
 ```
-# Top-down maximum_depth(root, depth)
+def maxDepth_bottomUp(root):
+    
+    # stop conditions    
+    if not root:
+        return 0
+    
+    left_depth, right_depth = 0, 0
+    
+    # assuming maxDepth works perfectly
+    if root.left is not None:
+        left_depth = maxDepth_bottomUp(root.left)
+        
+    if root.right is not None:
+        right_depth = maxDepth_bottomUp(root.right)
+    
+    # go up one layer (+ 1 account for going up one layer)
+    return 1 + max(left_depth, right_depth)
 
-1. return if root is null
-2. if root is a leaf node:
-3.     answer = max(answer, depth)         // update the answer if needed
-4. maximum_depth(root.left, depth + 1)     // call the function recursively for left child
-5. maximum_depth(root.right, depth + 1)    // call the function recursively for right child
+###############################################################
 
-# Bottom-up maximum_depth(root, depth)
-
-1. return 0 if root is null                 // return 0 for null node
-2. left_depth = maximum_depth(root.left)
-3. right_depth = maximum_depth(root.right)
-4. return max(left_depth, right_depth) + 1  // return depth of the subtree rooted at root
+def maxDepth_topDown(root, current_level, max_level):
+    # stop conditions    
+    if not root:
+        return 0
+    
+    if current_level > max_level[0]:
+        max_level[0] = current_level
+        
+    maxDepth_topDown(root.left, current_level + 1, max_level)
+    maxDepth_topDown(root.right, current_level + 1, max_level)
 ```
 
 - About **General Ideas of Recursion**:
 ```
-1. Define stopping conditions (and return)
-2. Assuming the recursion function works perfectly, get results of current stage
-3. Going up one layer by considering the current stage's result and updating it accordingly (assuming results from Step-2 perfect)
+TODO
 ```
 
 ## - LeetCode Problems
@@ -66,28 +80,51 @@ def postorder(root):
 
 :wavy_dash: :orange_book: [103. Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/): a variation of level-order traversal (BFS & Queue with altenating insertion directions)
 
-:wavy_dash: :orange_book: [107. Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/): a variation of level-order traversal 
-
-### - Basic Binary Tree Operations
- 
-:wavy_dash: :green_book:[100. Same Tree](https://leetcode.com/problems/same-tree/)
-
-[101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
-
-[104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
-
-[617. Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/)
-
-:heavy_check_mark: [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
-
-[226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
-
-
+:wavy_dash: :orange_book: [107. Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/): a variation of level-order traversal (just reversing the resulting list)
 
 ---
 
-### - Medium
+### - Basic Binary Tree Operations
+ 
+:wavy_dash: :green_book: [100. Same Tree](https://leetcode.com/problems/same-tree/)
 
+:wavy_dash: :green_book: [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
 
+:heavy_check_mark: :green_book: [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/): (using **bottom-up & top-down** recursion)
+
+:wavy_dash: :green_book: [617. Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/)
+
+:heavy_check_mark: :green_book: [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
+
+:wavy_dash: :green_book: [563. Binary Tree Tilt](https://leetcode.com/problems/binary-tree-tilt/)
+
+:wavy_dash: :green_book: [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
+
+---
+
+### - Binary Search Trees
+
+```
+# Useful code for doing in-order traversal of binary search trees
+
+result = []
+
+def inorder(node):
+    if node:
+    inorder(node.left)
+    if node.val >= low and node.val <= high:
+        result.append(node.val)
+    inorder(node.right)
+    
+# result will have node values ordered in ascending order
+```
+
+:heavy_check_mark: :green_book: [700. Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
+
+:heavy_check_mark: :green_book: [653. Two Sum IV - Input is a BST](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/)
+
+:heavy_check_mark: :green_book: [530. Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/): (using **in-order traversal** to traverse in ascending order)
+
+:wavy_dash: :green_book: [938. Range Sum of BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/): (using **in-order traversal** to traverse in ascending order, rather trivial)
 
 [95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/): (Advanced version of 102, quite complicated)
