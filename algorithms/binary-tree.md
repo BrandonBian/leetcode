@@ -225,3 +225,63 @@ def dfs(self, node, path, result):
 :wavy_dash: :orange_book: [129. Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/): a variation of 112 (**Standard Root-to-Leaf Paths Traversal**)
 
 :wavy_dash: :orange_book: [1457. Pseudo-Palindromic Paths in a Binary Tree](https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/): (**Standard Root-to-Leaf Paths Traversal + Palindrom checking**)
+
+---
+### - Construct Binary Trees from Traversals
+
+**In-order + Pre-order**: (see LeetCode 105)
+
+![in+pre](https://leetcode.com/uploads/files/1486248260436-screenshot-2017-02-04-17.44.08.png)
+```
+if len(inorder) == 0:
+    return None
+
+if len(inorder) == 1: # only one element, construct a node for it
+    return TreeNode(preorder[0])
+
+rval = preorder[0] # Obtain nodes from preorder - from LEFT to RIGHT
+root = TreeNode(rval)
+
+# Looking at preorder traversal, the first value (node 1) must be the root.
+# Then, we find the index of root within in-order traversal, and split into two sub problems.
+inorder_rval_index = inorder.index(rval)
+
+left_inorder = inorder[:inorder_rval_index]
+right_inorder = inorder[inorder_rval_index+1:]
+left_preorder = preorder[1: len(left_inorder) + 1]
+right_preorder = preorder[1 + len(left_preorder):]
+
+root.left = self.buildTree(left_preorder, left_inorder)
+root.right = self.buildTree(right_preorder, right_inorder)
+
+return root
+```
+
+**In-order + Post-order**: (see LeetCode 106)
+
+![in+post](../figures/in_post_order.jpg)
+```
+if len(inorder) == 0:
+        return None
+if len(inorder) == 1:
+    return TreeNode(inorder[0])
+
+rval = postorder[-1] # Obtain nodes from preorder - from RIGHT to LEFT
+root = TreeNode(rval)
+
+inorder_rval_index = inorder.index(rval)
+
+left_inorder = inorder[:inorder_rval_index]
+right_inorder = inorder[inorder_rval_index+1:]
+left_postorder = postorder[:len(left_inorder)]
+right_postorder = postorder[len(left_postorder):-1]
+
+root.left = self.buildTree(left_inorder, left_postorder)
+root.right = self.buildTree(right_inorder, right_postorder)
+
+return root
+```
+
+:heavy_check_mark: :orange_book: [105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+
+:heavy_check_mark: :orange_book: [106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
