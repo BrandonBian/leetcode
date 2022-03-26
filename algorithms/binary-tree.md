@@ -21,11 +21,39 @@
 def preorder(root):
   return [root.val] + preorder(root.left) + preorder(root.right) if root else []
   
+#######################################  
+
 def inorder(root):
   return  inorder(root.left) + [root.val] + inorder(root.right) if root else []
   
+#######################################  
+
 def postorder(root):
   return  postorder(root.left) + postorder(root.right) + [root.val] if root else []
+  
+#######################################  
+
+def levelorder(root):
+  if not root:
+      return None
+
+  result = []
+  queue = [root]
+
+  while queue:
+
+      level = [] # the value of each node in this level
+
+      for i in range(len(queue)): # for each node in queue
+
+          node = queue.pop(0)
+          level.append(node.val)
+          if node.left:  queue.append(node.left)
+          if node.right: queue.append(node.right)
+
+      result.append(level)
+
+  return result
 ```
 - About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/534/)
 
@@ -100,6 +128,8 @@ TODO
 :wavy_dash: :green_book: [563. Binary Tree Tilt](https://leetcode.com/problems/binary-tree-tilt/)
 
 :wavy_dash: :green_book: [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
+
+:wavy_dash: :orange_book: [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/): (**level-order traversal**)
 
 ---
 
@@ -181,15 +211,17 @@ def insertIntoBST(self, root, val):
 
 :heavy_check_mark: :orange_book: [450. Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/): (**deleting node** from BST)
 
-:heavy_check_mark: :orange_book: [669. Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/): (**inserting node** to BST)
+:heavy_check_mark: :orange_book: [669. Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/)
 
-:heavy_check_mark: :orange_book: [701. Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
+:heavy_check_mark: :orange_book: [701. Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/): (**inserting node** to BST)
 
 :wavy_dash: :green_book: [938. Range Sum of BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/): (using **in-order traversal** to traverse in ascending order, rather trivial)
 
 :wavy_dash: :orange_book: [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/): (using **in-order traversal** to traverse in ascending order)
 
 :wavy_dash: :orange_book: [1305. All Elements in Two Binary Search Trees](https://leetcode.com/problems/all-elements-in-two-binary-search-trees/): (using **in-order traversal** to traverse in ascending order, rather trivial)
+
+
 
 <!-- 
 [95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/): (Advanced version of 102, quite complicated)
@@ -198,7 +230,7 @@ def insertIntoBST(self, root, val):
 ---
 ### - Path Problems on BSTs
 
-**A DFS path search on BSTs**: (see LeetCode 257)
+- **A DFS path search on BSTs**: (see LeetCode 257)
 ```
 # root-to-leaf path traversal (DFS)
 def dfs(self, node, path, result):
@@ -227,9 +259,9 @@ def dfs(self, node, path, result):
 :wavy_dash: :orange_book: [1457. Pseudo-Palindromic Paths in a Binary Tree](https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/): (**Standard Root-to-Leaf Paths Traversal + Palindrom checking**)
 
 ---
-### - Construct Binary Trees from Traversals
+### - Construct Binary Trees
 
-**In-order + Pre-order**: (see LeetCode 105)
+- **In-order + Pre-order**: (see LeetCode 105)
 
 ![in+pre](https://leetcode.com/uploads/files/1486248260436-screenshot-2017-02-04-17.44.08.png)
 ```
@@ -257,9 +289,9 @@ root.right = self.buildTree(right_preorder, right_inorder)
 return root
 ```
 
-**In-order + Post-order**: (see LeetCode 106)
+- **In-order + Post-order**: (see LeetCode 106)
 
-![in+post](../figures/in_post_order.jpg)
+![in+post](../figures/in_post_order.png)
 ```
 if len(inorder) == 0:
         return None
@@ -282,6 +314,74 @@ root.right = self.buildTree(right_inorder, right_postorder)
 return root
 ```
 
+- **Pre-order + Post-order**: (see LeetCode 889)
+
+![pre+post](../figures/pre_post_order.png)
+
+```
+if len(preorder) == 0:
+    return None
+if len(preorder) == 1:
+    return TreeNode(preorder[0])
+
+rval = preorder[0]
+root = TreeNode(rval)
+
+val = preorder[1]
+postorder_idx = postorder.index(val)
+
+left_preorder = preorder[1:postorder_idx + 2]
+right_preorder = preorder[postorder_idx + 2:]
+
+left_postorder = postorder[: postorder_idx + 1]
+right_postorder = postorder[postorder_idx + 1:-1]
+
+root.left = self.constructFromPrePost(left_preorder, left_postorder)
+root.right = self.constructFromPrePost(right_preorder, right_postorder)
+
+return root
+```
+
 :heavy_check_mark: :orange_book: [105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
 :heavy_check_mark: :orange_book: [106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+
+:heavy_check_mark: :orange_book: [889. Construct Binary Tree from Preorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/)
+
+:heavy_check_mark: :green_book: [108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
+
+:wavy_dash: :orange_book: [1008. Construct Binary Search Tree from Preorder Traversal](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/)
+
+---
+### - Validate Binary Trees
+
+- **Validate Binary Tree**: (see LeetCode 98)
+
+```
+# Floor: all values must be larger than this
+# Ceiling: all values must be smaller than this
+def isValidBST(self, root, floor=float('-inf'), ceiling=float('inf')):
+    """
+    :type root: TreeNode
+    :rtype: bool
+    """
+
+    if not root: # no node is a valid BST
+        return True
+
+    if root.val <= floor or root.val >= ceiling:
+        return False
+
+    # in the left branch, root is the new ceiling; contrarily root is the new floor in right branch
+    return self.isValidBST(root.left, floor, root.val) and self.isValidBST(root.right, root.val, ceiling)
+```
+
+:heavy_check_mark: :orange_book: [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+
+:wavy_dash: :orange_book: [https://leetcode.com/problems/validate-binary-tree-nodes/](https://leetcode.com/problems/validate-binary-tree-nodes/)
+
+---
+### - Lowest Common Ancestor Problems
+
+
+:heavy_check_mark: :orange_book: [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
