@@ -33,14 +33,14 @@ def postorder(root):
   
 #######################################  
 
-def levelorder(root):
+def levelorder(root): # AKA: BFS
   if not root:
       return None
 
   result = []
   queue = [root]
 
-  while queue:
+  while queue: # each iteration is a level
 
       level = [] # the value of each node in this level
 
@@ -51,7 +51,7 @@ def levelorder(root):
           if node.left:  queue.append(node.left)
           if node.right: queue.append(node.right)
 
-      result.append(level)
+      result.append(level) # save the values on this level
 
   return result
 ```
@@ -381,7 +381,93 @@ def isValidBST(self, root, floor=float('-inf'), ceiling=float('inf')):
 :wavy_dash: :orange_book: [https://leetcode.com/problems/validate-binary-tree-nodes/](https://leetcode.com/problems/validate-binary-tree-nodes/)
 
 ---
-### - Lowest Common Ancestor Problems
+### - Lowest Common Ancestor (LCA) Problems
 
+- **LCA of a Binary Tree**: [YouTube Tutorial](https://www.youtube.com/watch?v=py3R23aAPCA)
+
+```
+def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+
+    if not root: return None
+    if root == p or root == q: # looking for myself
+        return root
+
+    left_LA = self.lowestCommonAncestor(root.left, p, q)
+    right_LA = self.lowestCommonAncestor(root.right, p, q)
+
+    if left_LA and right_LA:
+            return root
+    if left_LA and not right_LA:
+        return left_LA
+    if right_LA and not left_LA:
+        return right_LA
+```
 
 :heavy_check_mark: :orange_book: [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+
+:wavy_dash: :green_book: [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/): basically the same as Problem 236
+
+---
+### - Miscellaneous Problems
+
+- **Flatten BST to sort of a "linked list"**: (see LeetCode 114)
+
+![flatten](https://assets.leetcode.com/users/images/1c892c17-ff56-4740-8a81-47f40d38d36e_1620996109.3450835.png)
+```
+if not root:
+    return None
+
+curr = root
+
+while curr:
+    if curr.left:
+        p = curr.left
+        while p.right:
+            p = p.right # p is right-most point in left subtree
+
+        p.right = curr.right
+        curr.right = curr.left
+        curr.left = None
+    curr = curr.right      
+```
+
+- **Find Positions of Nodes in BST with BFS + Queue**: (see LeetCode 662 & 993)
+  - Root at depth 0, all positions start from 0; go left, position * 2; go right, position * 2 + 1
+  - Output tuple: (node value, node depth, node position in that level)
+```
+positions = []
+queue = [(root, 0, 0)]
+cur_depth = left = ans = 0
+for node, depth, pos in queue:
+
+    if node:
+        queue.append((node.left, depth+1, pos*2))
+        queue.append((node.right, depth+1, pos*2 + 1))
+
+for node, depth, pos in queue:
+    if node:
+        positions.append((node.val, depth, pos))
+    else:
+        positions.append(("null", depth, pos))
+
+print(positions) # Format: (node value, node depth, node position in that level)
+```
+
+
+:heavy_check_mark: :orange_book: [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/): here is a very smart solution (using **pre-order** traversal)
+
+:wavy_dash: :orange_book: [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
+
+:wavy_dash: :orange_book: [662. Maximum Width of Binary Tree](https://leetcode.com/problems/maximum-width-of-binary-tree/): (using **BFS**)
+
+:wavy_dash: :orange_book: [958. Check Completeness of a Binary Tree](https://leetcode.com/problems/check-completeness-of-a-binary-tree/): (using **BFS, Level-order Traversal, Queue**)
+
+:wavy_dash: :green_book: [993. Cousins in Binary Tree](https://leetcode.com/problems/check-completeness-of-a-binary-tree/): (my solution using **BFS, Level-order Traversal, Queue**; reference solution using **DFS**)
+
+:wavy_dash: :orange_book: [1026. Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/): (keeping track of the max and min value of each subtree)
