@@ -95,8 +95,6 @@ def maxDepth_topDown(root, current_level, max_level):
 TODO
 ```
 
-## - LeetCode Problems
-
 ### - Basic Traversal Problems
 
 :heavy_check_mark: :green_book: [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/): (**DFS & Recursion**)
@@ -133,7 +131,7 @@ TODO
 
 ---
 
-### - Binary Search Trees (BSTs)
+## - Binary Search Trees (BSTs)
 - **In-order Traversal**
 ```
 result = []
@@ -378,7 +376,7 @@ def isValidBST(self, root, floor=float('-inf'), ceiling=float('inf')):
 
 :heavy_check_mark: :orange_book: [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 
-:wavy_dash: :orange_book: [https://leetcode.com/problems/validate-binary-tree-nodes/](https://leetcode.com/problems/validate-binary-tree-nodes/)
+:wavy_dash: :orange_book: [1361. Validate Binary Tree Nodes](https://leetcode.com/problems/validate-binary-tree-nodes/)
 
 ---
 ### - Lowest Common Ancestor (LCA) Problems
