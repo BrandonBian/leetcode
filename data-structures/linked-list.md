@@ -95,14 +95,20 @@ return head # return the modified list
 :heavy_check_mark: :orange_book: [148. Sort List](https://leetcode.com/problems/sort-list/): (using **Merge Sort & Slow/Fast Pointers for dividing the list**)
 
 ---
-## - Miscellaneous Problems with Dummy Nodes & Double Pointers
+## - Miscellaneous Problems with Dummy Nodes & Double Pointers & Etc.
 
 :heavy_check_mark: :orange_book: [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/): (**Dummy Nodes** with a super helpful **visual guide**)
 
 :heavy_check_mark: :green_book: [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/): (**Dummy Nodes**)
 
+:heavy_check_mark: :green_book: [203. Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/)
+
+:heavy_check_mark: :orange_book: [328. Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/): (**Double Pointers**, one for odd elements and one for even elements)
+
 :wavy_dash: :orange_book: [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/): (**Double Pointers**, one for each linked list)
 
+:wavy_dash: :green_book: [237. Delete Node in a Linked List](https://leetcode.com/problems/delete-node-in-a-linked-list/): A very down-voted trick question, BUT it seems to be a popular interview question
 
+:wavy_dash: :orange_book: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/): (**Dictionary** to create the copy)
 
-
+:wavy_dash: :closed_book: [297. Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/): (**DFS - Preorder Traversal** to serialize the binary tree)
