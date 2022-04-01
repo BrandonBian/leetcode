@@ -51,6 +51,22 @@ for char in pattern:
     hashed_pattern.append(mapping[char])
 ```
 
+- **About Hashing Letters as ASCII**: (see LeetCode Problem 389)
+    - Char to ASCII: **ord(char)**
+    - ASCII to Char: **char(ASCII)**
+    - There are **26** alphabetical characters in English, so initialize hash to be **[0] * 26**
+
+```
+# Example hashing (considering the frequency of appearances of letters):
+# "abcd" -> [1, 1, 1, 1, 0, ..., 0]
+
+hash_s = [0] * 26
+
+for char in s:
+    hash_s[ord(char) - ord('a')] += 1
+```
+
+
 :heavy_check_mark: :green_book: [1. Two Sum](https://leetcode.com/problems/two-sum/): <key, val> = <number, its index in nums> (using **enumerate(list)**)
 
 :heavy_check_mark: :orange_book: [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/): <key, val> = <char, index it is last seen> (**Sliding Window & Two Pointers**)
@@ -58,6 +74,8 @@ for char in pattern:
 :heavy_check_mark: :orange_book: [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/): <key, val> = <hash array for 26 letters, words belonging to this hash> (using **collections.defaultdict(list)**)
 
 :heavy_check_mark: :green_book: [290. Word Pattern](https://leetcode.com/problems/word-pattern/): (creating a **hashed pattern list** for an input)
+
+:heavy_check_mark: :green_book: [350. Intersection of Two Arrays II](https://leetcode.com/problems/intersection-of-two-arrays-ii/): (using **Counter()**)
 
 :wavy_dash: :orange_book: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/): <key, val> = <original node, its copy>
 
@@ -70,3 +88,16 @@ for char in pattern:
 :wavy_dash: :green_book: [219. Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/): <key, val> = <num, list of its appearance positions>
 
 :wavy_dash: :green_book: [242. Valid Anagram](https://leetcode.com/problems/valid-anagram/): <key, val> = <char, its appearance frequency>
+
+:wavy_dash: :orange_book: [299. Bulls and Cows](https://leetcode.com/problems/bulls-and-cows/): (using **Counter()**)
+
+:wavy_dash: :orange_book: [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/): (using **Counter() & counter.most_frequent(k)**)
+
+:wavy_dash: :green_book: [349. Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays/): (using **Set()**)
+
+:wavy_dash: :green_book: [387. First Unique Character in a String](https://leetcode.com/problems/first-unique-character-in-a-string/): (using **Counter()**)
+
+:wavy_dash: :green_book: [389. Find the Difference](https://leetcode.com/problems/find-the-difference/): (hashing the ASCII of letters)
+
+[Longest Palindrome](https://leetcode.com/problems/longest-palindrome/)
+
