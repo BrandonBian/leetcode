@@ -55,6 +55,7 @@ for char in pattern:
     - Char to ASCII: **ord(char)**
     - ASCII to Char: **char(ASCII)**
     - There are **26** alphabetical characters in English, so initialize hash to be **[0] * 26**
+    - Similarly we can also use **defaultdict(int)**: <key, val> = <char, frequency> (see LeetCode Problem 438)
 
 ```
 # Example hashing (considering the frequency of appearances of letters):
@@ -64,8 +65,9 @@ hash_s = [0] * 26
 
 for char in s:
     hash_s[ord(char) - ord('a')] += 1
-```
 
+
+```
 
 :heavy_check_mark: :green_book: [1. Two Sum](https://leetcode.com/problems/two-sum/): <key, val> = <number, its index in nums> (using **enumerate(list)**)
 
@@ -76,6 +78,8 @@ for char in s:
 :heavy_check_mark: :green_book: [290. Word Pattern](https://leetcode.com/problems/word-pattern/): (creating a **hashed pattern list** for an input)
 
 :heavy_check_mark: :green_book: [350. Intersection of Two Arrays II](https://leetcode.com/problems/intersection-of-two-arrays-ii/): (using **Counter()**)
+
+:heavy_check_mark: :orange_book: [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/): (**hashed pattern list & two pointers**)
 
 :wavy_dash: :orange_book: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/): <key, val> = <original node, its copy>
 
@@ -99,5 +103,10 @@ for char in s:
 
 :wavy_dash: :green_book: [389. Find the Difference](https://leetcode.com/problems/find-the-difference/): (hashing the ASCII of letters)
 
-[Longest Palindrome](https://leetcode.com/problems/longest-palindrome/)
+:wavy_dash: :green_book: [409. Longest Palindrome](https://leetcode.com/problems/longest-palindrome/): **Palindrome** - should have at most one odd occurrence (using **Counter()**)
 
+:wavy_dash: :orange_book: [447. Number of Boomerangs](https://leetcode.com/problems/number-of-boomerangs/): <key, val> = <distance, number of pairs of points with that distance in-between> (using **Counter()**)
+
+:wavy_dash: :orange_book: [451. Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/): (using **Counter()**)
+
+:wavy_dash: :orange_book: [454. 4Sum II](https://leetcode.com/problems/4sum-ii/): (using **Counter()**)
