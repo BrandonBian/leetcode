@@ -81,6 +81,8 @@ for char in s:
 
 :heavy_check_mark: :orange_book: [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/): (**hashed pattern list & two pointers**)
 
+:heavy_check_mark: :orange_book: [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/): <key, val> = <count, index at which this count is reached>
+
 :wavy_dash: :orange_book: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/): <key, val> = <original node, its copy>
 
 :wavy_dash: :orange_book: [187. Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/): <key, val> = <substring, frequency> (using **Counter()**)
@@ -110,3 +112,7 @@ for char in s:
 :wavy_dash: :orange_book: [451. Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/): (using **Counter()**)
 
 :wavy_dash: :orange_book: [454. 4Sum II](https://leetcode.com/problems/4sum-ii/): (using **Counter()**)
+
+:wavy_dash: :orange_book: [508. Most Frequent Subtree Sum](https://leetcode.com/problems/most-frequent-subtree-sum/): (using **Counter() & DFS Tree Search**)
+
+:wavy_dash: :orange_book: [554. Brick Wall](https://leetcode.com/problems/brick-wall/): <key, val> = <index of brick edge, frequency> (using **Counter()**)
