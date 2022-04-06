@@ -126,3 +126,11 @@ for char in s:
 
 :wavy_dash: :orange_book: [957. Prison Cells After N Days](https://leetcode.com/problems/prison-cells-after-n-days/): requires loop finding, non-trivial, saving all patterns inside dictionary (using **dictionary**)
 
+:wavy_dash: :orange_book: [970. Powerful Integers](https://leetcode.com/problems/powerful-integers/)
+
+:wavy_dash: :green_book: [1002. Find Common Characters](https://leetcode.com/problems/find-common-characters/): (my solution using **hashed pattern list**)
+
+:wavy_dash: :green_book: [1160. Find Words That Can Be Formed by Characters](https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/): (my solution using **Counter()**)
+
+:wavy_dash: :green_book: [1189. Maximum Number of Balloons](https://leetcode.com/problems/maximum-number-of-balloons/): (my solution using **hashed pattern list**)
+
