@@ -124,5 +124,5 @@ for char in s:
 
 :wavy_dash: :green_book: [645. Set Mismatch](https://leetcode.com/problems/set-mismatch/): (using **Counter() & Set()**)
 
-:wavy_dash: :orange_book: [957. Prison Cells After N Days](https://leetcode.com/problems/prison-cells-after-n-days/): requires loop finding, non-trivial, not quite correlated with hash-maps (using **Set()**)
+:wavy_dash: :orange_book: [957. Prison Cells After N Days](https://leetcode.com/problems/prison-cells-after-n-days/): requires loop finding, non-trivial, saving all patterns inside dictionary (using **dictionary**)
 
