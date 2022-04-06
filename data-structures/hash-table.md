@@ -65,8 +65,6 @@ hash_s = [0] * 26
 
 for char in s:
     hash_s[ord(char) - ord('a')] += 1
-
-
 ```
 
 :heavy_check_mark: :green_book: [1. Two Sum](https://leetcode.com/problems/two-sum/): <key, val> = <number, its index in nums> (using **enumerate(list)**)
@@ -81,7 +79,14 @@ for char in s:
 
 :heavy_check_mark: :orange_book: [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/): (**hashed pattern list & two pointers**)
 
-:heavy_check_mark: :orange_book: [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/): <key, val> = <count, index at which this count is reached>
+:heavy_check_mark: :orange_book: [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/): <key, val> = <count, index at which this count is reached> (**predfix sum**)
+
+:heavy_check_mark: :orange_book: [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/): <key, val> = <prefix sum, frequency> (using **prefix sum & defaultdict(int) /  Counter()**)
+
+
+:heavy_check_mark: :green_book: [594. Longest Harmonious Subsequence](https://leetcode.com/problems/longest-harmonious-subsequence/): <key, val> = <number, frequency> (using **Counter()**)
+
+---
 
 :wavy_dash: :orange_book: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/): <key, val> = <original node, its copy>
 
@@ -116,3 +121,8 @@ for char in s:
 :wavy_dash: :orange_book: [508. Most Frequent Subtree Sum](https://leetcode.com/problems/most-frequent-subtree-sum/): (using **Counter() & DFS Tree Search**)
 
 :wavy_dash: :orange_book: [554. Brick Wall](https://leetcode.com/problems/brick-wall/): <key, val> = <index of brick edge, frequency> (using **Counter()**)
+
+:wavy_dash: :green_book: [645. Set Mismatch](https://leetcode.com/problems/set-mismatch/): (using **Counter() & Set()**)
+
+:wavy_dash: :orange_book: [957. Prison Cells After N Days](https://leetcode.com/problems/prison-cells-after-n-days/): requires loop finding, non-trivial, not quite correlated with hash-maps (using **Set()**)
+
