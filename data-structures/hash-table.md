@@ -12,7 +12,7 @@
 - **Reference 2**: [List of Selected Problems in Study Guide](https://leetcode.com/list/504wrexe/)
 ---
 
-## - Python Dictionary and Counters
+## - Python Dictionary and Counters (and how to sort them)
 - **Using Python Counter()**:
 ```
 # Initialization
@@ -27,6 +27,44 @@ for key, val in counter.items():
 # Counter.most_common(k):
 for key, val in cnt.most_common(k):
     ... # key is the element, val is its count
+```
+
+- **Using sorted() / .sort() to sort major iterables (e.g., List & Counter & Dictionary)**:
+- Reference for using sorted(): [link](https://docs.python.org/3/howto/sorting.html)
+```
+# Sorting Lists
+list1 = [3,5,6,1,7,4,4,5]
+
+s1 = sorted(list1) 
+# s1 = [1, 3, 4, 4, 5, 5, 6, 7] (same as list1.sort())
+
+s2 = sorted(list2, reverse = True) 
+# s2 = [7, 6, 5, 5, 4, 4, 3, 1] (same as list1.sort(reverse = True))
+
+######################################################
+
+# Sorting Counters
+x = Counter({'a':5, 'b':3, 'c':7})
+
+x = x.most_common()
+# We will get [('c', 7), ('a', 5), ('b', 3)], sorted by decreasing value
+# So we changed x to a tuple of <element, frequency>
+
+x1 = sorted(x, key = lambda x: x[0], reverse=True)
+# x1 = [('d', 0), ('c', 7), ('b', 3), ('a', 5)], by value in decreasing order
+
+x2 = sorted(x, key = lambda x: x[1])
+# x2 = [('d', 0), ('b', 3), ('a', 5), ('c', 7)], by frequency in increasing order
+
+######################################################
+
+# Sorting dictionary
+dictionary = {'a': 1, 'b': 2, 'c': 3}
+
+list(d.items())
+# [('a', 1), ('b', 2), ('c', 3)], change dictionary items to a list of tuples
+
+# Then proceed with the above method by sorting the tuples based on keys or values
 ```
 
 ## - Selected LeetCode Core Problems: (with <key, val> implementation summary)
@@ -86,6 +124,10 @@ for char in s:
 
 :heavy_check_mark: :green_book: [594. Longest Harmonious Subsequence](https://leetcode.com/problems/longest-harmonious-subsequence/): <key, val> = <number, frequency> (using **Counter()**)
 
+:heavy_check_mark: :closed_book: [41. First Missing Positive](https://leetcode.com/problems/first-missing-positive/): a very clever way of using index to record frequency, using input list as extra memory
+
+:heavy_check_mark: :green_book: [1636. Sort Array by Increasing Frequency](https://leetcode.com/problems/sort-array-by-increasing-frequency/): (my solution **sorting defaultdict(int) by key using sorted(dict.items())**)
+
 ---
 
 :wavy_dash: :orange_book: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/): <key, val> = <original node, its copy>
@@ -133,4 +175,14 @@ for char in s:
 :wavy_dash: :green_book: [1160. Find Words That Can Be Formed by Characters](https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/): (my solution using **Counter()**)
 
 :wavy_dash: :green_book: [1189. Maximum Number of Balloons](https://leetcode.com/problems/maximum-number-of-balloons/): (my solution using **hashed pattern list**)
+
+:wavy_dash: :green_book: [1207. Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/): (using **defaultdict(int)**)
+
+:wavy_dash: :green_book: [1365. How Many Numbers Are Smaller Than the Current Number](https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/): (using **defaultdict(int)**)
+
+:wavy_dash: :green_book: [1539. Kth Missing Positive Number](https://leetcode.com/problems/kth-missing-positive-number/): can be solved using binary search in O(logN) (using **defaultdict(int)**)
+
+
+
+
 
