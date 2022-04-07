@@ -121,12 +121,13 @@ for char in s:
 
 :heavy_check_mark: :orange_book: [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/): <key, val> = <prefix sum, frequency> (using **prefix sum & defaultdict(int) /  Counter()**)
 
-
 :heavy_check_mark: :green_book: [594. Longest Harmonious Subsequence](https://leetcode.com/problems/longest-harmonious-subsequence/): <key, val> = <number, frequency> (using **Counter()**)
 
 :heavy_check_mark: :closed_book: [41. First Missing Positive](https://leetcode.com/problems/first-missing-positive/): a very clever way of using index to record frequency, using input list as extra memory
 
 :heavy_check_mark: :green_book: [1636. Sort Array by Increasing Frequency](https://leetcode.com/problems/sort-array-by-increasing-frequency/): (my solution **sorting defaultdict(int) by key using sorted(dict.items())**)
+
+:heavy_check_mark: :orange_book: [1679. Max Number of K-Sum Pairs](https://leetcode.com/problems/max-number-of-k-sum-pairs/): (a clever way using **Counter()**)
 
 ---
 
