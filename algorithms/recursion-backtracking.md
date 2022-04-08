@@ -150,6 +150,12 @@ def dfs(self, candidates, path, res):
 
 :heavy_check_mark: :orange_book: [79. Word Search](https://leetcode.com/problems/word-search/)
 
+:heavy_check_mark: :orange_book: [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/): a similar method as the DFS template above
+
+:heavy_check_mark: :closed_book: [51. N-Queens](https://leetcode.com/problems/n-queens/)
+
+:heavy_check_mark: :closed_book: [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
+
 ---
 
 - **Other Problems**:
