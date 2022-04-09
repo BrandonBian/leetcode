@@ -1,4 +1,4 @@
-# Recursion & Backtracking
+# Binary Search
 * **Note**: 
   * :heavy_check_mark: means **MUST DO (i.e., very important, typical, or good) problems** that should definitely be familiar with
   * :wavy_dash: means problems that are less typical
@@ -7,16 +7,15 @@
   * :closed_book: means **HARD problems** as defined by LeetCode
   * The brackets after each LeetCode problem: summarizes **relevant keypoints / algorithms** used in solving that problem
 
-- **Backtracking - LeetCode Problems**: [List](https://https://leetcode.com/tag/backtracking)
-- **Backtracking - Reference 1**: [Study Guide - Backtracking](https://leetcode.com/tag/backtracking/discuss/1405817/Backtracking-algorithm-%2B-problems-to-practice)
-- **Recursion - Reference 1**: [Study Guide - Recursion](https://leetcode.com/tag/recursion/discuss/1733447/Become-Master-In-Recursion)
-- **Recursion - Reference 2**: [Notes Part I](https://drive.google.com/file/d/1qVhNzbXwCTuYRvIqmDMkLiaQlmFk7fze/view) & [Notes Part II](https://drive.google.com/file/d/15KBYehujM7F7dtWn3FkFfx2UKKnP7NM8/view)
+- **LeetCode Problems**: [Full List](https://leetcode.com/tag/binary-search)
+- **Reference 1**: [Study Guide - Most Upvoted One](https://leetcode.com/tag/binary-search/discuss/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems)
+- **Reference 2**: [Study Guide - Solving "K-th" Type of Problems](https://leetcode.com/tag/binary-search/discuss/1529866/Solving-kth-kind-of-problems)
+- **Reference 3**: [Study Guide - Approach to Writing Bug-free Binary Search Code](https://leetcode.com/tag/binary-search/discuss/1089533/An-approach-to-writing-bug-free-Binary-Search-code)
+- **Selected LeetCode Problems**: [List](https://leetcode.com/list/xls4oirv/)
 
 
-## - General Recursion Ideas
-- **Base case**: recursion stops and we backtrack when hitting this condition
-- **Hypothesis**: we call the function itself to make the problem smaller, assuming the function works perfectly
-- **Induction**: process the results when going up one layer in recursion backtracking
+## - General Binary Search Ideas
+- **Conceptually**: Basically, it splits the search space into two halves and only keep the half that probably has the search target and throw away the other half that would not possibly have the answer. In this manner, we reduce the search space to half the size at every step, until we find the target. Binary Search helps us reduce the search time from linear O(n) to logarithmic **O(log n)**.
 
 
 ## - Backtracking Problem Solving Templates
