@@ -22,19 +22,19 @@
 - **A General Template - Minimize k , s.t. condition(k) is True**: mainly needs a variation of three parts
     - Correctly **initialize the boundary variables left and right** to specify search space. Only one rule: set up the boundary to **include all possible elements**
     - Decide **return value**. Is it return left or return left - 1? Remember this: after exiting the while loop, **left is the minimal k satisfying the condition function**
-    - Design the **condition function**. This is the most difficult and most beautiful part. Needs lots of practice.
+    - Design the **condition / feasible function**. This is the most difficult and most beautiful part. Needs lots of practice.
 
 ```
 def binary_search(array) -> int:
 
-    def condition(value) -> bool:
+    def feasible(value) -> bool:
         pass
 
     left, right = min(search_space), max(search_space) # could be [0, n], [1, n] etc. Depends on problem
     
     while left < right:
         mid = left + (right - left) // 2
-        if condition(mid):
+        if feasible(mid):
             right = mid
         else:
             left = mid + 1
@@ -55,8 +55,17 @@ def binary_search(array) -> int:
 
 :heavy_check_mark: :orange_book: [1011. Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/): minimize k, s.t. capacity k is feasible to ship all packages
 
-:heavy_check_mark: :closed_book: [410. Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/):  minimize k, s.t. we can split the array into m subarrays without breaching the threshold k
+:heavy_check_mark: :orange_book: [1201. Ugly Number III](https://leetcode.com/problems/ugly-number-iii/): minimize k, s.t. there are at least n ugly numbers <= k (**least common multiple & greatest common divisor**)
 
+:wavy_dash: :orange_book: [1283. Find the Smallest Divisor Given a Threshold](https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/): minimize k, s.t. k is a divisor that the obtained result is <= threshold
 
+:wavy_dash: :orange_book: [875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/): minimize k, s.t. she can eat all n piles of bananas within h hours
 
+:wavy_dash: :orange_book: [1482. Minimum Number of Days to Make m Bouquets](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/): minimize k, s.t. we can make m bouquets after waiting for k days
+
+:wavy_dash: :closed_book: [410. Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/): minimize k, s.t. we can split the array into m subarrays without breaching the threshold k
+
+:wavy_dash: :closed_book: [668. Kth Smallest Number in Multiplication Table](https://leetcode.com/problems/kth-smallest-number-in-multiplication-table/): minimize k, s.t. there are at least k (another variable given in question) values <= k
+
+:wavy_dash: :closed_book: [719. Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/): minimize k, s.t. there are at least k pairs with distance <= distance
 
