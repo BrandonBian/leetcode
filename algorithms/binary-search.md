@@ -8,9 +8,10 @@
   * The brackets after each LeetCode problem: summarizes **relevant keypoints / algorithms** used in solving that problem
 
 - **LeetCode Problems**: [Full List](https://leetcode.com/tag/binary-search)
-- **Reference 1**: [Study Guide - Most Upvoted One](https://leetcode.com/tag/binary-search/discuss/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems)
+- **Reference 1**: [Study Guide - Most Upvoted One with Template](https://leetcode.com/tag/binary-search/discuss/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems)
 - **Reference 2**: [Study Guide - Solving "K-th" Type of Problems](https://leetcode.com/tag/binary-search/discuss/1529866/Solving-kth-kind-of-problems)
 - **Reference 3**: [Study Guide - Approach to Writing Bug-free Binary Search Code](https://leetcode.com/tag/binary-search/discuss/1089533/An-approach-to-writing-bug-free-Binary-Search-code)
+- **Reference 4**: [Study Guide -Binary Search 101](https://leetcode.com/problems/binary-search/discuss/423162/Binary-Search-101)
 - **Selected LeetCode Problems**: [List](https://leetcode.com/list/xls4oirv/)
 
 
@@ -19,25 +20,40 @@
 
 - **When should we consider using Binary Search**: If we can discover some kind of monotonicity, for example, if condition(k) is True then condition(k + 1) is True, then we can consider binary search
 
-- **A General Template - Minimize k , s.t. condition(k) is True**: mainly needs a variation of three parts
+- **A General Template - Minimize k, s.t. condition(k) is True**: mainly needs a variation of three parts
     - Correctly **initialize the boundary variables left and right** to specify search space. Only one rule: set up the boundary to **include all possible elements**
     - Decide **return value**. Is it return left or return left - 1? Remember this: after exiting the while loop, **left is the minimal k satisfying the condition function**
     - Design the **condition / feasible function**. This is the most difficult and most beautiful part. Needs lots of practice.
 
 ```
+# Motivation: minimize [mid] such that [mid] satisfies the given conditions (i.e., feasible(mid) is True)
+
 def binary_search(array) -> int:
 
     def feasible(value) -> bool:
+        # TODO - write your implementation to check whether [value] satisfies the given conditions
         pass
 
-    left, right = min(search_space), max(search_space) # could be [0, n], [1, n] etc. Depends on problem
+    left, right = min(search_space), max(search_space) # must include the ENTIRE search space
     
     while left < right:
-        mid = left + (right - left) // 2
-        if feasible(mid):
-            right = mid
-        else:
-            left = mid + 1
+    
+        # Note: when an array has an even number of elements
+        # it's your decision to use either the left mid (lower mid) or the right mid (upper mid)
+        
+        # if choosing left/lower mid -> when MINIMIZING (i.e., moving right when feasible)
+        mid = (left + right) >> 1 
+        
+        # if choosing right/upper mid -> when MAXIMIZING (i.e., moving left when feasible)
+        mid = (left + right + 1) >> 1
+        
+        if feasible(mid): # if this is good, we move to the lower portion (PRESERVING mid) to look for smaller options
+            right = mid # (for MINIMIZING)
+            # OR move to the upper portion to check for larger options: "left = mid" (for MAXIMIZING)
+            
+        else: # otherwise move to upper portion (EXCLUDING mid) to look for larger options
+            left = mid + 1 # (for MINIMIZING)
+            # OR move to the lower portion to check for smaller options: "right = mid - 1" (for MAXIMIZING)
             
     return left
 ```
@@ -45,7 +61,7 @@ def binary_search(array) -> int:
 
 ## - Selected LeetCode Problems:
 
-- **Examples using a variation of the "Minimize k , s.t. condition(k) is True" Template**
+- **Typical examples using a variation of the "Minimize k , s.t. condition(k) is True" Template**
 
 :heavy_check_mark: :green_book: [278. First Bad Version](https://leetcode.com/problems/first-bad-version/): minimize k, s.t. isBadVersion(k) is True
 
@@ -71,14 +87,15 @@ def binary_search(array) -> int:
 
 ---
 
-- **Solving "K-th" kind of problems (using the template above)**:
+- **Solving various "K-th" kind of problems (more varied but using the template above if possible)**:
 
-:heavy_check_mark: :orange_book: [373. Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/): minimize summation, s.t. there are at least k (k is given) pairs with sum <= this summation
+:heavy_check_mark: :orange_book: [373. Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/): minimize summation, s.t. there are at least k (given) pairs with sum <= this summation (**2 Pointers**)
+
+:heavy_check_mark: :orange_book: [2226. Maximum Candies Allocated to K Children](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/): (a **maximizing alteration to the template**)
+
+:wavy_dash: :orange_book: [658. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/): minimize idx (start of length k array), such that x (given) <= the mid point of arr[idx] + arr[idx + k]
 
 :wavy_dash: :orange_book: [378. Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/): minimize element, s.t. there are at least k (k is given) elements <= this element
 
-
-
-
-
+:wavy_dash: :orange_book: [2187. Minimum Time to Complete Trips](https://leetcode.com/problems/minimum-time-to-complete-trips/): minimize time, s.t. all buses complete at least totalTrips (given) trips at this time
 
