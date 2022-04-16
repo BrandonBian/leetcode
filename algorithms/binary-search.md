@@ -15,10 +15,12 @@
 - **Selected LeetCode Problems**: [List](https://leetcode.com/list/xls4oirv/)
 
 
-## - General Binary Search Ideas (and a Template)
+## - General Binary Search Ideas
 - **Conceptually**: Basically, it splits the search space into two halves and only keep the half that probably has the search target and throw away the other half that would not possibly have the answer. In this manner, we reduce the search space to half the size at every step, until we find the target. Binary Search helps us reduce the search time from linear O(n) to logarithmic **O(log n)**.
 
-- **When should we consider using Binary Search**: If we can discover some kind of monotonicity, for example, if condition(k) is True then condition(k + 1) is True, then we can consider binary search
+## Template - "Minimize k, s.t. k is feasible"
+
+- **When should we consider using this Binary Search Template**: If we can discover some kind of monotonicity, for example, if condition(k) is True then condition(k + 1) is True (or vice versa), then we can consider this approach. Also, the input should be some how sorted.
 
 - **A General Template - Minimize k, s.t. condition(k) is True**: mainly needs a variation of three parts
     - Correctly **initialize the boundary variables left and right** to specify search space. Only one rule: set up the boundary to **include all possible elements**
@@ -55,13 +57,48 @@ def binary_search(array) -> int:
             left = mid + 1 # (for MINIMIZING)
             # OR move to the lower portion to check for smaller options: "right = mid - 1" (for MAXIMIZING)
             
-    return left
+    return left # left is the minimum (or maximum, depending on your implementation) satisfying the "feasible" condition
 ```
 
+- **A Typical Example (involving both MINIMIZING and MAXIMIZING approach)**
+  - :heavy_check_mark: :orange_book: [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+  - Reference Solution: [link](https://leetcode.com/tag/binary-search/discuss/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems/1302202)
+```
+# Basic checking
+if not nums:
+    return [-1, -1]
+
+# Getting first position (MINIMIZING index, s.t. nums[index] >= target, i.e. discard right)
+left, right = 0, len(nums) - 1
+
+while left < right:
+    mid = (left + right) >> 1
+    if nums[mid] >= target: # if nums[index] >= target, then automatically nums[index + 1] >= target, discard upper half
+        right = mid # go left to find possible smaller solutions
+    else:
+        left = mid + 1 # go right to find possible solutions
+
+first_pos = left if nums[left] == target else -1
+
+# Getting last position (MAXIMIZING index, s.t. nums[index] <= target, i.e. discard left)
+
+left, right = 0, len(nums) - 1
+
+while left < right:
+    mid = (left + right + 1) >> 1
+    if nums[mid] <= target: # if nums[index] <= target, then automatically nums[index - 1] >= target, discard lower half
+        left = mid # go right to find possible larger solutions
+    else:
+        right = mid - 1 # go left to find possible solutions
+
+last_pos = right if nums[right] == target else -1
+
+return [first_pos, last_pos]
+```
 
 ## - Selected LeetCode Problems:
 
-- **Typical examples using a variation of the "Minimize k , s.t. condition(k) is True" Template**
+- **Typical examples using a variation of the "Minimize k, s.t. condition(k) is True" Template**
 
 :heavy_check_mark: :green_book: [278. First Bad Version](https://leetcode.com/problems/first-bad-version/): minimize k, s.t. isBadVersion(k) is True
 
@@ -98,4 +135,8 @@ def binary_search(array) -> int:
 :wavy_dash: :orange_book: [378. Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/): minimize element, s.t. there are at least k (k is given) elements <= this element
 
 :wavy_dash: :orange_book: [2187. Minimum Time to Complete Trips](https://leetcode.com/problems/minimum-time-to-complete-trips/): minimize time, s.t. all buses complete at least totalTrips (given) trips at this time
+
+---
+
+- **Other problems that need to use the Original Template**:
 
