@@ -33,3 +33,13 @@ abc = lcm(a,bc)
 
 total = F(num) = num//a + num//b + num//c - num//ab - num//ac - num//bc + num//abc
 ```
+---
+
+### Example 2: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/)
+
+**F(N) = (total number of positive integers <= N which are divisible by a or b.)**
+
+```
+total = F(num) = num // a + num // b - num // lcm(a, b)
+```
+
