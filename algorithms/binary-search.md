@@ -16,11 +16,36 @@
 
 
 ## - General Binary Search Ideas
-- **Conceptually**: Basically, it splits the search space into two halves and only keep the half that probably has the search target and throw away the other half that would not possibly have the answer. In this manner, we reduce the search space to half the size at every step, until we find the target. Binary Search helps us reduce the search time from linear O(n) to logarithmic **O(log n)**.
+- **Conceptually**: Basically, **it splits the search space into two halves and only keep the half that probably has the search target and throw away the other half that would not possibly have the answer**. In this manner, we reduce the search space to half the size at every step, until we find the target. Binary Search helps us reduce the search time from linear O(n) to logarithmic **O(log n)**.
 
-## Template - "Minimize k, s.t. k is feasible"
+## Template 1 - "Classic Binary Search"
+### For solving: "locate the index" types of problems
+- **Left & Right: usually referring to a range of INDICES**
 
-- **When should we consider using this Binary Search Template**: If we can discover some kind of monotonicity, for example, if condition(k) is True then condition(k + 1) is True (or vice versa), then we can consider this approach. Also, the input should be some how sorted.
+:heavy_check_mark: :green_book: [704. Binary Search](https://leetcode.com/problems/binary-search/)
+
+```
+left, right = 0, len(nums) - 1
+
+while left <= right:
+
+    mid = (left + right) >> 1
+    
+    if nums[mid] < target:
+        left = mid + 1
+    elif nums[mid] > target:
+        right = mid - 1
+    else:
+        return mid
+        
+return -1
+```
+
+## Template 2 - "Minimize k, s.t. k is feasible"
+### For solving: "find K-th / minimum / maximum" types of problems
+- **Left & Right: usually referring to a range of VALUES**
+
+- **When should we consider using this Binary Search Template**: If we can discover some kind of monotonicity, for example, if condition(k) is True then condition(k + 1) is True (or vice versa), then we can consider this approach.
 
 - **A General Template - Minimize k, s.t. condition(k) is True**: mainly needs a variation of three parts
     - Correctly **initialize the boundary variables left and right** to specify search space. Only one rule: set up the boundary to **include all possible elements**
@@ -136,7 +161,19 @@ return [first_pos, last_pos]
 
 :wavy_dash: :orange_book: [2187. Minimum Time to Complete Trips](https://leetcode.com/problems/minimum-time-to-complete-trips/): minimize time, s.t. all buses complete at least totalTrips (given) trips at this time
 
+:wavy_dash: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/): more complexed design of the feasible function (logic using **lcm & gcd**)
+
 ---
 
-- **Other problems that need to use the Original Template**:
+- **Other atypical problems**:
+
+:heavy_check_mark: :orange_book: [74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/): treat **2D matrix as 1D array**, then classic binary search
+
+:wavy_dash: :orange_book: [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/): array not sorted (but peaks present), variation of the classic template
+
+:wavy_dash: :orange_book: [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/): array rotated at a pivot, find pivot and search on either side, variation of the classic template
+
+:wavy_dash: :closed_book: [887. Super Egg Drop](https://leetcode.com/problems/super-egg-drop/): usually solved by **dynamic programming**, but can be solved using the second template with a special formula
+
+
 
