@@ -13,10 +13,7 @@
 - **Reference 3**: [Study Guide - Approach to Writing Bug-free Binary Search Code](https://leetcode.com/tag/binary-search/discuss/1089533/An-approach-to-writing-bug-free-Binary-Search-code)
 - **Reference 4**: [Study Guide -Binary Search 101](https://leetcode.com/problems/binary-search/discuss/423162/Binary-Search-101)
 - **Selected LeetCode Problems**: [List](https://leetcode.com/list/xls4oirv/)
-
-
-## - General Binary Search Ideas
-- **Conceptually**: Basically, **it splits the search space into two halves and only keep the half that probably has the search target and throw away the other half that would not possibly have the answer**. In this manner, we reduce the search space to half the size at every step, until we find the target. Binary Search helps us reduce the search time from linear O(n) to logarithmic **O(log n)**.
+- **Conceptually**: Basically, **BINARY SEARCH splits the search space into two halves and only keep the half that probably has the search target and throw away the other half that would not possibly have the answer**. In this manner, we reduce the search space to half the size at every step, until we find the target. Binary Search helps us reduce the search time from linear O(n) to logarithmic **O(log n)**.
 
 ## Template 1 - "Classic Binary Search"
 ### For solving: "locate the index" types of problems
@@ -85,8 +82,52 @@ def binary_search(array) -> int:
     return left # left is the minimum (or maximum, depending on your implementation) satisfying the "feasible" condition
 ```
 
-- **A Typical Example (involving both MINIMIZING and MAXIMIZING approach)**
-  - :heavy_check_mark: :orange_book: [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+## A Typical Example (using BOTH Template 1 & Template 2)
+- :heavy_check_mark: :orange_book: [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
+### Solving with Template 1: Classic Binary Search (recommended since it's looking for an idex)
+- Reference Solution: [link](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/14699/Clean-iterative-solution-with-two-binary-searches-(with-explanation)/275524)
+
+```
+# Basic checking
+if not nums:
+    return [-1, -1]
+
+# Find first position
+left, right = 0, len(nums) - 1
+first_pos = -1
+
+while left <= right:
+    mid = (left + right) >> 1
+    if nums[mid] == target:
+        first_pos = mid # record this
+        right = mid - 1 # go left
+    elif nums[mid] < target:
+        left = mid + 1 # go right
+    else:
+        right = mid - 1 # go left
+
+# Find last position
+left, right = 0, len(nums) - 1
+last_pos = -1
+
+while left <= right:
+    mid = (left + right) >> 1
+    if nums[mid] == target:
+        last_pos = mid # record this
+        left = mid + 1 # go right
+    elif nums[mid] < target:
+        left = mid + 1 # go right
+    else:
+        right = mid - 1 # go left
+
+return [first_pos, last_pos]
+```
+
+---
+
+### Solving with Template 2: "K-th / Minimum / Maximum"
+
   - Reference Solution: [link](https://leetcode.com/tag/binary-search/discuss/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems/1302202)
 ```
 # Basic checking
@@ -123,7 +164,7 @@ return [first_pos, last_pos]
 
 ## - Selected LeetCode Problems:
 
-- **Typical examples using a variation of the "Minimize k, s.t. condition(k) is True" Template**
+- **Typical examples using a variation of the Template 2**
 
 :heavy_check_mark: :green_book: [278. First Bad Version](https://leetcode.com/problems/first-bad-version/): minimize k, s.t. isBadVersion(k) is True
 
@@ -149,19 +190,31 @@ return [first_pos, last_pos]
 
 ---
 
-- **Solving various "K-th" kind of problems (more varied but using the template above if possible)**:
+- **Solving various "K-th" kinds of problems (using Template 2 if possible)**:
 
 :heavy_check_mark: :orange_book: [373. Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/): minimize summation, s.t. there are at least k (given) pairs with sum <= this summation (**2 Pointers**)
 
-:heavy_check_mark: :orange_book: [2226. Maximum Candies Allocated to K Children](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/): (a **maximizing alteration to the template**)
 
 :wavy_dash: :orange_book: [658. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/): minimize idx (start of length k array), such that x (given) <= the mid point of arr[idx] + arr[idx + k]
 
 :wavy_dash: :orange_book: [378. Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/): minimize element, s.t. there are at least k (k is given) elements <= this element
 
+:wavy_dash: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/): more complexed design of the feasible function (logic using **lcm & gcd**)
+
+---
+
+- **Solving various "Minimum" kinds of problems (using Template 2 if possible)**:
+
 :wavy_dash: :orange_book: [2187. Minimum Time to Complete Trips](https://leetcode.com/problems/minimum-time-to-complete-trips/): minimize time, s.t. all buses complete at least totalTrips (given) trips at this time
 
-:wavy_dash: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/): more complexed design of the feasible function (logic using **lcm & gcd**)
+:wavy_dash: :orange_book: [1760. Minimum Limit of Balls in a Bag](https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/): minimize penalty, s.t. we can achieve this penalty without exceeding limit of operations
+
+---
+- **Solving various "Maximum" kinds of problems (using Template 2 if possible)**:
+
+:heavy_check_mark: :orange_book: [2226. Maximum Candies Allocated to K Children](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/)
+
+
 
 ---
 
