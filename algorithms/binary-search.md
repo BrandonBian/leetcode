@@ -93,6 +93,73 @@ def binary_search(nums):
     return result
 ```
 
+---
+
+- **An example with MINIMIZING / MAXIMIZING positions**: :heavy_check_mark: :orange_book: [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
+```
+# basic checking
+if not nums:
+    return [-1, -1]
+
+first_pos, last_pos = -1, -1
+
+####################################
+# find first position (MINIMIZING) #
+####################################
+
+def sufficient_minimize(num):
+    # find least number that is >= target
+    return num >= target
+
+left, right = 0, len(nums) - 1
+
+while left + 1 < right:
+    mid = (left + right) >> 1
+
+    if sufficient_minimize(nums[mid]): # look left for smaller solution
+        right = mid
+    else:
+        left = mid
+
+# for MINIMIZING position, check "left" first
+if nums[left] == target:
+    first_pos = left
+elif nums[right] == target:
+    first_pos = right
+
+###################################
+# find last position (MAXIMIZING) #
+###################################
+
+def sufficient_maximize(num):
+    # find max number that is <= target
+    return num <= target
+
+left, right = 0, len(nums) - 1
+
+while left + 1 < right:
+    mid = (left + right) >> 1
+
+    if sufficient_maximize(nums[mid]): # look right for larger solution
+        left = mid
+    else:
+        right = mid
+
+# for MAXIMIZING position, check "right" first
+
+if nums[right] == target:
+    last_pos = right
+elif nums[left] == target:
+    last_pos = left
+
+##########
+# return #
+##########
+
+return [first_pos, last_pos]
+```
+
 ## Selected LeetCode Problems:
 
 - **"FIND POSITION" Problems**:
