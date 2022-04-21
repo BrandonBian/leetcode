@@ -50,7 +50,7 @@ while left_ptr < right_ptr:
 
 ---
 
-### "Face-to-Face -> 4 Sum -> reduce to 2 Sum & removing duplicates": :heavy_check_mark: :orange_book: [18. 4Sum](https://leetcode.com/problems/4sum/)
+### "Face-to-Face -> 4 Sum -> reduce to 2 Sum & REMOVING DUPLICATES": :heavy_check_mark: :orange_book: [18. 4Sum](https://leetcode.com/problems/4sum/)
 - **There is also a K-Sum Template**: [Link](https://leetcode.com/problems/4sum/discuss/8545/Python-140ms-beats-100-and-works-for-N-sum-(Ngreater2)/185194) (basically reducing K-Sum to 2-Sum with removing duplicates, but with better organization)
 ```
 # idea: fix first 2 elements, reduce to 2 Sum problem, then 2 Sum on the rest
@@ -103,17 +103,56 @@ return result
 
 ---
 
-### "Face-to-Face -> Partition": :heavy_check_mark: :orange_book: [18. 4Sum](https://leetcode.com/problems/4sum/)
+### "Face-to-Face -> Partition": :heavy_check_mark: :orange_book: [LintCode 31 · Partition Array](https://www.lintcode.com/problem/31/)
 
 ```
+# Goal: partition array such that all elements < k are moved to left, >= k moved to right, return partition index
 
+def partition_array(self, nums: List[int], k: int) -> int:
+
+    if not nums:
+        return 0
+
+    # two pointers starting from either end of array
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+
+        # find the numbers that are misplaced on either side
+        while left <= right and nums[left] < k: 
+            # stop when we found a nums[left] >= k, it is misplaced
+            left += 1
+        while left <= right and nums[right] >= k: 
+            # stop when we found a nums[right] < k, it is misplaced
+            right -= 1
+
+        # exchange
+        if left <= right:
+            nums[left], nums[right] = nums[right], nums[left]
+
+            left += 1
+            right -= 1
+
+    return left # index of the first element on the right partition
 ```
 
 ---
 
 ## Selected LeetCode Problems (with quick notes)
-### Face-to-Face Two Pointers
+### - "Face-to-Face" Two Pointers
 
-:heavy_check_mark: :orange_book: [15. 3Sum](https://leetcode.com/problems/3sum/): sort, fixing least element and running **2 Sum** with target = -(that element), **remove duplicates**
+:heavy_check_mark: :orange_book: [15. 3Sum](https://leetcode.com/problems/3sum/): sort, fixing least element and running **2 Sum** with target = -(that element), **remove duplicates** (**2 Sum**)
 
-:heavy_check_mark: :orange_book: [LintCode 382 · Triangle Count](https://www.lintcode.com/problem/382/): sort, fixing the longest edge and running **2 Sum** on short edges with target > longest edge
+:heavy_check_mark: :orange_book: [LintCode 382 · Triangle Count](https://www.lintcode.com/problem/382/): sort, fixing the longest edge and running **2 Sum** on short edges with target > longest edge (**2 Sum**)
+
+:heavy_check_mark: :orange_book: [LintCode 144 · Interleaving Positive and Negative Numbers](https://www.lintcode.com/problem/144/): **partition** numbers of different signs, then interleave (**Partition**)
+
+:wavy_dash: :orange_book: [LintCode 148 · Sort Colors](https://www.lintcode.com/problem/148/): using **quick sort - partition** (**Partition**)
+
+:wavy_dash: :orange_book: [LintCode 143 · Sort Colors II](https://www.lintcode.com/problem/143/): sorting arbitrary number of colors, using **quick sort - partition & recursion** (**Partition & Recursion**)
+
+---
+
+### - "Same-Direction" Two Pointers
+ 
+:heavy_check_mark: :green_book: [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/): one pointing to the first non-replaced element, one pointing to non-zero elements, replace / swap
