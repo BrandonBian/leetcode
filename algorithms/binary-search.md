@@ -162,13 +162,15 @@ return [first_pos, last_pos]
 
 ## Selected LeetCode Problems:
 
-- **"FIND POSITION" Problems**:
+- **"FIND POSITION" Problems - usually can be reduced to "MINIMIZING" Problems**:
 
-:heavy_check_mark: :green_book: [704. Binary Search](https://leetcode.com/problems/binary-search/) 
+:heavy_check_mark: :green_book: [704. Binary Search](https://leetcode.com/problems/binary-search/): the most basic
 
 :heavy_check_mark: :orange_book: [74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/): treat **2D matrix as 1D array**, then classic binary search
 
 :heavy_check_mark: :orange_book: [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/): array rotated at a pivot, find pivot and search on either side
+
+:wavy_dash: :orange_book: [81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/)
 
 :wavy_dash: :orange_book: [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/): array not sorted (but peaks present)
 
@@ -201,17 +203,21 @@ return [first_pos, last_pos]
 
 :wavy_dash: :closed_book: [887. Super Egg Drop](https://leetcode.com/problems/super-egg-drop/): usually solved by **dynamic programming**, but can be solved using the template
 
+:wavy_dash: :orange_book: [LintCode 585 · Maximum Number in Mountain Sequence](https://www.lintcode.com/problem/585/): minimize index, s.t. num[index] is the maximum in the mountain sequence
+
+:wavy_dash: :orange_book: [159 · Find Minimum in Rotated Sorted Array](https://www.lintcode.com/problem/159/)
+
 ---
 
 - **"MAXIMIZING" Problems**:
 
 :heavy_check_mark: :orange_book: [2226. Maximum Candies Allocated to K Children](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/)
 
-
 :wavy_dash: :orange_book: [1898. Maximum Number of Removable Characters](https://leetcode.com/problems/maximum-number-of-removable-characters/)
 
-
 :wavy_dash: :orange_book: [2226. Maximum Candies Allocated to K Children](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/)
+
+:wavy_dash: :closed_book: [LintCode 183 · Wood Cut](https://www.lintcode.com/problem/183/)
 
 ---
 
@@ -219,9 +225,9 @@ return [first_pos, last_pos]
 
 :heavy_check_mark: :orange_book: [373. Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/): minimize summation, s.t. there are at least k (given) pairs with sum <= this summation (**2 Pointers**)
 
-:wavy_dash: :closed_book: [719. Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/): minimize k, s.t. there are at least k pairs with distance <= distance
+:heavy_check_mark: :orange_book: [LintCode 460 · Find K Closest Elements](https://www.lintcode.com/problem/460/): find upper closest index to target, compare left distance then right distance
 
-:wavy_dash: :orange_book: [658. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/): minimize idx (start of length k array), such that x (given) <= the mid point of arr[idx] + arr[idx + k]
+:wavy_dash: :closed_book: [719. Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/): minimize k, s.t. there are at least k pairs with distance <= distance
 
 :wavy_dash: :orange_book: [378. Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/): minimize element, s.t. there are at least k (k is given) elements <= this element
 
