@@ -170,7 +170,7 @@ return [first_pos, last_pos]
 
 :heavy_check_mark: :orange_book: [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/): array rotated at a pivot, find pivot and search on either side
 
-:wavy_dash: :orange_book: [81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/)
+:heavy_check_mark: :orange_book: [81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/): same as above but removing duplicates (similar as [this procedure](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md#face-to-face---4-sum---reduce-to-2-sum--removing-duplicates-heavy_check_mark-orange_book-18-4sum))
 
 :wavy_dash: :orange_book: [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/): array not sorted (but peaks present)
 
