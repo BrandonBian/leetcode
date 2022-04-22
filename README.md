@@ -16,9 +16,9 @@
 - Solving **"total number of positive integers <= N which are divisible by a or b or c"** problems
 ### 1.3 [Recursion & Backtracking](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md)
 - :white_check_mark: [A DFS / backtracking template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md#--backtracking-problem-solving-templates)
-- Solving **"combination / combination sum / permutations"** problems + **removing duplicates**
+- Solving **"combination / combination sum / permutations"** problems with **removing duplicates**
 ### 1.4 [Two Pointers](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md)
-- Solving **"K-Sum"** problems + **"removing duplicates"**
+- Solving **"K-Sum / partitioning"** problems with **removing duplicates**
 
 ---
 
