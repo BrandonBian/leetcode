@@ -8,7 +8,7 @@
 
 ---
 
-## Binary Search Problems | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/edit/main/algorithms/binary-search.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search-solutions.md)]
+## Binary Search Problems | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search-solutions.md)]
 ### 1. "FIND POSITION" Problems - usually can be reduced to "MINIMIZING" Problems:
 
 :heavy_check_mark: :green_book: [704. Binary Search](https://leetcode.com/problems/binary-search/): the most basic problem
