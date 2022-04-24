@@ -8,16 +8,23 @@
 ---
 
 ## Section 1: [Algorithms](https://github.com/BrandonBian/LeetCode-Notes/tree/main/algorithms)
-### 1.1 [Binary Search](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md)
+
+### 1.1 Binary Search | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search-solutions.md)]
 - :white_check_mark: [A very good general template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md#white_check_mark-general-template---very-good-please-memorize)
 - Solving **"minimizing / maximizing / find K-th position"** problems
-### 1.2 [Greatest Common Divisor (GCD) & Least Common Multiple (LCM)](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/gcd-lcm.md)
+
+
+### 1.2 Greatest Common Divisor (GCD) & Least Common Multiple (LCM) | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/gcd-lcm.md)]
 - :white_check_mark: [Calculating formulae in Python](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/gcd-lcm.md)
 - Solving **"total number of positive integers <= N which are divisible by a or b or c"** problems
-### 1.3 [Recursion & Backtracking](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md)
+
+
+### 1.3 Recursion & Backtracking | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md)] | [Problems] | [Solutions]
 - :white_check_mark: [A DFS / backtracking template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md#--backtracking-problem-solving-templates)
 - Solving **"combination / combination sum / permutations"** problems with **removing duplicates**
-### 1.4 [Two Pointers](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md)
+
+
+### 1.4 Two Pointers | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md)] | [Problems] | [Solutions]
 - Solving **"K-Sum / partitioning"** problems with **removing duplicates**
 
 ---
@@ -34,4 +41,4 @@
 
 ---
 
-## Section 3:
+## Section 3: Auxiliary Problems & Solutions
