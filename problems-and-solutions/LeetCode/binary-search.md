@@ -23,6 +23,8 @@
 
 :wavy_dash: :orange_book: [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/): array not sorted (but peaks present)
 
+---
+
 ### 2. "MINIMIZING" Problems
 
 :heavy_check_mark: :green_book: [278. First Bad Version](https://leetcode.com/problems/first-bad-version/): minimize k, s.t. isBadVersion(k) is True
@@ -53,6 +55,8 @@
 
 :wavy_dash: :orange_book: [159 · Find Minimum in Rotated Sorted Array](https://www.lintcode.com/problem/159/)
 
+---
+
 ### 3. "MAXIMIZING" Problems
 
 :heavy_check_mark: :orange_book: [2226. Maximum Candies Allocated to K Children](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/)
@@ -60,6 +64,8 @@
 :wavy_dash: :orange_book: [1898. Maximum Number of Removable Characters](https://leetcode.com/problems/maximum-number-of-removable-characters/)
 
 :wavy_dash: :closed_book: [LintCode 183 · Wood Cut](https://www.lintcode.com/problem/183/)
+
+---
 
 ### 4. "K-th" Problems
 
