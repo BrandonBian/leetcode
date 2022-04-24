@@ -24,7 +24,7 @@
 - Solving **"combination / combination sum / permutations"** problems with **DFS & possibly removing duplicates**
 
 
-### 1.4 Two Pointers - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md)] | [Problems] | [Solutions]
+### 1.4 Two Pointers - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers-solutions.md)]
 - Solving **"K-Sum / partitioning"** problems with **removing duplicates**
 
 ---
