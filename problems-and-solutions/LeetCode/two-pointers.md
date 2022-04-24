@@ -8,7 +8,7 @@
 
 ---
 
-## Two Pointers Problems | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking-solutions.md)]
+## Two Pointers Problems | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers-solutions.md)]
 
 ### - "Face-to-Face" Two Pointers
 
