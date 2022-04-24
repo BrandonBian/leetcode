@@ -1,4 +1,4 @@
-# LeetCode Selected Problem List
+# LeetCode - Binary Search | Problems
 * **Notations**: 
   * :heavy_check_mark: means **MUST DO (i.e., very important, typical, or good) problems** that should definitely be familiar with
   * :wavy_dash: means problems that are less typical
@@ -8,8 +8,8 @@
 
 ---
 
-## Section 1: Binary Search Problems | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/edit/main/algorithms/binary-search.md)] | [Solutions]
-### 1.1 "FIND POSITION" Problems - usually can be reduced to "MINIMIZING" Problems:
+## Binary Search Problems | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/edit/main/algorithms/binary-search.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search-solutions.md)]
+### 1. "FIND POSITION" Problems - usually can be reduced to "MINIMIZING" Problems:
 
 :heavy_check_mark: :green_book: [704. Binary Search](https://leetcode.com/problems/binary-search/): the most basic problem
 
@@ -23,7 +23,7 @@
 
 :wavy_dash: :orange_book: [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/): array not sorted (but peaks present)
 
-### 1.2 "MINIMIZING" Problems
+### 2. "MINIMIZING" Problems
 
 :heavy_check_mark: :green_book: [278. First Bad Version](https://leetcode.com/problems/first-bad-version/): minimize k, s.t. isBadVersion(k) is True
 
@@ -53,17 +53,15 @@
 
 :wavy_dash: :orange_book: [159 · Find Minimum in Rotated Sorted Array](https://www.lintcode.com/problem/159/)
 
-### 1.3 "MINIMIZING" Problems
+### 3. "MAXIMIZING" Problems
 
 :heavy_check_mark: :orange_book: [2226. Maximum Candies Allocated to K Children](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/)
 
 :wavy_dash: :orange_book: [1898. Maximum Number of Removable Characters](https://leetcode.com/problems/maximum-number-of-removable-characters/)
 
-:wavy_dash: :orange_book: [2226. Maximum Candies Allocated to K Children](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/)
-
 :wavy_dash: :closed_book: [LintCode 183 · Wood Cut](https://www.lintcode.com/problem/183/)
 
-### 1.4 "K-th" Problems
+### 4. "K-th" Problems
 
 :heavy_check_mark: :orange_book: [373. Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/): minimize summation, s.t. there are at least k (given) pairs with sum <= this summation (**2 Pointers**)
 
