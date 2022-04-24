@@ -1,4 +1,4 @@
-# Two Pointers
+# Two Pointers | [[Selected Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers.md)]
 * **Note**: 
   * :heavy_check_mark: means **MUST DO (i.e., very important, typical, or good) problems** that should definitely be familiar with
   * :wavy_dash: means problems that are less typical
