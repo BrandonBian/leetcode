@@ -1,4 +1,4 @@
-# LintCode - Chapter by Chapter Practice Problems | [[Solutions]]
+# LintCode - Chapter by Chapter Practice Problems | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter-solutions.md)]
 **All problems are LintCode problems, solved in Python. Relevant keypoints are also noted.**
 
 ---
