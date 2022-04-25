@@ -7,7 +7,7 @@
 
 ---
 
-## Section 1: [Algorithms](https://github.com/BrandonBian/LeetCode-Notes/tree/main/algorithms)
+## Section 1: Algorithms
 
 ### 1.1 Binary Search - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search-solutions.md)]
 - :white_check_mark: [A very good general template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md#white_check_mark-general-template---very-good-please-memorize)
@@ -29,7 +29,7 @@
 
 ---
 
-## Section 2: [Data Structures](https://github.com/BrandonBian/LeetCode-Notes/tree/main/data-structures)
+## Section 2: Data Structures
 ### 2.1 [Binary Tree & Binary Search Trees](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/binary-tree.md)
 - :white_check_mark: [Traversal Templates](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md#--backtracking-problem-solving-templates) (**pre-order / in-order / post-order / level-order traversal**)
 - Solving **"BST in-order traversal / deleting node / inserting node / root-to-leaf DFS / construction / validation / etc."** problems
@@ -43,6 +43,6 @@
 
 ## Section 3: Auxiliary Problems & Solutions
 
-### 3.1 LintCode Chapter-by-Chapter Practice - [Problems] | [Solutions]
+### 3.1 LintCode Chapter-by-Chapter Practice - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter-solutions.md)]
 
 ### 3.2 LeetCode Top 100 - [Problems] | [Solutions]
