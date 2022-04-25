@@ -272,3 +272,315 @@ class Solution:
 ```
 
 ---
+
+## Chapter 5: Two Sorting Algorithms
+
+:green_book: [463 · Sort Integers](https://www.lintcode.com/problem/463/): Quick sort / Merge Sort (see [this](https://www.lintcode.com/problem/463/solution/17194) for more)
+
+- **Quick Sort**
+```
+from typing import (
+    List,
+)
+
+class Solution:
+    """
+    @param a: an integer array
+    @return: nothing
+    """
+    def sort_integers(self, a: List[int]):
+        
+        if len(a) <= 1: # base case, no need for sorting
+            return a
+
+        # quick sort the entire array
+        self.quick_sort(a, 0, len(a) - 1)
+
+    def quick_sort(self, a, start, end):
+
+        if start >= end:
+            return
+        
+        left, right = start, end
+        # set pivot to be the middle index (pivot shouldn't be the start or end)
+        # pivot should be the value not index
+        pivot = a[(start + end) >> 1]
+
+        # notice: using equivalence when comparing index, but no equivalence when comparing value
+        while left <= right:
+            while left <= right and a[left] < pivot:
+                left += 1
+            while left <= right and a[right] > pivot:
+                right -= 1
+            
+            # now [left] = index of first element >= pivot counted from left
+            # now [right] = index of first element <= pivot counted from right
+            # exchange them if applicable
+            if left <= right:
+                a[left], a[right] = a[right], a[left]
+                left += 1
+                right -= 1
+
+        # now [left] is at the right side of [right] after quiting the while loop
+        # recursively quick sort the portions on either side of the pivot
+        self.quick_sort(a, start, right)
+        self.quick_sort(a, left, end)  
+```
+
+---
+
+- **Merge Sort**
+
+```
+from typing import (
+    List,
+)
+
+class Solution:
+    """
+    @param a: an integer array
+    @return: nothing
+    """
+    def sort_integers(self, a: List[int]):
+        
+        if len(a) <= 1:
+            return a
+
+        tmp = [0] * len(a)
+        self.merge_sort(a, 0, len(a) - 1, tmp)
+
+    def merge_sort(self, a, start, end, tmp):
+        if start >= end:
+            return
+
+        # set pivot to be the middle index
+        pivot = (start + end) >> 1
+        
+        # sort the portions on the left and right of the pivot
+        self.merge_sort(a, start, pivot, tmp)
+        self.merge_sort(a, pivot + 1, end, tmp)
+
+        # merge them in-order
+        self.merge(a, start, end, tmp)
+
+    def merge(self, a, start, end, tmp):
+
+        # again, the pivot is set to be the middle index
+        pivot = (start + end) >> 1
+        left_start = start
+        right_start = pivot + 1
+        idx = start
+
+        # create a new array to store the merged array
+        merged_array = []
+
+        while left_start <= pivot and right_start <= end:
+            if a[left_start] < a[right_start]:
+                tmp[idx] = a[left_start]
+                left_start += 1
+            else:
+                tmp[idx] = a[right_start]
+                right_start += 1
+            idx += 1
+
+        # there may still be elements left on either portion
+        while left_start <= pivot:
+            tmp[idx] = a[left_start]
+            left_start += 1
+            idx += 1
+        while right_start <= end:
+            tmp[idx] = a[right_start]
+            right_start += 1
+            idx += 1
+        
+        # replace original array with this new merged array 
+        for i in range(start, end + 1):
+            a[i] = tmp[i]
+```
+
+---
+
+:orange_book: [5 · Kth Largest Element](https://www.lintcode.com/problem/5/description): Quick Select
+
+```
+class Solution:
+    """
+    @param k: An integer
+    @param nums: An array
+    @return: the Kth largest element
+    """
+    def kth_largest_element(self, k: int, nums: List[int]) -> int:
+        
+        if not nums:
+            return -1
+
+        return self.quick_select(nums, 0, len(nums) - 1, k)
+
+    def quick_select(self, nums, start, end, k):
+
+        if start == end:
+            return nums[start]
+
+        i, j = start, end
+        pivot = nums[(start + end) >> 1]
+
+        # from largest to smallest
+        while i <= j:
+            while i <= j and nums[i] > pivot:
+                i += 1
+            while i <= j and nums[j] < pivot:
+                j -= 1
+
+            if i <= j:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+                j -= 1 
+            
+        # start --- j - i --- end
+
+        k_pos = start + k - 1
+        
+        if k_pos <= j:
+            return self.quick_select(nums, start, j, k) 
+        
+        if k_pos >= i:
+            return self.quick_select(nums, i, end, k - (i - start))
+
+        return nums[j + 1]   
+```
+
+---
+
+## Chapter 6: Binary Search (using Recursion)
+
+:green_book: [366 · Fibonacci](https://www.lintcode.com/problem/366/): General Recursion is too slow, use Dynamic Programming
+
+
+```
+class Solution:
+    """
+    @param n: an integer
+    @return: an ineger f(n)
+    """
+    def fibonacci(self, n: int) -> int:
+        if n == 1:
+            return 0
+        if n == 2:
+            return 1
+        
+        p, q, r = 0, 1, 1
+
+        for i in range(3, n):
+            p, q = q, r
+            r = p + q
+        
+        return r
+```
+
+---
+
+:green_book: [457 · Classical Binary Search](https://www.lintcode.com/problem/457/): Binary Search but using Recursion
+
+```
+class Solution:
+    """
+    @param nums: An integer array sorted in ascending order
+    @param target: An integer
+    @return: An integer
+    """
+    def findPosition(self, nums, target):    
+        return self.binary_search(nums, 0, len(nums) - 1, target)
+
+    def binary_search(self, nums, start, end, target):
+
+        # we failed to find the target
+        if start > end:
+            return -1
+
+        mid = (start + end) >> 1
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            return self.binary_search(nums, mid + 1, end, target) # search on right
+        else:
+            return self.binary_search(nums, start, mid - 1, target) # search on left
+```
+
+---
+
+## Chapter 7: Binary Search (introducing a template)
+
+:green_book: [457 · Classical Binary Search](https://www.lintcode.com/problem/457/): Binary Search using the template
+
+```
+class Solution:
+    """
+    @param nums: An integer array sorted in ascending order
+    @param target: An integer
+    @return: An integer
+    """
+    def findPosition(self, nums, target):
+        
+        if not nums:
+            return -1
+
+        left, right = 0, len(nums) - 1
+
+        # idea: find the least index s.t. nums[index] >= target
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            if nums[mid] >= target:
+                right = mid # go left to find possible smaller answers
+            else:
+                left = mid
+        
+        if nums[left] == target:
+            return left
+        if nums[right] == target:
+            return right
+        
+        return -1
+```
+
+---
+
+:green_book: [458 · Last Position of Target](https://www.lintcode.com/problem/458/): Binary Search using the template
+
+```
+from typing import (
+    List,
+)
+
+class Solution:
+    """
+    @param nums: An integer array sorted in ascending order
+    @param target: An integer
+    @return: An integer
+    """
+    def last_position(self, nums: List[int], target: int) -> int:
+        
+        if not nums:
+            return -1
+
+        left, right = 0, len(nums) - 1
+
+        # idea: find the maximum position s.t. nums[position] <= target
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            if nums[mid] <= target:
+                left = mid # go right to find larger solutions
+            else:
+                right = mid
+        
+        if nums[right] == target:
+            return right
+        if nums[left] == target:
+            return left
+        return -1
+```
+
+---
+
