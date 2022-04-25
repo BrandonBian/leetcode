@@ -42,3 +42,7 @@
 ---
 
 ## Section 3: Auxiliary Problems & Solutions
+
+### 3.1 LintCode Chapter-by-Chapter Practice - [Problems] | [Solutions]
+
+### 3.2 LeetCode Top 100 - [Problems] | [Solutions]
