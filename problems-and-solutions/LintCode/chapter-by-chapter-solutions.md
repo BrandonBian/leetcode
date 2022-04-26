@@ -125,11 +125,13 @@ class Solution:
 
 ---
 
+
+---
+
 ## Chapter 3: Introduction (Part III)
 
-:green_book: [13 · Implement strStr()](https://www.lintcode.com/problem/13/): Naive for loop / Rabin-Karp
+:green_book: [13 · Implement strStr()](https://www.lintcode.com/problem/13/): Naive for loop
 
-- **Naive for loop**
 
 ```
 class Solution:
@@ -148,13 +150,6 @@ class Solution:
                 return i
                 
         return -1
-```
-
-- **Rabin-Karp**
-
-```
-# Reference: https://www.lintcode.com/problem/13/solution/19657
-# Usually it's OK to use the naive O(N^2) approach since this approach is too advanced for a normal interview
 ```
 
 ---
@@ -188,7 +183,6 @@ class Solution:
         # relevant proof: https://www.lintcode.com/problem/187/solution/17249
         return index
 ```
-
 ---
 
 ## Chapter 4: Algorithm Complexity & Two Pointers
@@ -279,10 +273,6 @@ class Solution:
 
 - **Quick Sort**
 ```
-from typing import (
-    List,
-)
-
 class Solution:
     """
     @param a: an integer array
@@ -332,10 +322,6 @@ class Solution:
 - **Merge Sort**
 
 ```
-from typing import (
-    List,
-)
-
 class Solution:
     """
     @param a: an integer array
@@ -549,10 +535,6 @@ class Solution:
 :green_book: [458 · Last Position of Target](https://www.lintcode.com/problem/458/): Binary Search using the template
 
 ```
-from typing import (
-    List,
-)
-
 class Solution:
     """
     @param nums: An integer array sorted in ascending order
@@ -583,4 +565,563 @@ class Solution:
 ```
 
 ---
+
+## Auxiliary Problems: Ch. 1 ~ 7
+
+:green_book: [1790 · Rotate String II](https://www.lintcode.com/problem/1790/description?_from=collection&fromId=161): String manipulation and modulus operation
+
+```
+class Solution:
+    """
+    @param str: An array of char
+    @param left: a left offset
+    @param right: a right offset
+    @return: return a rotate string
+    """
+    def rotate_string2(self, str: str, left: int, right: int) -> str:
+        
+        if not str:
+            return str
+
+        offset = (left - right) % len(str) # the offset can wrap-around
+
+        return str[offset:] + str[:offset]
+```
+:closed_book: [594 · strStr II](https://www.lintcode.com/problem/594/?_from=collection&fromId=161): Rabin-Karp (Hashing)
+
+```
+class Solution:
+    """
+    @param source: A source string
+    @param target: A target string
+    @return: An integer as index
+    """
+    def str_str2(self, source: str, target: str) -> int:
+
+        # Rabin-karp Hashing
+        BASE = int(1e6)
+
+        if source is None or target is None:
+            return -1
+
+        m = len(target)
+
+        if m == 0:
+            return 0
+
+        power = (31 ** m) % BASE # power of the first character that will be removed
+
+        # calculate the hash for the target string
+        target_hash = 0
+
+        for char in target:
+            # abc + d (considering char)
+            target_hash = (target_hash * 31 + ord(char)) % BASE
+
+        # calculate the hash for the source string
+        source_hash = 0
+
+        for i in range(len(source)):
+            # abc + d (considering char)
+            source_hash = (source_hash * 31 + ord(source[i])) % BASE
+
+            # if we don't have m number of characters
+            if i < m - 1:
+                continue
+
+            if i >= m:
+                # abcd - a (remove first char, which is at position [i - m])
+                source_hash = source_hash - (power * ord(source[i - m])) % BASE
+                if source_hash < 0:
+                    source_hash += BASE
+            
+            if source_hash == target_hash:
+                if source[i - m + 1: i + 1] == target:
+                    return i - m + 1
+
+        return -1     
+```
+---
+
+:closed_book: [841 · String Replace](https://www.lintcode.com/problem/841/?_from=collection&fromId=161): A enumerating method using Set and Dictionary
+
+```
+class Solution:
+    """
+    @param a: The A array
+    @param b: The B array
+    @param s: The S string
+    @return: The answer
+    """
+    def string_replace(self, a: List[str], b: List[str], s: str) -> str:
+        
+        # find length options of replacement strings in a[] and construct idx map
+        repLens = set()
+        idxMap = {} 
+
+        for i in range(len(a)):
+            repLens.add(len(a[i]))
+            idxMap[a[i]] = i 
+
+        repLens = sorted(repLens, reverse=True) # prioritize longer options
+        
+        # find replacements
+        result = ""
+        start = 0
+
+        while start < len(s):
+
+            found = False
+
+            for replen in repLens: # trying from longer ones to shorter ones
+                end = start + replen
+                if end > len(s): # if too long, just skip
+                    continue
+                
+                str = s[start : end] # the substring to be replaced
+                if str in a: # if it is in a, we replace with corresponding b
+                    result += b[idxMap[str]]
+                    found = True
+                    start = end
+                    break
+
+            if not found:
+                result += s[start]
+                start += 1
+
+        return result
+```
+
+---
+
+
+## Chapter 8 (LIVE): Face-to-face Two Pointers & Partition Problems
+
+:green_book: [56 · Two Sum](https://www.lintcode.com/problem/56/): Sort, then face-to-face two pointers
+
+```
+class Solution:
+    """
+    @param numbers: An array of Integer
+    @param target: target = numbers[index1] + numbers[index2]
+    @return: [index1, index2] (index1 < index2)
+    """
+    def two_sum(self, numbers: List[int], target: int) -> List[int]:
+        
+        if len(numbers) <= 1:
+            return [-1, -1]
+            
+        # combine each element with its index 
+        nums = [
+            (number, idx)
+            for idx, number in enumerate(numbers)
+        ]
+
+        left, right = 0, len(numbers) - 1
+        nums.sort() # sorting a tuple will sort based on the first element
+
+        while left < right:
+            if nums[left][0] + nums[right][0] > target:
+                right -= 1
+            elif nums[left][0] + nums[right][0] < target:
+                left += 1
+            else:
+                return sorted([nums[left][1], nums[right][1]]) # index1 < index2
+        
+        return [-1, -1]
+```
+
+---
+
+:green_book: [607 · Two Sum III - Data structure design](https://www.lintcode.com/problem/607/): Data structure design, add and find functionalities
+
+```
+class TwoSum:
+    """
+    @param number: An integer
+    @return: nothing
+    """
+    nums = []
+
+    def add(self, number):
+        self.nums.append(number)
+
+    """
+    @param value: An integer
+    @return: Find if there exists any pair of numbers which sum is equal to the value.
+    """
+    def find(self, value):
+
+        left, right = 0, len(self.nums) - 1
+
+        self.nums.sort() # two pointers require the array to be sorted
+
+        while left < right:
+            two_sum = self.nums[left] + self.nums[right]
+
+            if two_sum < value:
+                left += 1
+            elif two_sum > value:
+                right -= 1
+            else:
+                return True
+
+        return False
+```
+
+---
+
+:orange_book: [57 · 3Sum](https://www.lintcode.com/problem/57/?_from=collection&fromId=161): Reduce to 2Sum, removing duplicates
+
+```
+class Solution:
+    """
+    @param numbers: Give an array numbers of n integer
+    @return: Find all unique triplets in the array which gives the sum of zero.
+             we will sort your return value in output
+    """
+    def three_sum(self, nums: List[int]) -> List[List[int]]:
+        # write your code here
+        def find_two_sum(left, right, target, result):
+            while left < right:
+                two_sum = nums[left] + nums[right]
+                
+                if two_sum < target:
+                    left += 1
+                elif two_sum > target:
+                    right -= 1
+                else:
+                    result.append([-target, nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                    
+                    # skip duplicates
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
+        
+        
+        if len(nums) < 3:
+            return None
+        
+        nums.sort()
+        length = len(nums)
+        result = []
+        
+        for i in range(0, length - 2):
+            
+            # skip duplicates
+            if i > 0 and nums[i] == nums[i - 1]: # already visited
+                continue
+                
+            # two pointers from the element next to this first element to the last
+            left, right = i + 1, length - 1
+            target = -nums[i]
+                        
+            find_two_sum(left, right, target, result)
+        
+        return result
+```
+
+---
+
+:orange_book: [382 · Triangle Count](https://www.lintcode.com/problem/382/): Fix longest edge and 2Sum on shorter ones
+
+```
+class Solution:
+    """
+    @param s: A list of integers
+    @return: An integer
+    """
+    def triangle_count(self, s: List[int]) -> int:
+        # write your code here
+
+        def get_triangle_count(s, max_edge_idx):
+            count = 0
+            # two pointers, each for one short edge
+            left, right = 0, max_edge_idx - 1
+            target = s[max_edge_idx]
+
+            while left < right:
+                two_sum = s[left] + s[right]
+                if two_sum > target: # we can make a triangle
+                    # if s[left] sufficient, then s[left] ~ s[right - 1] all valid, so a total of (right - 1 - left + 1) selections
+                    count += right - left 
+                    right -= 1 # we go smaller
+                else:
+                    left += 1 # we need to go larger
+
+            return count
+
+        # for a triangle to work, we need: sum(two short edges) > longest edge
+        if not s or len(s) < 3:
+            return 0
+
+        s.sort()
+        result = 0
+
+        for i in range(2, len(s)): # fix longest edge and 2 Sum on shorter ones
+            result += get_triangle_count(s, i)
+
+        return result
+```
+
+---
+
+:orange_book: [31 · Partition Array](https://www.lintcode.com/problem/31/): Two pointers from either end of array going to middle, exchange misplaced elements
+
+```
+class Solution:
+    """
+    @param nums: The integer array you should partition
+    @param k: An integer
+    @return: The index after partition
+    """
+    def partition_array(self, nums: List[int], k: int) -> int:
+
+        if not nums:
+            return 0
+
+        # two pointers starting from either end of array
+        left, right = 0, len(nums) - 1
+
+        while left <= right:
+
+            # find the numbers that are misplaced on either side
+            while left <= right and nums[left] < k: 
+                # stop when we found a nums[left] >= k, it is misplaced
+                left += 1
+            while left <= right and nums[right] >= k: 
+                # stop when we found a nums[right] < k, it is misplaced
+                right -= 1
+
+            # exchange
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+
+                left += 1
+                right -= 1
+
+        return left # index of the first element on the right partition
+```
+
+---
+
+:orange_book: [148 · Sort Colors](https://www.lintcode.com/problem/148/): Quick sort partition (also two pointers)
+
+```
+class Solution:
+    """
+    @param nums: A list of integer which is 0, 1 or 2
+    @return: nothing
+    """
+    def sort_colors(self, nums: List[int]):
+
+        def partition(nums, k):
+            # point to the last element in the (< k) region (i.e., a barrier)
+            last_small_ptr = -1
+
+            for i in range(len(nums)):
+                if nums[i] < k:
+                    # the barrier moves one step
+                    last_small_ptr += 1
+
+                    # exchange
+                    nums[last_small_ptr], nums[i] = \
+                    nums[i], nums[last_small_ptr]
+
+        partition(nums, 1)
+        partition(nums, 2)
+
+        return nums
+```
+
+---
+
+:orange_book: [143 · Sort Colors II](https://www.lintcode.com/problem/143/): Arbitrary number of colors, two pointers partitioning with Recursion
+
+```
+class Solution:
+    """
+    @param colors: A list of integer
+    @param k: An integer
+    @return: nothing
+    """
+    def sort_colors2(self, colors: List[int], k: int):
+        
+        if not colors or len(colors) < 2:
+            return colors
+
+        self.sort_colors(colors, color_from = 1, color_to = k, idx_from = 0, idx_to = len(colors) - 1)
+
+    def sort_colors(self, colors, color_from, color_to, idx_from, idx_to):
+        # this will run with Recursion
+
+        # stopping condition: only one color in this region, we are done here
+        if color_from == color_to:
+            return
+
+        # select a middle color and partition around it
+        mid_color = (color_from + color_to) // 2
+
+        # two pointers - partitioning (put elements <= mid color to left, > mid color to right)
+
+        left, right = idx_from, idx_to
+
+        while left <= right:
+
+            # find elements that do not belong to that side
+            while left <= right and colors[left] <= mid_color:
+                left += 1
+            while left <= right and colors[right] > mid_color:
+                right -= 1
+
+            if left <= right:
+                # exchange
+                colors[left], colors[right] = colors[right], colors[left]
+                left += 1
+                right -= 1
+
+        # left = index of first element on the right partition
+        # right = index of last element on the left partition
+
+        # index_from --- right -- left -- index_to
+
+        # sort left portion
+        self.sort_colors(colors, color_from, mid_color, idx_from, right)
+        self.sort_colors(colors, mid_color + 1, color_to, left, idx_to)
+```
+
+---
+
+:green_book: [539 · Move Zeroes](https://www.lintcode.com/problem/539/): Two pointers, one for filling, one for moving
+
+```
+class Solution:
+    """
+    @param nums: an integer array
+    @return: nothing
+    """
+    def move_zeroes(self, nums: List[int]):
+        
+        if len(nums) <= 1:
+            return nums
+
+        fill_ptr, move_ptr = 0, 0
+
+        while move_ptr < len(nums):
+            if nums[move_ptr] != 0:
+                if fill_ptr != move_ptr: # this statement can be removed, will become slower
+                    nums[fill_ptr] = nums[move_ptr]
+                fill_ptr += 1
+            move_ptr += 1
+
+        # replace all remaining elements with 0
+        while fill_ptr < len(nums):
+            nums[fill_ptr] = 0
+            fill_ptr += 1
+```
+
+---
+
+## Chapter 9 (LIVE): Binary Search
+
+:orange_book: [447 · Search in a Big Sorted Array](https://www.lintcode.com/problem/447/): Exponential Backoff & Binary Search
+
+```
+class Solution:
+    """
+    @param reader: An instance of ArrayReader.
+    @param target: An integer
+    @return: An integer which is the first index of target.
+    """
+    def searchBigSortedArray(self, reader, target):
+        # first find the maximum range (Exponential Backoff)
+        range_total = 1
+        while reader.get(range_total - 1) < target:
+            range_total *= 2 # O(logN)
+
+        # binary search on index
+        left, right = 0, range_total
+        
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            # minimize the index s.t. nums[mid] >= target
+            if reader.get(mid) >= target:
+                right = mid
+            else:
+                left = mid
+
+        if reader.get(left) == target:
+            return left
+        if reader.get(right) == target:
+            return right
+
+        return -1
+```
+
+---
+
+:orange_book: [460 · Find K Closest Elements](https://www.lintcode.com/problem/460/): Binary Search find upper closest index then compare bottom and left interleavingly
+
+```
+class Solution:
+    """
+    @param a: an integer array
+    @param target: An integer
+    @param k: An integer
+    @return: an integer array
+    """
+
+    def find_upper_closest(self, a, target): 
+        # using binary search to find least index s.t. a[index] >= target
+        left, right = 0, len(a) - 1
+
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            if a[mid] >= target:
+                right = mid
+            else:
+                left = mid
+
+        if a[left] >= target:
+            return left
+        if a[right] >= target:
+            return right
+
+        return len(a)
+
+    def is_left_closer(self, a, target, left, right):
+        if left < 0:
+            return False
+        if right >= len(a):
+            return True
+
+        return target - a[left] <= a[right] - target # compare distance
+
+    def k_closest_numbers(self, a: List[int], target: int, k: int) -> List[int]:
+        
+        # -- [left] -- [target] -- [right] ---
+
+        right = self.find_upper_closest(a, target)
+        left = right - 1
+
+        result = []
+
+        for _ in range(k):
+            if self.is_left_closer(a, target, left, right):
+                result.append(a[left])
+                left -= 1
+            else:
+                result.append(a[right])
+                right += 1
+
+        return result
+```
+
+---
+
 
