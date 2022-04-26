@@ -1124,4 +1124,189 @@ class Solution:
 
 ---
 
+:orange_book: [585 · Maximum Number in Mountain Sequence](https://www.lintcode.com/problem/585/): Locate whether [mid] is on increasing or decreasing side
+
+```
+class Solution:
+    """
+    @param nums: a mountain sequence which increase firstly and then decrease
+    @return: then mountain top
+    """
+    def mountain_sequence(self, nums: List[int]) -> int:
+
+        # binary search on array index
+        left, right = 0, len(nums) - 1
+
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            if nums[mid] < nums[mid + 1]: # on increasing side
+                left = mid
+            else: # on decreasing side
+                right = mid
+            
+        return max(nums[left], nums[right])
+```
+
+---
+
+:orange_book: [159 · Find Minimum in Rotated Sorted Array](https://www.lintcode.com/problem/159/): Locate which segment is [mid] at
+
+```
+class Solution:
+    """
+    @param nums: a rotated sorted array
+    @return: the minimum number in the array
+    """
+    def find_min(self, nums: List[int]) -> int:
+
+        if not nums:
+            return -1
+
+        # binary search on the index of the nums
+        left, right = 0, len(nums) - 1
+
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            # not using nums[mid] > nums[left] because the array can be not rotated
+            if nums[mid] > nums[right]:
+                left = mid
+            else:
+                right = mid
+
+        return min(nums[left], nums[right])
+```
+
+---
+
+:orange_book: [62 · Search in Rotated Sorted Array](https://www.lintcode.com/problem/62/): Identify which segment is [mid] located at
+
+```
+class Solution:
+    """
+    @param a: an integer rotated sorted array
+    @param target: an integer to be searched
+    @return: an integer
+    """
+    def search(self, a: List[int], target: int) -> int:
+        
+        if not a:
+            return -1
+
+        left, right = 0, len(a) - 1
+
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            # numerous cases
+
+              #
+             # 
+            #    
+                 #
+                #
+
+            if a[mid] > a[right]: # on top-left segment
+                if a[left] <= target <= a[mid]:
+                    right = mid
+                else:
+                    left = mid
+
+            else: # on bottom-right segment
+                if a[mid] <= target <= a[right]:
+                    left = mid
+                else:
+                    right = mid
+        
+        if a[left] == target:
+            return left
+        if a[right] == target:
+            return right
+        
+        return -1
+```
+
+---
+
+:orange_book: [75 · Find Peak Element](https://www.lintcode.com/problem/75/): Identify which segment is [mid] located at
+
+```
+class Solution:
+    """
+    @param A: An integers array.
+    @return: return any of peek positions.
+    """
+    def findPeak(self, A):
+        # write your code here
+        if not A:
+            return -1
+
+        # idea: find the minimum index s.t. it is a peak
+
+        if A[0] > A[1]: # first element is a peak
+            return 0
+        
+        if A[-1] > A[-2]: # last element is a peak
+            return len(A) - 1
+
+        left, right = 0, len(A) - 1
+
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            if A[mid] > A[mid - 1]: # going upwards
+                left = mid
+            else: # going downwards
+                right = mid
+            
+        return left if A[left] > A[right] else right
+```
+
+---
+
+:closed_book: [183 · Wood Cut](https://www.lintcode.com/problem/183/): Maximize length of small pieces [mid] s.t. [mid] satisfies the given conditions
+
+```
+class Solution:
+    """
+    @param l: Given n pieces of wood with length L[i]
+    @param k: An integer
+    @return: The maximum length of the small pieces
+    """
+
+    def wood_cut(self, l: List[int], k: int) -> int:
+
+        if not l:
+            return 0
+
+        def feasible(L, mid) -> bool:
+            count = 0
+            for length in L:
+                count += length // mid
+            return count >= k
+
+        # binary search on the length of the small pieces
+        left, right = 1, max(l)
+
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            if feasible(l, mid): # if feasible, look for larger results (maximize)
+                left = mid
+            else:
+                right = mid
+
+        if feasible(l, right):
+            return right
+        if feasible(l, left):
+            return left
+
+        return 0
+```
+
+---
+
+
+
 
