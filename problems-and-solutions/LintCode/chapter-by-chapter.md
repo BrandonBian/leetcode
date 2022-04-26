@@ -20,7 +20,7 @@
 
 ## Chapter 3: Introduction (Part III)
 
-:green_book: [13 · Implement strStr()](https://www.lintcode.com/problem/13/): Naive for loop / Rabin-Karp
+:green_book: [13 · Implement strStr()](https://www.lintcode.com/problem/13/): Naive for loop
 
 :orange_book: [187 · Gas Station](https://www.lintcode.com/problem/187/): Greedy algorithm
 
@@ -55,3 +55,43 @@
 :green_book: [457 · Classical Binary Search](https://www.lintcode.com/problem/457/): Binary Search using the template
 
 :green_book: [458 · Last Position of Target](https://www.lintcode.com/problem/458/): Binary Search using the template
+
+---
+
+## Auxiliary Problems: Ch. 1 ~ 7
+
+:green_book: [1790 · Rotate String II](https://www.lintcode.com/problem/1790/description?_from=collection&fromId=161): String manipulation and modulus operation
+
+:closed_book: [594 · strStr II](https://www.lintcode.com/problem/594/?_from=collection&fromId=161): Rabin-Karp (Hashing)
+
+:closed_book: [841 · String Replace](https://www.lintcode.com/problem/841/?_from=collection&fromId=161): A enumerating method using Set and Dictionary
+
+---
+
+## Chapter 8 (LIVE): Face-to-face Two Pointers & Partition Problems
+
+:green_book: [56 · Two Sum](https://www.lintcode.com/problem/56/): Sort, then face-to-face two pointers
+
+:green_book: [607 · Two Sum III - Data structure design](https://www.lintcode.com/problem/607/): Data structure design, add and find functionalities
+
+:orange_book: [57 · 3Sum](https://www.lintcode.com/problem/57/?_from=collection&fromId=161): Reduce to 2Sum, removing duplicates
+
+:orange_book: [382 · Triangle Count](https://www.lintcode.com/problem/382/): Fix longest edge and 2Sum on shorter ones
+
+:orange_book: [31 · Partition Array](https://www.lintcode.com/problem/31/): Two pointers from either end of array going to middle, exchange misplaced elements
+
+:orange_book: [148 · Sort Colors](https://www.lintcode.com/problem/148/): Quick sort partition (also two pointers)
+
+:orange_book: [143 · Sort Colors II](https://www.lintcode.com/problem/143/): Arbitrary number of colors, two pointers partitioning with Recursion
+
+:green_book: [539 · Move Zeroes](https://www.lintcode.com/problem/539/): Two pointers, one for filling, one for moving
+
+---
+
+## Chapter 9 (LIVE): Binary Search
+
+:orange_book: [447 · Search in a Big Sorted Array](https://www.lintcode.com/problem/447/): Exponential Backoff & Binary Search
+
+:orange_book: [460 · Find K Closest Elements](https://www.lintcode.com/problem/460/): Binary Search find upper closest index then compare bottom and left interleavingly
+
+---
