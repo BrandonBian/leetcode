@@ -94,4 +94,14 @@
 
 :orange_book: [460 · Find K Closest Elements](https://www.lintcode.com/problem/460/): Binary Search find upper closest index then compare bottom and left interleavingly
 
+:orange_book: [585 · Maximum Number in Mountain Sequence](https://www.lintcode.com/problem/585/): Identify whether [mid] is on increasing or decreasing side
+
+:orange_book: [159 · Find Minimum in Rotated Sorted Array](https://www.lintcode.com/problem/159/): Identify which segment is [mid] located at
+
+:orange_book: [62 · Search in Rotated Sorted Array](https://www.lintcode.com/problem/62/): Identify which segment is [mid] located at
+
+:orange_book: [75 · Find Peak Element](https://www.lintcode.com/problem/75/): Identify which segment is [mid] located at
+
+:closed_book: [183 · Wood Cut](https://www.lintcode.com/problem/183/): Maximize length of small pieces [mid] s.t. [mid] satisfies the given conditions
+
 ---
