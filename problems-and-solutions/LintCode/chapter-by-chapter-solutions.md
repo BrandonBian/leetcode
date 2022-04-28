@@ -2065,6 +2065,218 @@ class Solution:
 
 ---
 
+:green_book: [596 · Minimum Subtree](https://www.lintcode.com/problem/596/): Similar to [628 · Maximum Subtree](https://www.lintcode.com/problem/628/) but using global variables
+
+```
+class Solution:
+    """
+    @param root: the root of binary tree
+    @return: the root of the minimum subtree
+    """
+    def find_subtree(self, root: TreeNode) -> TreeNode:
+        
+        if not root:
+            return None
+        if not root.left and not root.right:
+            return root
+        
+        self.minimum_sum = float('inf') # global variable
+        self.minimum_node = None # global variable
+        self.get_tree_sum(root)
+
+        return self.minimum_node
+        
+    def get_tree_sum(self, root): # get the sum of the current tree from [root]
+        if not root:
+            return 0
+        
+        left_sum = self.get_tree_sum(root.left)
+        right_sum = self.get_tree_sum(root.right)
+        current_sum = left_sum + right_sum + root.val
+
+        if current_sum <= self.minimum_sum:
+            self.minimum_sum = current_sum
+            self.minimum_node = root
+
+        return current_sum
+```
+
+---
+
+:green_book: [474 · Lowest Common Ancestor II](https://www.lintcode.com/problem/474/): LCA but with parent pointer
+
+```
+class Solution:
+    """
+    @param: root: The root of the tree
+    @param: A: node in the tree
+    @param: B: node in the tree
+    @return: The lowest common ancestor of A and B
+    """
+    def lowestCommonAncestorII(self, root, A, B):
+        
+        parent_set = set()
+
+        curr = A
+        while curr: # put all ancestors of A into the set
+            parent_set.add(curr)
+            curr = curr.parent
+
+        curr = B
+        while curr:
+            if curr in parent_set: # in the order from down to up to ensure LEAST common ancestor
+                return curr
+            curr = curr.parent
+        
+        return None
+```
+
+---
+
+:orange_book: [88 · Lowest Common Ancestor of a Binary Tree](https://www.lintcode.com/problem/88/): LCA but regular without parent pointer
+
+```
+class Solution:
+    """
+    @param: root: The root of the binary tree.
+    @param: A: A TreeNode in a Binary.
+    @param: B: A TreeNode in a Binary.
+    @return: Return the least common ancestor(LCA) of the two nodes.
+    """
+    def lowestCommonAncestor(self, root, A, B):
+        
+        if not root:
+            return None
+
+        # idea: find where A and B exists
+
+        if root == A or root == B:
+            return root
+        
+        left = self.lowestCommonAncestor(root.left, A, B)  
+        right = self.lowestCommonAncestor(root.right, A, B)
+
+        if left and right: # if A and B on either side, this is the LCA
+            return root
+        if left: # if A and B both on left, go left
+            return left
+        if right: # if A and B both on right, go right
+            return right
+        return None # A and B does not exist in this tree
+```
+
+---
+
+:orange_book: [578 · Lowest Common Ancestor III](https://www.lintcode.com/problem/578/): LCA but does not guarantee that A, or B, or LCA exists
+
+```
+class Solution:
+    """
+    @param: root: The root of the binary tree.
+    @param: A: A TreeNode
+    @param: B: A TreeNode
+    @return: Return the LCA of the two nodes.
+    """
+    def lowestCommonAncestor3(self, root, A, B):
+
+        if not root:
+            return None
+
+        a_exists, b_exists, lca = self.helper(root, A, B)
+        return lca if a_exists and b_exists else None
+    
+    def helper(self, root, A, B):
+        # return: a exists, b exists, LCA node
+
+        if not root:
+            return False, False, None
+        
+        left_a_exists, left_b_exists, left_node = self.helper(root.left, A, B)
+        right_a_exists, right_b_exists, right_node = self.helper(root.right, A, B)
+
+        a_exists = left_a_exists or right_a_exists or root == A
+        b_exists = left_b_exists or right_b_exists or root == B
+
+        if root == A or root == B:
+            return a_exists, b_exists, root
+        
+        if left_node and right_node:
+            return a_exists, b_exists, root
+        
+        if left_node:
+            return a_exists, b_exists, left_node
+        
+        if right_node:
+            return a_exists, b_exists, right_node
+        
+        return a_exists, b_exists, None
+```
+
+---
+
+:green_book: [453 · Flatten Binary Tree to Linked List](https://www.lintcode.com/problem/453/): Break up to left and right tree and flatten and connect using DFS
+
+```
+class Solution:
+    """
+    @param root: a TreeNode, the root of the binary tree
+    @return: nothing
+    """
+    def flatten(self, root: TreeNode):
+        # idea: DFS pre-order traversal, then put things together
+        self.flatten_and_return_last_node(root)
+
+    def flatten_and_return_last_node(self, root): # return last node after flattening
+        if not root:
+            return None
+        
+        left_last = self.flatten_and_return_last_node(root.left)
+        right_last = self.flatten_and_return_last_node(root.right)
+
+        if left_last: # we need to flatten
+            left_last.right = root.right
+            root.right = root.left
+            root.left = None
+        
+        return right_last or left_last or root
+```
+
+---
+
+:orange_book: [902 · Kth Smallest Element in a BST](https://www.lintcode.com/problem/902/description): In-order traversal on BST and find k-th traversed element
+
+```
+class Solution:
+    """
+    @param root: the given BST
+    @param k: the given k
+    @return: the kth smallest element in BST
+    """
+    def kth_smallest(self, root: TreeNode, k: int) -> int:
+        # idea: use in-order traversal and find the k-th traversed element
+
+        self.result = None
+        self.count = 0
+        self.inorder(root, k)
+        return self.result
+    
+    def inorder(self, root, k):
+        if not root:
+            return
+
+        self.inorder(root.left, k)
+
+        self.count += 1
+        if k == self.count:
+            self.result = root.val
+
+        self.inorder(root.right, k)
+```
+
+---
+
+
+
 
 
 
