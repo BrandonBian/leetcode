@@ -105,3 +105,53 @@
 :closed_book: [183 · Wood Cut](https://www.lintcode.com/problem/183/): Maximize length of small pieces [mid] s.t. [mid] satisfies the given conditions
 
 ---
+
+## Chapter 10: Queues
+
+:green_book: [492 · Implement Queue by Linked List](https://www.lintcode.com/problem/492/): Implementing enqueue and dequeue (using Linked Lists)
+
+---
+
+## Chapter 11: BFS and Graphs
+
+:green_book: [69 · Binary Tree Level Order Traversal](https://www.lintcode.com/problem/69/): BFS using single queue / double queue / dummy nodes
+
+:orange_book: [1179 · Friend Circles](https://www.lintcode.com/problem/1179/): BFS with a dictionary to track visited nodes
+
+---
+
+## Chapter 12: DFS Traversal on BST
+
+:green_book: [480 · Binary Tree Paths](https://www.lintcode.com/problem/480/): DFS on BST
+
+:green_book: [93 · Balanced Binary Tree](https://www.lintcode.com/problem/93/): DFS on BST with multiple return values
+
+:green_book: [97 · Maximum Depth of Binary Tree](https://www.lintcode.com/problem/97/): DFS on BST
+
+:green_book: [628 · Maximum Subtree](https://www.lintcode.com/problem/628/): DFS on BST with multiple return values
+
+---
+
+## Chapter 13: Non-recursion Traversal on BST
+
+:closed_book: [86 · Binary Search Tree Iterator](https://www.lintcode.com/problem/86/): Using stack
+
+:green_book: [900 · Closest Binary Search Tree Value](https://www.lintcode.com/problem/900/): Basic binary search tree traversal
+
+---
+
+## Chapter 14 (LIVE): BFS
+
+:orange_book: [137 · Clone Graph](https://www.lintcode.com/problem/137/): BFS to find all nodes, then create mappings for new nodes and populate edge connections
+
+:closed_book: [120 · Word Ladder](https://www.lintcode.com/problem/120/): Change problem to a graph and run BFS with set
+
+:green_book: [433 · Number of Islands](https://www.lintcode.com/problem/433/): BFS on 2D matrix, need to identify whether step is valid
+
+:orange_book: [611 · Knight Shortest Path](https://www.lintcode.com/problem/611/): BFS on 2D matrix, need to identify whether step is valid
+
+:orange_book: [616 · Course Schedule II](https://www.lintcode.com/problem/616/): Topological sorting with adjacency, in degree, and BFS manipulation
+
+:closed_book: [892 · Alien Dictionary](https://www.lintcode.com/problem/892/): Topological sorting with adjacency, in degree, and BFS with heapify manipulation
+
+---
