@@ -1307,6 +1307,764 @@ class Solution:
 
 ---
 
+## Chapter 10: Queues
+
+:green_book: [492 · Implement Queue by Linked List](https://www.lintcode.com/problem/492/): Implementing enqueue and dequeue (using Linked Lists)
+
+```
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+class MyQueue: # queue: first in first out
+    """
+    @param: item: An integer
+    @return: nothing
+    """
+
+    def __init__(self):
+        # two pointers, one pointing at the head Node and one at the tail Node
+        self.head, self.tail = None, None
+
+    def enqueue(self, item):
+        if self.head is None: # if no element, add this item as the single element
+            self.head = Node(item)
+            self.tail = self.head # since we only have this one element
+        
+        else:
+            self.tail.next = Node(item) # add item as the last element
+            self.tail = self.tail.next
+
+    """
+    @return: An integer
+    """
+    def dequeue(self): # dequeue from head to tail
+        
+        if self.head is not None:
+            item = self.head.val
+            self.head = self.head.next
+            return item
+        
+        return -1
+```
+
+---
+
+## Chapter 11: BFS and Graphs
+
+:green_book: [69 · Binary Tree Level Order Traversal](https://www.lintcode.com/problem/69/): BFS using single queue / double queue / dummy nodes
+
+- **Single Queue**
+
+```
+class Solution:
+    """
+    @param root: A Tree
+    @return: Level order a list of lists of integer
+    """
+    def level_order(self, root: TreeNode) -> List[List[int]]:
+        # using single queue
+        from collections import deque
+        result = []
+
+        if not root:
+            return []
+        if not root.left and not root.right:
+            return [root.val]
+
+        # put the root node in the queue
+        queue = deque([root])
+
+        while queue:
+
+            # store the values of all nodes in this level
+            result.append([node.val for node in queue])
+            
+            # expand each node in current level
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+
+        return result
+```
+
+---
+
+- **Double Queue**
+
+```
+class Solution:
+    """
+    @param root: A Tree
+    @return: Level order a list of lists of integer
+    """
+    def level_order(self, root: TreeNode) -> List[List[int]]:
+        # using two queues
+
+        if not root:
+            return []
+        if not root.left and not root.right:
+            return [root.val]
+
+        result = []
+        current_queue = [root] # current level
+
+        while current_queue:
+            next_queue = [] # next level
+            result.append([node.val for node in current_queue])
+
+            for node in current_queue:
+                if node.left:
+                    next_queue.append(node.left)
+                if node.right:
+                    next_queue.append(node.right)
+            
+            current_queue = next_queue
+        
+        return result
+```
+
+---
+
+- **Dummy Nodes (not that recommended since it's not quite straightforward)**:
+
+```
+class Solution:
+    """
+    @param root: A Tree
+    @return: Level order a list of lists of integer
+    """
+    def level_order(self, root: TreeNode) -> List[List[int]]:
+        # using dummy nodes (appending None after storing all nodes of a level)
+        from collections import deque
+
+        if not root:
+            return []
+        if not root.left and not root.right:
+            return [root.val]
+
+        queue = deque([root, None])
+        results, level = [], []
+
+        while queue:
+            node = queue.popleft()
+            if node is None: # we have reached the end of this level
+                results.append(level)
+                level = []
+                if queue:
+                    queue.append(None)
+                continue
+            level.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        
+        return results
+```
+
+---
+
+:orange_book: [1179 · Friend Circles](https://www.lintcode.com/problem/1179/): BFS with a dictionary to track visited nodes
+
+```
+from collections import deque
+
+class Solution:
+    """
+    @param m: a matrix
+    @return: the total number of friend circles among all the students
+    """
+    def find_circle_num(self, m: List[List[int]]) -> int:
+        # BFS using queue
+        return self.bfs(m)
+
+
+    def bfs(self, m):
+
+        n = len(m) # total number of people
+        answer = 0 # if a person has not been visited, then we have a new circle
+
+        visited = {} # note down who we have already visited
+        for i in range(n):
+            visited[i] = False # initially we have not visited any of them
+
+        # enumerate each person, if it is not visted, do BFS from it
+        for i in range(n):
+            if not visited[i]: # first time we visited this person, so we have a new circle
+                answer += 1
+                visited[i] = True
+                queue = deque([i]) # BFS from this person
+
+                while queue:
+                    # find a person
+                    now = queue.popleft()
+                    # visit its friends
+                    for j in range(n): # if we find a person who is not visited and is friend
+                        if m[now][j] == 1 and visited[j] == False:
+                            visited[j] = True
+                            queue.append(j)
+
+        return answer
+```
+
+
+---
+
+## Chapter 12: DFS Traversal on BST
+
+:green_book: [480 · Binary Tree Paths](https://www.lintcode.com/problem/480/): DFS on BST
+
+```
+class Solution:
+    """
+    @param root: the root of the binary tree
+    @return: all root-to-leaf paths
+             we will sort your return value in output
+    """
+    def binary_tree_paths(self, root: TreeNode) -> List[str]:
+        # DFS divide-and-conquer
+
+        if not root:
+            return []
+        if not root.left and not root.right:
+            return [str(root.val)]
+
+        result = []
+        self.dfs(root, "", result)
+        
+        return result
+
+
+    def dfs(self, node, path, result):
+        if not node.left and not node.right:
+            result.append(path + str(node.val))
+            return
+        
+        if node.left: # DFS on left subtree
+            self.dfs(node.left, path + str(node.val) + "->", result)
+        if node.right: # DFS on right subtree
+            self.dfs(node.right, path + str(node.val) + "->", result)
+```
+
+---
+
+:green_book: [93 · Balanced Binary Tree](https://www.lintcode.com/problem/93/): DFS on BST with multiple return values
+
+```
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: True if this Binary tree is Balanced, or false.
+    """
+    def is_balanced(self, root: TreeNode) -> bool:
+        
+        if not root or (not root.left and not root.right):
+            return True
+
+        return self.divide_and_conquer(root)[0]
+
+    def divide_and_conquer(self, root):
+        # [whether is balanced], [maximum depth]
+
+        if not root:
+            return True, 0
+
+        is_left_balanced, left_height = self.divide_and_conquer(root.left)
+        is_right_balanced, right_height = self.divide_and_conquer(root.right)
+        root_height = max(left_height, right_height) + 1
+
+        if not is_left_balanced or not is_right_balanced:
+            return False, root_height
+        
+        # if left and right both balanced, check if their heights do not differ by more than 1
+        if abs(left_height - right_height) > 1: # never differ by MORE THAN 1
+            return False, root_height
+
+        return True, root_height
+```
+
+---
+
+:green_book: [97 · Maximum Depth of Binary Tree](https://www.lintcode.com/problem/97/): DFS on BST
+
+```
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: An integer
+    """
+    def max_depth(self, root: TreeNode) -> int:
+        
+        if not root:
+            return 0
+        if not root.left and not root.right:
+            return 1
+
+        return self.find_max_depth(root)
+
+    def find_max_depth(self, root):
+        # find the maximum depth of the subtree beginning from [root]
+        if not root:
+            return 0
+        
+        left_depth = self.find_max_depth(root.left) + 1
+        right_depth = self.find_max_depth(root.right) + 1
+
+        return max(left_depth, right_depth)
+```
+
+---
+
+:green_book: [628 · Maximum Subtree](https://www.lintcode.com/problem/628/): DFS on BST with multiple return values
+
+```
+class Solution:
+    """
+    @param root: the root of binary tree
+    @return: the maximum weight node
+    """
+    def findSubtree(self, root):
+        sum, max_sum, max_subtree = self.get_sum(root)
+        return max_subtree
+    
+    # sum, maximum sum, root
+    def get_sum(self, root):
+
+        if root is None:
+            return -sys.maxsize, -sys.maxsize, None
+
+        left_sum, left_max_sum, left_max_subtree = self.get_sum(root.left)
+        right_sum, right_max_sum, right_max_subtree = self.get_sum(root.right)
+        max_sum = sys.maxsize
+
+        sum = root.val
+        if root.left is not None:
+            sum += left_sum
+        if root.right is not None:
+            sum += right_sum
+        max_sum = max(left_max_sum, right_max_sum, sum)
+        
+        if sum == max_sum:
+            return sum, max_sum, root
+        if left_max_sum == max_sum:
+            return sum, max_sum, left_max_subtree
+
+        return sum, max_sum, right_max_subtree
+```
+
+---
+
+## Chapter 12: Non-recursion Traversal on BST
+
+:closed_book: [86 · Binary Search Tree Iterator](https://www.lintcode.com/problem/86/): Using stack
+
+```
+class BSTIterator:
+    """
+    @param: root: The root of binary tree.
+    """
+    def __init__(self, root):
+        # do intialization if necessary
+        self.stack = []
+        while root: # go to the left most element and record path taken
+            self.stack.append(root)
+            root = root.left
+
+    """
+    @return: True if there has next node, or false
+    """
+    def hasNext(self):
+        return len(self.stack) > 0
+
+    """
+    @return: return next node (return the next smallest element in the BST)
+    """
+    def _next(self):
+        node = self.stack[-1] # the last element of the stack
+        if node.right: # if it has a right child, find the smallest value in right subtree
+            n = node.right
+            while n:
+                self.stack.append(n)
+                n = n.left
+
+        else:
+            n = self.stack.pop()
+            while self.stack and self.stack[-1].right == n: # this node is right child of parent
+                n = self.stack.pop()
+        
+        return node
+```
+
+---
+
+:green_book: [900 · Closest Binary Search Tree Value](https://www.lintcode.com/problem/900/): Basic binary search tree traversal
+
+```
+class Solution:
+    """
+    @param root: the given BST
+    @param target: the given target
+    @return: the value in the BST that is closest to the target
+    """
+    def closest_value(self, root: TreeNode, target: float) -> int:
+        closest = root.val
+
+        while root:
+            if abs(closest - target) >= abs(root.val - target): # if we get a closer choice
+                closest = root.val
+            if root.val < target:
+                root = root.right
+            else:
+                root = root.left
+
+        return closest
+```
+
+---
+
+:orange_book: [137 · Clone Graph](https://www.lintcode.com/problem/137/): BFS to find all nodes, then create mappings for new nodes and populate edge connections
+
+```
+from collections import deque
+
+class Solution:
+    """
+    @param node: A undirected graph node
+    @return: A undirected graph node
+    """
+    def clone_graph(self, node: UndirectedGraphNode) -> UndirectedGraphNode:
+        # using BFS (queue)
+        # 3 steps: find nodes, copy nodes, copy edges
+
+        if not node:
+            return None
+
+        # find nodes by BFS from this node
+        nodes = self.find_nodes_by_bfs(node)
+        # copy nodes (the mapping)
+        mapping = self.copy_nodes(nodes)
+        # copy edges
+        self.copy_edges(nodes, mapping)
+
+        return mapping[node] # return the node in the cloned graph
+
+    def find_nodes_by_bfs(self, node):
+        queue = deque([node])
+        visited = set([node]) # save all the visted nodes without repetition
+
+        while queue:
+            current_node = queue.popleft()
+            for neighbor in current_node.neighbors:
+                if neighbor in visited:
+                    continue
+                queue.append(neighbor)
+                visited.add(neighbor)
+
+        return visited
+
+    def copy_nodes(self, nodes):
+        # map each old node to new ones
+        mapping = {}
+        for node in nodes:
+            mapping[node] = UndirectedGraphNode(node.label)
+        return mapping
+
+    def copy_edges(self, nodes, mapping):
+        # populate the [neighbors] for the mapping
+        for node in nodes:
+            new_node = mapping[node]
+            for neighbor in node.neighbors:
+                new_neighbor = mapping[neighbor]
+                new_node.neighbors.append(new_neighbor)
+```
+
+---
+
+:closed_book: [120 · Word Ladder](https://www.lintcode.com/problem/120/): Change problem to a graph and run BFS with set
+
+```
+class Solution:
+    """
+    @param start: a string
+    @param end: a string
+    @param dict: a set of string
+    @return: An integer
+    """
+    def ladder_length(self, start: str, end: str, dict: Set[str]) -> int:
+        
+        dict.add(end) # we must include the end word, but no need to add the start word
+        
+        from collections import deque
+        queue = deque([start])
+        visited = set([start])
+
+        distance = 0
+        
+        while queue: # BFS
+            distance += 1
+            for i in range(len(queue)): # for each node in this level
+                word = queue.popleft()
+                if word == end: # if this word is the end, we have reached the end
+                    return distance
+
+                for next_word in self.get_next_words(word, dict):
+                    if next_word in visited:
+                        continue
+                    queue.append(next_word)
+                    visited.add(next_word)
+        
+        return 0
+
+    def get_next_words(self, word, dict):
+        # return a list of possible choices
+        next_words = []
+
+        for i in range(len(word)):
+            left, right = word[:i], word[i + 1:]
+            for char in "abcdefghijklmnopqrstuvwxyz": # change to each possible word
+                if word[i] == char:
+                    continue
+                new_word = left + char + right # replace the i-th character to a new char
+                if new_word in dict:
+                    next_words.append(new_word)
+            
+        return next_words
+```
+
+---
+
+:green_book: [433 · Number of Islands](https://www.lintcode.com/problem/433/): BFS on 2D matrix, need to identify whether step is valid
+
+```
+DIRECTIONS = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+from collections import deque
+
+class Solution:
+    """
+    @param grid: a boolean 2D matrix
+    @return: an integer
+    """
+    def num_islands(self, grid: List[List[bool]]) -> int:
+        
+        if not grid:
+            return 0
+
+        num_islands = 0
+        visited = set()
+
+        for i in range(len(grid)): # row
+            for j in range(len(grid[0])): # col
+                # if this point is an insland and hasn't been visited
+                if grid[i][j] == 1 and (i, j) not in visited:
+                    self.bfs(grid, i, j, visited)
+                    num_islands += 1
+        
+        return num_islands
+
+    def bfs(self, grid, x, y, visited):
+        queue = deque([(x, y)])
+        visited.add((x, y))
+        while queue:
+            x, y = queue.popleft()
+            for delta_x, delta_y in DIRECTIONS:
+                next_x = x + delta_x
+                next_y = y + delta_y 
+                
+                if not self.is_valid(grid, next_x, next_y, visited):
+                    continue
+
+                queue.append((next_x, next_y))
+                visited.add((next_x, next_y))
+
+    def is_valid(self, grid, x, y, visited):
+        if not (0 <= x < len(grid) and 0 <= y < len(grid[0])):
+            return False
+        if (x, y) in visited:
+            return False
+        return True if grid[x][y] == 1 else False
+```
+
+---
+
+:orange_book: [611 · Knight Shortest Path](https://www.lintcode.com/problem/611/): BFS on 2D matrix, need to identify whether step is valid
+
+```
+OFFSETS = [(1, 2), (1, -2), (-1, 2), (-1, -2),
+           (2, 1), (2, -1), (-2, 1), (-2, -1)]
+
+class Solution:
+    """
+    @param grid: a chessboard included 0 (false) and 1 (true)
+    @param source: a point
+    @param destination: a point
+    @return: the shortest path 
+    """
+    def shortest_path(self, grid: List[List[bool]], source: Point, destination: Point) -> int:
+        
+        if not grid:
+            return -1
+        from collections import deque
+
+        cell_to_des_dist = {(source.x, source.y): 0}
+        queue = deque([(source.x, source.y)])
+
+        while queue:
+            x, y = queue.popleft()
+            if (x, y) == (destination.x, destination.y): # we reached destination
+                return cell_to_des_dist[(x, y)]        
+
+            for dx, dy in OFFSETS:
+                next_x = x + dx
+                next_y = y + dy
+
+                if not self.is_valid(next_x, next_y, grid, cell_to_des_dist):
+                    continue
+                
+                queue.append((next_x, next_y))
+                # we went one more step but didn't reach the destination
+                cell_to_des_dist[(next_x, next_y)] = cell_to_des_dist[(x, y)] + 1
+
+        return -1
+        
+    def is_valid(self, x, y, grid, cell_to_des_dist):
+        if x < 0 or x >= len(grid) or y < 0 or y >= len(grid[0]): # out of board range
+            return False
+        if (x, y) in cell_to_des_dist: # we have visited
+            return False
+        return True if grid[x][y] == 0 else False # this place should be empty
+```
+
+---
+
+:orange_book: [616 · Course Schedule II](https://www.lintcode.com/problem/616/): Topological sorting with adjacency, in degree, and BFS manipulation
+
+```
+class Solution:
+    """
+    @param num_courses: a total of n courses
+    @param prerequisites: a list of prerequisite pairs
+    @return: the course order
+    """
+    def find_order(self, num_courses: int, prerequisites: List[List[int]]) -> List[int]:
+        # idea: find the in-degree of each node, 
+        # put each node with 0 in-degree into a queue as starting nodes
+        # Repeat: take one node from queue and -1 in-degree for connected nodes
+        # if we find a new node with 0 in-degree, add it to queue
+
+        # create an adjacency matrix (store neighboring nodes)
+        graph = [[] for i in range(num_courses)]
+        
+        # identify the in-degree of each node and construct adjacency matrix
+        in_degree = [0] * num_courses
+        for node_in, node_out in prerequisites:
+            graph[node_out].append(node_in)
+            in_degree[node_in] += 1
+
+        # put each node with in-degree = 0 into a queue
+        from collections import deque
+        queue = deque()
+
+        for i in range(num_courses):
+            if in_degree[i] == 0: # we can learn this class
+                queue.append(i)
+
+        topo_order = []
+
+        while queue:
+            now_pos = queue.popleft()
+            topo_order.append(now_pos)
+
+            # for each neighboring node, in-degree decrement by 1
+            for next_pos in graph[now_pos]:
+                in_degree[next_pos] -= 1
+                if in_degree[next_pos] == 0:
+                    queue.append(next_pos)
+
+        # return topological order if we have finished all required courses
+        # else there are classes that is impossible to take what-so-ever
+        return topo_order if len(topo_order) == num_courses else []
+```
+
+---
+
+:closed_book: [892 · Alien Dictionary](https://www.lintcode.com/problem/892/): Topological sorting with adjacency, in degree, and BFS with heapify manipulation
+
+```
+from heapq import heappush, heappop, heapify
+
+class Solution:
+    """
+    @param words: a list of words
+    @return: a string which is correct order
+    """
+    def alien_order(self, words: List[str]) -> str:
+        
+        if not words:
+            return ""
+
+        graph = self.build_graph(words)
+        if not graph:
+            return ""
+        
+        return self.topological_sort(graph)
+    
+    def build_graph(self, words):
+        # <char, subsequent chars>
+        graph = {}
+
+        # create the nodes
+        for word in words:
+            for c in word:
+                if c not in graph:
+                    graph[c] = set()
+
+        # create the edges
+        for i in range(len(words) - 1): # compare each word with the subsequent one
+            for j in range(min(len(words[i]), len(words[i + 1]))):
+                if words[i][j] != words[i+1][j]:
+                    graph[words[i][j]].add(words[i + 1][j])
+                    break
+                # e.g. ["abc", "ab"] where "abc" is before "ab", illegal
+                if j == min(len(words[i]), len(words[i + 1])) - 1:
+                    if len(words[i]) > len(words[i + 1]):
+                        return None
+        
+        return graph
+
+    def topological_sort(self, graph):
+        indegree = self.get_indegree(graph)
+        queue = [node for node in graph if indegree[node] == 0] # put nodes with indegree 0 in queue
+
+        heapify(queue)
+        topo_order = ""
+
+        while queue:
+            node = heappop(queue)
+            topo_order += node
+            for neighbor in graph[node]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    heappush(queue, neighbor)
+
+        return topo_order if len(topo_order) == len(graph) else ""
+
+    def get_indegree(self, graph):
+        indegree = {node: 0 for node in graph}
+
+        for node in graph:
+            for neighbor in graph[node]: # it has node as an ancestor
+                indegree[neighbor] += 1     
+        
+        return indegree
+```
+
+---
+
 
 
 
