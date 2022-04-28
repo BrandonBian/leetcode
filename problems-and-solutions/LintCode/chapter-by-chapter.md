@@ -155,3 +155,17 @@
 :closed_book: [892 · Alien Dictionary](https://www.lintcode.com/problem/892/): Topological sorting with adjacency, in degree, and BFS with heapify manipulation
 
 ---
+
+## Chapter 5 (LIVE): Divide-and-Conquer for Binary Trees
+
+:green_book: [596 · Minimum Subtree](https://www.lintcode.com/problem/596/): Similar to [628 · Maximum Subtree](https://www.lintcode.com/problem/628/) but using global variables
+
+:green_book: [474 · Lowest Common Ancestor II](https://www.lintcode.com/problem/474/): LCA but with parent pointer
+
+:orange_book: [88 · Lowest Common Ancestor of a Binary Tree](https://www.lintcode.com/problem/88/): LCA but regular without parent pointer
+
+:orange_book: [578 · Lowest Common Ancestor III](https://www.lintcode.com/problem/578/): LCA but does not guarantee that A, or B, or LCA exists
+
+:green_book: [453 · Flatten Binary Tree to Linked List](https://www.lintcode.com/problem/453/): Break up to left and right tree and flatten and connect using DFS
+
+:orange_book: [902 · Kth Smallest Element in a BST](https://www.lintcode.com/problem/902/description): In-order traversal on BST and find k-th traversed element
