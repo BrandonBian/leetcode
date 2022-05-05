@@ -2275,6 +2275,205 @@ class Solution:
 
 ---
 
+## Chapter 16: DFS for Combination
+
+:orange_book: [17 · Subsets](https://www.lintcode.com/problem/17/): DFS for combination + iterating each possible subset length
+
+```
+class Solution:
+    """
+    @param nums: A set of numbers
+    @return: A list of lists
+             we will sort your return value in output
+    """
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return [[]]
+        
+        result = []
+        nums = sorted(nums) # since solution set must be non-descending
+
+        for i in range(len(nums) + 1): # length of the subset
+            self.dfs(nums, i, [], result)
+        
+        return result
+        
+    
+    def dfs(self, candidates, target, path, result):
+        if target == 0:
+            result.append(path)
+            return
+        if target < 0:
+            return
+        
+        # idea: combination
+        for i in range(len(candidates)):
+            self.dfs(candidates[i+1:], target - 1, path + [candidates[i]], result)
+```
+
+---
+
+:orange_book: [18 · Subsets II](https://www.lintcode.com/problem/18): DFS for combination + iterating each possible subset length + duplicate removal
+
+```
+class Solution:
+    """
+    @param nums: A set of numbers.
+    @return: A list of lists. All valid subsets.
+             we will sort your return value in output
+    """
+    def subsets_with_dup(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return [[]]
+        
+        result = []
+        nums = sorted(nums)
+
+        for i in range(len(nums) + 1):
+            self.dfs(nums, i, [], result)
+        
+        return result
+    
+    def dfs(self, candidates, target, path, result):
+        if target == 0:
+            result.append(path)
+            return 
+        if target < 0:
+            return
+        
+        for i in range(len(candidates)):
+            if i > 0 and candidates[i] == candidates[i - 1]: # avoid duplicates
+                continue
+            
+            self.dfs(candidates[i + 1:], target - 1, path + [candidates[i]], result)
+```
+
+---
+
+## Chapter 17: DFS for Permutation
+
+:orange_book: [15 · Permutations](https://www.lintcode.com/problem/15/): DFS for permutation
+
+```
+class Solution:
+    """
+    @param nums: A list of integers.
+    @return: A list of permutations.
+             we will sort your return value in output
+    """
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        
+        if not nums:
+            return [[]]
+        
+        result = []
+        nums = sorted(nums)
+    
+        self.dfs(nums, [], result)
+        return result
+    
+    
+    def dfs(self, candidates, path, result):
+        if len(candidates) == 0:
+            result.append(path)
+            return 
+        
+        for i in range(len(candidates)): # assume no duplicate numbers in input
+            self.dfs(candidates[:i] + candidates[i+1:], path + [candidates[i]], result)
+```
+
+---
+
+:orange_book: [16 · Permutations II](https://www.lintcode.com/problem/16/): DFS for permutation + duplicate removal
+
+```
+class Solution:
+    """
+    @param nums: A list of integers
+    @return: A list of unique permutations
+             we will sort your return value in output
+    """
+    def permute_unique(self, nums: List[int]) -> List[List[int]]:
+        
+        if not nums:
+            return [[]]
+        
+        result = []
+        nums = sorted(nums)
+
+        self.dfs(nums, [], result)
+        return result
+
+        
+
+    def dfs(self, candidates, path, result):
+        if len(candidates) == 0:
+            result.append(path)
+        
+        for i in range(len(candidates)):
+            if i > 0 and candidates[i] == candidates[i - 1]:
+                continue
+            self.dfs(candidates[:i] + candidates[i+1:], path + [candidates[i]], result)
+```
+
+---
+
+:closed_book: [816 · Traveling Salesman Problem](https://www.lintcode.com/problem/816/): DFS for permutation + graph building
+
+- **Teacher's Method**:
+
+```
+class Solution:
+    """
+    @param n: an integer,denote the number of cities
+    @param roads: a list of three-tuples,denote the road between cities
+    @return: return the minimum cost to travel all cities
+    """
+
+    def min_cost(self, n: int, roads: List[List[int]]) -> int:
+
+        graph = self.build_graph(n, roads)
+        self.result = float('inf')
+        self.dfs(1, set([1]), 0, graph)
+
+        return self.result
+
+    
+    def dfs(self, city, visited, cost, graph): # dfs from [start] city
+
+        if len(visited) == len(graph):
+            self.result = min(self.result, cost)
+            return
+
+        for next_city in graph[city]: # for each reachable neighboring city
+            if next_city in visited:
+                continue
+            visited.add(next_city)
+
+            self.dfs(next_city, visited, cost + graph[city][next_city], graph)
+
+            visited.remove(next_city)
+
+
+    def build_graph(self, n, roads):
+
+        # graph[i][j] = cost between city i and city j
+        graph = { i : {} for i in range(1, n + 1)} # cities: 1, ... , n
+
+        for city_a, city_b, cost in roads:
+            if city_b not in graph[city_a]:
+                graph[city_a][city_b] = cost
+            else: # since there can be two roads between two cities
+                graph[city_a][city_b] = min(graph[city_a][city_b], cost)
+
+            if city_a not in graph[city_b]:
+                graph[city_b][city_a] = cost
+            else: # since there can be two roads between two cities
+                graph[city_b][city_a] = min(graph[city_b][city_a], cost)
+
+        return graph
+```
+
 
 
 
