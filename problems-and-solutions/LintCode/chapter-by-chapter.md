@@ -189,9 +189,19 @@
 :closed_book: [816 · Traveling Salesman Problem](https://www.lintcode.com/problem/816/): DFS for permutation + graph building
 
 
+---
 
+## Chapter 18: Hash Table
 
+:green_book: [128 · Hash Function](https://www.lintcode.com/problem/128/): Basic hashing
 
+:orange_book: [129 · Rehashing](https://www.lintcode.com/problem/129/): Re-calculating hash index and re-inserting all elements
 
+---
 
+## Chapter 19: Heap
+
+:orange_book: [130 · Heapify](https://www.lintcode.com/problem/130/): Using sift-down method
+
+---
 
