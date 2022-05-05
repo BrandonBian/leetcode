@@ -156,7 +156,7 @@
 
 ---
 
-## Chapter 5 (LIVE): Divide-and-Conquer for Binary Trees
+## Chapter 15 (LIVE): Divide-and-Conquer for Binary Trees
 
 :green_book: [596 · Minimum Subtree](https://www.lintcode.com/problem/596/): Similar to [628 · Maximum Subtree](https://www.lintcode.com/problem/628/) but using global variables
 
@@ -169,3 +169,29 @@
 :green_book: [453 · Flatten Binary Tree to Linked List](https://www.lintcode.com/problem/453/): Break up to left and right tree and flatten and connect using DFS
 
 :orange_book: [902 · Kth Smallest Element in a BST](https://www.lintcode.com/problem/902/description): In-order traversal on BST and find k-th traversed element
+
+---
+
+## Chapter 16: DFS for Combination
+
+:orange_book: [17 · Subsets](https://www.lintcode.com/problem/17/): DFS for combination + iterating each possible subset length
+
+:orange_book: [18 · Subsets II](https://www.lintcode.com/problem/18): DFS for combination + iterating each possible subset length + duplicate removal
+
+---
+
+## Chapter 17: DFS for Permutation
+
+:orange_book: [15 · Permutations](https://www.lintcode.com/problem/15/): DFS for permutation
+
+:orange_book: [16 · Permutations II](https://www.lintcode.com/problem/16/): DFS for permutation + duplicate removal
+
+:closed_book: [816 · Traveling Salesman Problem](https://www.lintcode.com/problem/816/): DFS for permutation + graph building
+
+
+
+
+
+
+
+
