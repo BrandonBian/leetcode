@@ -2474,6 +2474,119 @@ class Solution:
         return graph
 ```
 
+---
+
+## Chapter 18: Hash Table
+
+:green_book: [128 · Hash Function](https://www.lintcode.com/problem/128/): Basic hashing
+
+
+```
+class Solution:
+    """
+    @param key: A string you should hash
+    @param h_a_s_h__s_i_z_e: An integer
+    @return: An integer
+    """
+    def hash_code(self, key: str, h_a_s_h__s_i_z_e: int) -> int:
+        answer = 0
+        for i in range(len(key)):
+            answer = ((answer * 33) + ord(key[i])) % h_a_s_h__s_i_z_e
+        
+        # e.g., 10 * 33^2 + 20 * 33^1 + 30 * 33^0
+        #     = (10 * 33 + 20) * 33 + 30
+
+        return answer
+```
+
+---
+
+:orange_book: [129 · Rehashing](https://www.lintcode.com/problem/129/): Re-calculating hash index and re-inserting all elements
+
+
+```
+class Solution:
+    """
+    @param hashTable: A list of The first node of linked list
+    @return: A list of The first node of linked list which have twice size
+    """
+    def rehashing(self, hashTable):
+        
+        # 算扩容之后的 size (origin_len * 2)
+        # 遍历原来的 hashtable 和每个 listnode
+        # 重算在 new_hashtable 的 index
+        # 在新的位置已经有 node 就到 tails 里面找 tail 串，否则就初始化 heads[i] 和 tails[i]
+
+        if not hashTable:
+            return
+        
+        CAPACITY = len(hashTable) * 2
+
+        heads = [None] * CAPACITY
+        tails = [None] * CAPACITY
+
+        for node in hashTable:
+            cur = node
+
+            while cur:
+                i = cur.val % CAPACITY # recalculate hash index
+                _node = ListNode(cur.val) # copy the node
+
+                if heads[i]: # if this position is occupied
+                    tails[i].next = _node # add node to the end of index i
+                else:
+                    heads[i] = _node # add node as first of index i
+                
+                tails[i] = _node # consider this node as the last node of index i
+
+                cur = cur.next
+            
+        return heads
+```
+
+---
+
+## Chapter 19: Heap
+
+:orange_book: [130 · Heapify](https://www.lintcode.com/problem/130/): Using sift-down method
+
+```
+class Solution:
+    """
+    @param a: Given an integer array
+    @return: nothing
+    """
+    def heapify(self, a: List[int]):
+        
+        # idea: sift the lower half down
+        for i in reversed(range(len(a) // 2)):
+            self.sift_down(a, i)
+        
+    def sift_down(self, nums, index):
+       
+        while index < len(nums):
+            left_child = index * 2 + 1
+            right_child = index * 2 + 2
+            smallest = index # store the index of the smallest element
+
+            # compare with left child
+            if left_child < len(nums) and nums[left_child] < nums[smallest]:
+                smallest = left_child
+            # compare with right child
+            if right_child < len(nums) and nums[right_child] < nums[smallest]:
+                smallest = right_child
+
+            if index == smallest: # if we did not move at all, stop
+                break
+            
+            nums[smallest], nums[index] = nums[index], nums[smallest] # exchange elements
+            
+            index = smallest # go to the exchanged position
+```
+
+---
+
+
 
 
 
