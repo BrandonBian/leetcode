@@ -226,3 +226,21 @@
 :orange_book: [109 · Triangle](https://www.lintcode.com/problem/109/): Using DP -> dp[i][j] = cost to go from (0, 0) to this position (i, j)
 
 :green_book: [114 · Unique Paths](https://www.lintcode.com/problem/114/): Using DP -> dp[i][j] = # of unique paths to reach (i, j) from (0, 0)
+
+---
+
+## Chapter 24: Dynamic Programming Typical Problems
+
+:green_book: [115 · Unique Paths II](https://www.lintcode.com/problem/115): Problem 114 but with obstacles, similar DP
+
+:orange_book: [630 · Knight Shortest Path II](https://www.lintcode.com/problem/630/): Using DP -> dp[i][j] = minimum steps to reach (i, j) from (0, 0)
+
+:orange_book: [116 · Jump Game](https://www.lintcode.com/problem/116/): Using DP -> dp[i] = whether we can reach position [i]
+
+---
+
+## Chapter 25: Dynamic Programming Typical Problems
+
+:orange_book: [92 · Backpack](https://www.lintcode.com/problem/92/): Two DP methods
+
+
