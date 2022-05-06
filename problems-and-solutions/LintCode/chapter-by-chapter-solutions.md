@@ -2586,9 +2586,118 @@ class Solution:
 
 ---
 
+## Chapter 22: Memoization Search
 
+:orange_book: [109 · Triangle](https://www.lintcode.com/problem/109/): DFS but using memoization with HashMap to save intermediate results
 
+```
+class Solution:
+    """
+    @param triangle: a list of lists of integers
+    @return: An integer, minimum path sum
+    """
+    def minimum_total(self, triangle: List[List[int]]) -> int:
+        return self.divide_conquer(triangle, 0, 0, {})
 
+    # memo: {(x, y): the minimum cost from (x, y) to bottom}
+    def divide_conquer(self, triangle, x, y, memo):
+        if x == len(triangle): # we have reached the bottom level
+            return 0
+        
+        if (x, y) in memo: # we already searched here
+            return memo[(x, y)]
 
+        left = self.divide_conquer(triangle, x + 1, y, memo)
+        right = self.divide_conquer(triangle, x + 1, y + 1, memo)
 
+        memo[(x, y)] = min(left, right) + triangle[x][y]
+        return memo[(x, y)]
+```
+
+---
+
+:green_book: [1300 · Bash Game](https://www.lintcode.com/problem/1300/): DP will timeout, so using a clever method in O(1)
+
+```
+class Solution:
+    """
+    @param n: an integer
+    @return: whether you can win the game given the number of stones in the heap
+    """
+    def can_win_bash(self, n: int) -> bool:
+    #         1+3=4；只要最后对方拿时，剩余石头数是4，则我方必赢，因为无论对方拿几，我方都能一次拿完；
+    # 题目变为：n能不能变为4，由此发现只要我们首次取n%4个石头，对方就会从4的倍数开始取（因为我们取走了余数，剩余一定被4整除），
+    # 那么接下来，无论对方取几（1,2,3都不大于4），我们总能让对方一直处于4的倍数状态，直到获胜，
+    # 因此题目最终变为：n能否被4整除；如不能则我方获胜，如果能则我方失败；
+
+        return n % 4 != 0
+```
+
+---
+
+## Chapter 23: Introduction to the concept of Dynamic Programming
+
+:orange_book: [109 · Triangle](https://www.lintcode.com/problem/109/): Using DP -> dp[i][j] = cost to go from (0, 0) to this position (i, j)
+
+```
+class Solution:
+    """
+    @param triangle: a list of lists of integers
+    @return: An integer, minimum path sum
+    """
+    def minimum_total(self, triangle: List[List[int]]) -> int:
+        # Top-down DP
+
+        # def: dp[i][j] = cost to go from (0, 0) to this position (i, j)
+        dp = [[0 for _ in range(len(triangle))] for _ in range(len(triangle))]
+
+        # initialize dp (the left and right edge of the triangle)
+        n = len(triangle)
+        dp[0][0] = triangle[0][0]
+        for i in range(1, n):
+            # leftmost element
+            dp[i][0] = dp[i - 1][0] + triangle[i][0]
+            # rightmost element
+            dp[i][i] = dp[i - 1][i - 1] + triangle[i][i]
+        
+        # fill in the other positions
+        for i in range(2, n):
+            for j in range(1, i):
+                dp[i][j] = min(dp[i - 1][j], dp[i - 1][j - 1]) + triangle[i][j]
+
+        # each element in dp[n - 1] is a path from top to bottom -> choose the least cost one
+        return min(dp[n - 1])
+```
+
+---
+
+:green_book: [114 · Unique Paths](https://www.lintcode.com/problem/114/): Using DP -> dp[i][j] = # of unique paths to reach (i, j) from (0, 0)
+
+```
+class Solution:
+    """
+    @param m: positive integer (1 <= m <= 100)
+    @param n: positive integer (1 <= n <= 100)
+    @return: An integer
+    """
+    def unique_paths(self, m: int, n: int) -> int:  
+        # Top-down DP
+
+        # def: dp[i][j] = # of unique paths to reach (i, j) from (0, 0)
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        
+        # initialize dp
+        for i in range(n): # the first row
+            dp[0][i] = 1
+        for j in range(m): # the first column
+            dp[j][0] = 1
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        
+        return dp[m - 1][n - 1]
+```
+
+---
 
