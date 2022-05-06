@@ -2850,7 +2850,7 @@ class Solution:
         for i in range(1, n + 1): # trying out first [i] numbers in list
             dp[i][0] = True
             for j in range(1, m + 1): # try to form a sum = [j]
-                if j >= a[i - 1]:
+                if j >= a[i - 1]: # consider adding the element No. [i - 1]
                     dp[i][j] = dp[i - 1][j] or dp[i - 1][j - a[i - 1]]
                 else:
                     dp[i][j] = dp[i - 1][j]
@@ -2886,8 +2886,76 @@ class Solution:
         # initialize
         for i in range(1, n + 1):
             for j in range(0, m + 1):
-                if j >= a[i - 1]:
+                if j >= a[i - 1]: # consider adding the element No. [i - 1]
                     dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - a[i - 1]] + a[i - 1])
+                else:
+                    dp[i][j] = dp[i - 1][j]
+        
+        return dp[len(a)][m] # the maximum sum <= m we can achieve by considering ALL candidates
+```
+
+---
+
+:orange_book: [125 · Backpack II](https://www.lintcode.com/problem/125/): Problem 92 but with values for each item
+
+```
+class Solution:
+    """
+    @param m: An integer m denotes the size of a backpack
+    @param a: Given n items with size A[i]
+    @param v: Given n items with value V[i]
+    @return: The maximum value
+    """
+    def back_pack_i_i(self, m: int, a: List[int], v: List[int]) -> int:
+
+        if not a:
+            return 0
+
+        n = len(a)
+
+        # dp[i][j] = maximum sum <= j that we can obtain by picking numbers from the first [i] candidates
+        dp = [[0 for _ in range(m + 1)] for _ in range(len(a) + 1)]
+
+        # initialize
+        for i in range(1, n + 1):
+            for j in range(0, m + 1):
+                if j >= a[i - 1]: # consider adding the element No. [i - 1]
+                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - a[i - 1]] + v[i - 1]) # Notice we are adding v[i - 1] here
+                else:
+                    dp[i][j] = dp[i - 1][j]
+        
+        return dp[len(a)][m] # the maximum sum <= m we can achieve by considering ALL candidates
+```
+
+---
+
+:orange_book: [440 · Backpack III](https://www.lintcode.com/problem/440): Problem 92 but we can pick any number of the same item
+
+```
+class Solution:
+    """
+    @param a: an integer array
+    @param v: an integer array
+    @param m: An integer
+    @return: an array
+    """
+    def back_pack_i_i_i(self, a: List[int], v: List[int], m: int) -> int:
+
+        if not a:
+            return 0
+
+        n = len(a)
+
+        # dp[i][j] = maximum sum <= j that we can obtain by picking numbers from the first [i] candidates
+        dp = [[0 for _ in range(m + 1)] for _ in range(len(a) + 1)]
+
+        # initialize
+        for i in range(1, n + 1):
+            for j in range(0, m + 1):
+                if j >= a[i - 1]: # consider adding the element No. [i - 1]
+                    dp[i][j] = max(dp[i - 1][j], 
+                                   # Notice we are adding v[i - 1] here & using dp[i] from previous level
+                                   dp[i][j - a[i - 1]] + v[i - 1]) 
                 else:
                     dp[i][j] = dp[i - 1][j]
         
