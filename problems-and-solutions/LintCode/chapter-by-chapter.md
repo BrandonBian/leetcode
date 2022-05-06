@@ -205,3 +205,24 @@
 
 ---
 
+## Chapter 20: TODO
+
+---
+
+## Chapter 21: TODO
+
+---
+
+## Chapter 22: Memoization Search
+
+:orange_book: [109 · Triangle](https://www.lintcode.com/problem/109/): DFS but using memoization with HashMap to save intermediate results
+
+:green_book: [1300 · Bash Game](https://www.lintcode.com/problem/1300/): DP will timeout, so using a clever method in O(1)
+
+---
+
+## Chapter 23: Introduction to the concept of Dynamic Programming
+
+:orange_book: [109 · Triangle](https://www.lintcode.com/problem/109/): Using DP -> dp[i][j] = cost to go from (0, 0) to this position (i, j)
+
+:green_book: [114 · Unique Paths](https://www.lintcode.com/problem/114/): Using DP -> dp[i][j] = # of unique paths to reach (i, j) from (0, 0)
