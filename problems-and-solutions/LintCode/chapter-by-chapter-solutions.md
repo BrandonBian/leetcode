@@ -2701,3 +2701,201 @@ class Solution:
 
 ---
 
+## Chapter 24: Dynamic Programming Typical Problems
+
+:green_book: [115 · Unique Paths II](https://www.lintcode.com/problem/115): Problem 114 but with obstacles, similar DP
+
+```
+class Solution:
+    """
+    @param obstacle_grid: A list of lists of integers
+    @return: An integer
+    """
+    def unique_paths_with_obstacles(self, obstacle_grid: List[List[int]]) -> int:
+        # Top-down DP
+
+        m, n = len(obstacle_grid), len(obstacle_grid[0])
+
+        # def: dp[i][j] = # of unique paths to reach (i, j) from (0, 0)
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        
+        # initialize dp
+        for i in range(n): # the first row
+            if obstacle_grid[0][i] == 1: # if obstacle, all subsequent ones cannot reach
+                break
+            dp[0][i] = 1
+        for j in range(m): # the first column
+            if obstacle_grid[j][0] == 1: # if obstacle, all subsequent ones cannot reach
+                break
+            dp[j][0] = 1
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if obstacle_grid[i][j] == 1:
+                    continue
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        
+        return dp[m - 1][n - 1]
+```
+
+---
+
+:orange_book: [630 · Knight Shortest Path II](https://www.lintcode.com/problem/630/): Using DP -> dp[i][j] = minimum steps to reach (i, j) from (0, 0)
+
+```
+# REVERSED direction since we are backtracing the position that we CAME FROM
+DIRECTIONS = [
+    (-1, -2),
+    (1, -2),
+    (-2, -1),
+    (2, -1)
+]
+
+class Solution:
+    """
+    @param grid: a chessboard included 0 and 1
+    @return: the shortest path
+    """
+    def shortest_path2(self, grid: List[List[bool]]) -> int:
+        # Dynamic Programming -> top-down
+
+        if not grid or not grid[0]:
+            return -1
+
+        n, m = len(grid), len(grid[0])
+
+        # dp[i][j] = minimum steps to reach (i, j) from (0, 0)
+        dp = [[float('inf') for _ in range(m)] for _ in range(n)]
+
+        # initialize dp
+        dp[0][0] = 0
+
+        for col in range(m): # NOTE: iterating by column first because column index always increment
+            for row in range(n):
+                if grid[row][col] == 1: # barrier
+                    continue
+
+                for delta_x, delta_y in DIRECTIONS:
+                    x, y = row + delta_x, col + delta_y
+                    if 0 <= x < n and 0 <= y < m: # don't forget to check validity
+                        dp[row][col] = min(dp[row][col], dp[x][y] + 1)
+
+        if dp[n - 1][m - 1] == float('inf'):
+            return -1
+
+        return dp[n - 1][m - 1]
+```
+
+---
+
+:orange_book: [116 · Jump Game](https://www.lintcode.com/problem/116/): Using DP -> dp[i] = whether we can reach position [i]
+
+
+```
+class Solution:
+    """
+    @param a: A list of integers
+    @return: A boolean
+    """
+    def can_jump(self, a: List[int]) -> bool:
+        # Dynamic Programming
+
+        if not a:
+            return False
+        
+        # dp[i] = whether we can reach position [i]
+        dp = [False for _ in range(len(a))]
+        
+        # initialize dp 
+        dp[0] = True
+
+        for i in range(1, len(a)):
+            for j in range(i):
+                # we can reach [j], AND when we add [j] with maximum jump distance >= [i]
+                if dp[j] and a[j] + j >= i: 
+                    dp[i] = True # we can reach [i]
+                    break
+        
+        return dp[len(a) - 1] # whether we can reach [len(a) - 1] position
+```
+
+---
+
+:orange_book: [92 · Backpack](https://www.lintcode.com/problem/92/): Two DP methods
+
+- **DP #1: dp[i][j] = whether we can pick numbers from first [i] candidates to form a sum of j**
+
+```
+class Solution:
+    """
+    @param m: An integer m denotes the size of a backpack
+    @param a: Given n items with size A[i]
+    @return: The maximum size
+    """
+    def back_pack(self, m: int, a: List[int]) -> int:
+        # DP Approach No.1
+
+        if not a:
+            return 0
+
+        n = len(a)
+
+        # dp[i][j] = whether we can pick numbers from first [i] candidates
+        # to form a sum of j, NOTICE the range + 1
+        dp = [[False for _ in range(m + 1)] for _ in range(n + 1)]
+
+        # initialize 
+        dp[0][0] = True
+
+        for i in range(1, n + 1): # trying out first [i] numbers in list
+            dp[i][0] = True
+            for j in range(1, m + 1): # try to form a sum = [j]
+                if j >= a[i - 1]:
+                    dp[i][j] = dp[i - 1][j] or dp[i - 1][j - a[i - 1]]
+                else:
+                    dp[i][j] = dp[i - 1][j]
+
+        # acquire answer
+        for i in range(m, -1 , -1): # see which maximum possible sum we can achieve
+            if dp[n][i]: # we have considered all elements
+                return i
+            
+        return -1
+```
+
+- **DP #2: dp[i][j] = maximum sum <= j that we can obtain by picking numbers from the first [i] candidates**
+
+```
+class Solution:
+    """
+    @param m: An integer m denotes the size of a backpack
+    @param a: Given n items with size A[i]
+    @return: The maximum size
+    """
+    def back_pack(self, m: int, a: List[int]) -> int:
+        # DP Approach No.2
+
+        if not a:
+            return 0
+
+        n = len(a)
+
+        # dp[i][j] = maximum sum <= j that we can obtain by picking numbers from the first [i] candidates
+        dp = [[0 for _ in range(m + 1)] for _ in range(len(a) + 1)]
+
+        # initialize
+        for i in range(1, n + 1):
+            for j in range(0, m + 1):
+                if j >= a[i - 1]:
+                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - a[i - 1]] + a[i - 1])
+                else:
+                    dp[i][j] = dp[i - 1][j]
+        
+        return dp[len(a)][m] # the maximum sum <= m we can achieve by considering ALL candidates
+```
+
+---
+
+
+
+
