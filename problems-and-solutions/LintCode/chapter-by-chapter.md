@@ -243,4 +243,6 @@
 
 :orange_book: [92 · Backpack](https://www.lintcode.com/problem/92/): Two DP methods
 
+:orange_book: [125 · Backpack II](https://www.lintcode.com/problem/125/): Problem 92 but with values for each item
 
+:orange_book: [440 · Backpack III](https://www.lintcode.com/problem/440): Problem 92 but we can pick any number of the same item
