@@ -40,7 +40,7 @@
 - Solving **"problems using Counter / Set / Dictionary / Hashing"**
 
 
-### 2.3 Linked List - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list.md)]
+### 2.3 Linked List - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list-solutions.md)]
 - Solving **"Cycle detection / cycle locating / slow-fast pointers/ dummy nodes / double pointers"** problems
 
 ---
