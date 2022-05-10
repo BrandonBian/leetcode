@@ -33,11 +33,15 @@
 ### 2.1 [Binary Tree & Binary Search Trees](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/binary-tree.md)
 - :white_check_mark: [Traversal Templates](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md#--backtracking-problem-solving-templates) (**pre-order / in-order / post-order / level-order traversal**)
 - Solving **"BST in-order traversal / deleting node / inserting node / root-to-leaf DFS / construction / validation / etc."** problems
+
+
 ### 2.2 [Hash Table](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/hash-table.md)
 - :white_check_mark: [Using and Sorting Python Dictionary & Counter](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/hash-table.md#--python-dictionary-and-counters-and-how-to-sort-them)
 - Solving **"problems using Counter / Set / Dictionary / Hashing"**
-### 2.3 [Linked List](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md)
-- Solving **"Linked list cycle detection / cycle locating / slow-fast pointers/ dummy nodes / double pointers"** problems
+
+
+### 2.3 Linked List - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list.md)]
+- Solving **"Cycle detection / cycle locating / slow-fast pointers/ dummy nodes / double pointers"** problems
 
 ---
 
