@@ -8,7 +8,7 @@
 
 ---
 
-## Linked List Problems | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search-solutions.md)]
+## Linked List Problems | [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list-solutions.md)]
 ### 1. Cycle Detection and Finding (usually with Slow / Fast Pointers)
 
 :heavy_check_mark: :green_book: [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/): (either using **slow/fast pointers** or a clever way of node deletion)
