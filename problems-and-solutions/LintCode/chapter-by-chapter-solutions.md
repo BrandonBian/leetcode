@@ -2586,6 +2586,160 @@ class Solution:
 
 ---
 
+## Chapter 20 (LIVE): DFS
+
+:orange_book: [425 · Letter Combinations of a Phone Number](https://www.lintcode.com/problem/425/)
+
+```
+KEYBOARD = {"2": "abc", "3": "def", "4":"ghi", "5":"jkl", "6":"mno", "7":"pqrs", "8":"tuv", "9":"wxyz"}
+
+class Solution:
+    """
+    @param digits: A digital string
+    @return: all possible letter combinations
+             we will sort your return value in output
+    """
+    def letter_combinations(self, digits: str) -> List[str]:
+        # DFS
+
+        if not digits:
+            return []
+
+        result = []
+        self.dfs(digits, 0, "", result) # start with all digits and from first digit
+
+        return result
+
+    def dfs(self, candidates, target, path, result):
+        if target >= len(candidates): # we have gone through all digits
+            result.append(path)
+            return
+
+        for letter in KEYBOARD[candidates[target]]: # all letters corresponding to this digit
+            self.dfs(candidates, target + 1, path + letter, result)
+```
+
+---
+
+:orange_book: [90 · k Sum II](https://www.lintcode.com/problem/90/)
+
+```
+class Solution:
+    """
+    @param a: an integer array
+    @param k: a postive integer <= length(A)
+    @param target: an integer
+    @return: A list of lists of integer
+             we will sort your return value in output
+    """
+    def k_sum_i_i(self, a: List[int], k: int, target: int) -> List[List[int]]:
+        # DFS
+
+        if not a:
+            return []
+
+        result = []
+        self.dfs(a, k, target, [], result)
+
+        return result
+
+    def dfs(self, candidates, k, target, path, result):
+        if k == 0 and target == 0: # we used k numbers and achieved the required sum
+            result.append(path)
+            return
+        
+        # scenarios in which we cannot find a valid answer
+        if k == 0 and target != 0: # if we used k number but not reached target
+            return
+        if target <= 0 and k != 0: # we have already reached target but not using k numbers
+            return 
+
+        for i in range(len(candidates)):
+            self.dfs(candidates[i+1:], k - 1, target - candidates[i], path + [candidates[i]], result)
+```
+
+---
+
+:orange_book: [135 · Combination Sum](https://www.lintcode.com/problem/135/)
+
+```
+class Solution:
+    """
+    @param candidates: A list of integers
+    @param target: An integer
+    @return: A list of lists of integers
+             we will sort your return value in output
+    """
+    def combination_sum(self, candidates: List[int], target: int) -> List[List[int]]:
+        # DFS
+
+        if not candidates:
+            return []
+
+        result = []
+        self.dfs(candidates, target, [], result)
+        return result
+    
+    def dfs(self, candidates, target, path, result):
+        if target == 0:
+            result.append(sorted(path)) # Note: we only want sorted results
+            return
+
+        if target < 0: # already invalid, early stop
+            return
+        
+        for i in range(len(candidates)):
+            if i > 0 and candidates[i] == candidates[i - 1]: # remove duplicates (input may contain duplciate numbers)
+                continue
+            self.dfs(candidates[i:], target - candidates[i], path + [candidates[i]], result) # Notice the [i:] here, since we allow reusing numbers
+```
+
+---
+
+:orange_book: [10 · String Permutation II](https://www.lintcode.com/problem/10/)
+
+```
+class Solution:
+    """
+    @param str: A string
+    @return: all permutations
+             we will sort your return value in output
+    """
+    def string_permutation2(self, str: str) -> List[str]:
+        # DFS
+
+        if not str:
+            return [""]
+        
+        str = sorted(str)
+
+        result = []
+        self.dfs(str, "", result)
+        return result
+    
+    def dfs(self, candidates, path, result):
+        if len(candidates) == 0:
+            result.append(path)
+            return
+        
+        for i in range(len(candidates)):
+            if i > 0 and candidates[i] == candidates[i - 1]:
+                continue
+            self.dfs(candidates[:i] + candidates[i+1:], path + candidates[i], result)
+```
+
+---
+
+:closed_book: [https://www.lintcode.com/problem/132/](https://www.lintcode.com/problem/132/)
+
+```
+TODO
+```
+
+---
+
+---
+
 ## Chapter 22: Memoization Search
 
 :orange_book: [109 · Triangle](https://www.lintcode.com/problem/109/): DFS but using memoization with HashMap to save intermediate results
