@@ -205,7 +205,18 @@
 
 ---
 
-## Chapter 20: TODO
+## Chapter 20 (LIVE): DFS for Combination and Purmutation
+
+:orange_book: [425 · Letter Combinations of a Phone Number](https://www.lintcode.com/problem/425/)
+
+:orange_book: [90 · k Sum II](https://www.lintcode.com/problem/90/)
+
+:orange_book: [135 · Combination Sum](https://www.lintcode.com/problem/135/)
+
+:orange_book: [10 · String Permutation II](https://www.lintcode.com/problem/10/)
+
+:closed_book: [https://www.lintcode.com/problem/132/](https://www.lintcode.com/problem/132/)
+
 
 ---
 
