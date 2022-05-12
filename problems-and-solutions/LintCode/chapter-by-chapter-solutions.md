@@ -2733,10 +2733,389 @@ class Solution:
 :closed_book: [https://www.lintcode.com/problem/132/](https://www.lintcode.com/problem/132/)
 
 ```
-TODO
+class Solution:
+    """
+    @param board: A list of lists of character
+    @param words: A list of string
+    @return: A list of string
+             we will sort your return value in output
+    """
+    def word_search_i_i(self, board: List[List[str]], words: List[str]) -> List[str]:
+        # DFS
+
+        if not board or not board[0]:
+            return []
+        
+        word_set, prefix_set, result_set = set(), set(), set()
+        visited = [[False for _ in range(len(board[0]))] for _ in range(len(board))]
+
+        for word in words:
+            for i in range(len(word)):
+                prefix_set.add(word[:i + 1])
+            word_set.add(word)
+        
+        for i in range(len(board)): # for each row
+            for j in range(len(board[0])): # for each column
+                visited[i][j] = True
+                self.dfs(board, visited, i, j, board[i][j], word_set, prefix_set, result_set)
+                visited[i][j] = False
+
+        return list(result_set)
+
+    def dfs(self, board, visited, i, j, word, word_set, prefix_set, result_set):
+        if word not in prefix_set:
+            return
+        
+        if word in word_set: # still need to continue (since "dog" can become "dogecoin")
+            result_set.add(word)
+
+        for x, y in [[0, 1], [0, -1], [1, 0], [-1, 0]]:
+            new_i = i + x
+            new_j = j + y
+
+            if not self.inside_board(board, new_i, new_j) or visited[new_i][new_j]: # invalid position
+                continue 
+
+            visited[new_i][new_j] = True
+            self.dfs(board, visited, new_i, new_j, word + board[new_i][new_j], word_set, prefix_set, result_set)
+            visited[new_i][new_j] = False
+
+    def inside_board(self, board, i, j):
+        return 0 <= i < len(board) and 0 <= j < len(board[0])
 ```
 
 ---
+
+:closed_book: [121 · Word Ladder II](https://www.lintcode.com/problem/121/): BFS + DFS
+
+```
+from collections import deque
+import string
+
+class Solution:
+    """
+    @param start: a string
+    @param end: a string
+    @param dict: a set of string
+    @return: a list of lists of string
+             we will sort your return value in output
+    """
+    def find_ladders(self, start: str, end: str, dict: Set[str]) -> List[List[str]]:
+        # DFS
+        
+        # put the start and end words into the dictionary
+        dict.add(start)
+        dict.add(end)
+
+        distance = {} # record the shortest path from start to a word
+        fromToDict = {}
+
+        for s in dict:
+            fromToDict[s] = []
+        self.bfs(start, fromToDict, distance, dict)
+    
+        results = []
+        self.dfs(start, end, distance, dict, [], results, fromToDict, distance[end])
+
+        return results 
+
+    def bfs(self, start, fromToDict, distance, d):
+        distance[start] = 0
+        queue = deque([start])
+
+        while queue:
+            curr_word = queue.popleft()
+            for next_word in self.get_next_words(curr_word, d):
+                if next_word not in distance:
+                    fromToDict[curr_word].append(next_word)
+                    distance[next_word] = distance[curr_word] + 1
+                    queue.append(next_word)
+
+                elif distance[next_word] == distance[curr_word] + 1:
+                    fromToDict[curr_word].append(next_word)
+
+    def dfs(self, curr_word, target, distance, d, path, results, fromToDict, min_len):
+        if len(path) == min_len + 1:
+            return
+
+        path.append(curr_word) 
+
+        if curr_word == target:
+            results.append(list(path))
+        else:
+            for next_word in fromToDict[curr_word]:
+                self.dfs(next_word, target, distance, d, path, results, fromToDict, min_len)
+        path.pop()
+    
+    def get_next_words(self, word, d):
+        words = []
+        for i in range(len(word)):
+            for c in string.ascii_lowercase:
+                if word[i] == c:
+                    continue
+                next_word = word[:i] + c + word[i + 1:]
+                if next_word in d:
+                    words.append(next_word)
+        return words
+```
+
+## Chapter 21: Hash Table and Heap
+
+:orange_book: [685 · First Unique Number in Data Stream](https://www.lintcode.com/problem/685/)
+
+```
+class Solution:
+    """
+    @param nums: a continuous stream of numbers
+    @param number: a number
+    @return: returns the first unique number
+    """
+    def first_unique_number(self, nums: List[int], number: int) -> int:
+        
+        if not nums:
+            return -1
+
+        counter = {}
+
+        for num in nums:
+            counter[num] = counter.get(num, 0) + 1
+            if num == number:
+                break
+        else: # if we never breaked
+            return -1
+
+        for num in nums:
+            if counter[num] == 1:
+                return num
+            if num == number:
+                break
+        else:
+            return -1
+```
+
+---
+
+:orange_book: [960 · First Unique Number in Data Stream II](https://www.lintcode.com/problem/960/)
+
+```
+class DataStream:
+
+    def __init__(self):
+        # a linked list data structure to store elements
+        # removing elements that are not unique
+
+        self.dummy = ListNode(0)
+        # tail points to the tail node
+        self.tail = self.dummy
+        # number -> the node before this node
+        self.num_to_prev = {}
+        # store all numbers that appeared >= 2 times
+        self.duplicates = set()
+
+          
+    """
+    @param num: next number in stream
+    @return: nothing
+    """
+    def add(self, num):
+        if num in self.duplicates: # if this number is duplicate, skip
+            return
+
+        if num not in self.num_to_prev: # first time this number shows up
+            self.add_to_list_tail(num)
+            return
+
+        # if this is the second time this number showed up, remove it from linked list
+        self.remove(num)
+        # indicate that this number appeared >= 2 times
+        self.duplicates.add(num)
+
+    def remove(self, num):
+        # find the previous node
+        prev = self.num_to_prev[num]
+        # skip the connection to this node
+        prev.next = prev.next.next
+        # remove the projection
+        del self.num_to_prev[num]
+
+        if prev.next: # if the node we deleted is not the last node
+            self.num_to_prev[prev.next.val] = prev
+        else: # if the node we deleted is the last node, make tail point to prev node
+            self.tail = prev
+
+    def add_to_list_tail(self, num):
+        # create a new node for this number and attach it to the end of the tail
+        self.tail.next = ListNode(num)
+        # previous node to this node is self.tail (previous tail node)
+        self.num_to_prev[num] = self.tail
+        # make sure tail points to the newly added tail node
+        self.tail = self.tail.next
+
+    """
+    @return: the first unique number in stream
+    """
+    def firstUnique(self):
+        if not self.dummy.next: # if linked list is empty
+            return None
+        return self.dummy.next.val
+```
+
+---
+
+:orange_book: [657 · Insert Delete GetRandom O(1)](https://www.lintcode.com/problem/657/)
+
+```
+import random
+
+class RandomizedSet:
+    
+    def __init__(self):
+        self.nums = []
+        self.valueToIndexDict = {}
+
+    """
+    @param: val: a value to the set
+    @return: true if the set did not already contain the specified element or false
+    """
+    def insert(self, val):
+        if val in self.valueToIndexDict: # the value is already present
+            return False
+        
+        self.nums.append(val)
+        self.valueToIndexDict[val] = len(self.nums) - 1
+        return True
+
+    """
+    @param: val: a value from the set
+    @return: true if the set contained the specified element or false
+    """
+    def remove(self, val):
+        if val not in self.valueToIndexDict: # val is not present so cannot be deleted
+            return False
+        
+        delete_idx = self.valueToIndexDict[val]
+
+        if delete_idx < len(self.nums) - 1: 
+            # if val is not the last element, replace with the last element
+            last_num = self.nums[-1]
+            self.nums[delete_idx] = last_num
+            self.valueToIndexDict[last_num] = delete_idx # now the last number is at delete_idx
+
+        del self.valueToIndexDict[val]
+        self.nums.pop() # remove last element
+
+        return True        
+
+    """
+    @return: Get a random element from the set
+    """
+    def getRandom(self):
+        return self.nums[random.randint(0, len(self.nums) - 1)]
+```
+
+---
+
+:closed_book: [134 · LRU Cache](https://www.lintcode.com/problem/134/)
+
+```
+class LinkedNode:
+    def __init__(self, key = None, val = None, next = None):
+        self.key = key
+        self.val = val
+        self.next = next
+        
+class LRUCache:
+    """
+    @param: capacity: An integer
+    """
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.dummy = LinkedNode()
+        self.tail = self.dummy
+        self.key_to_prev = {} # <key, val> = <key, node that is before key's node>
+
+    """
+    @param: key: An integer
+    @return: An integer
+    """
+    def get(self, key):
+        if key not in self.key_to_prev: # key is not in cache
+            return -1
+        
+        self.kick(key) # key is just visited, so kick it to the end of linked list
+        return self.tail.val # key is not at tail
+
+    def kick(self, key):
+        prev = self.key_to_prev[key]
+        key_node = prev.next
+
+        if key_node == self.tail: # if the node is already the tail node, do nothing
+            return
+
+        prev.next = key_node.next # skip key node
+        self.key_to_prev[key_node.next.key] = prev # prev node for the node after key node should be prev
+        key_node.next = None # break the connection between key node and the node after it
+
+        self.push_back(key_node) # put key node to the tail
+
+    def push_back(self, node):
+        self.key_to_prev[node.key] = self.tail
+        self.tail.next = node
+        self.tail = node
+
+    """
+    @param: key: An integer
+    @param: value: An integer
+    @return: nothing
+    """
+    def set(self, key, value):
+        if key in self.key_to_prev:
+            self.kick(key) # because we just accessed it
+            self.tail.val = value # update its value
+            return 
+        
+        # if key is not present in cache
+        self.push_back(LinkedNode(key, value)) # create a new node for it and put to tail
+        
+        if len(self.key_to_prev) > self.capacity:
+            self.pop_front() # remove the least recently used element
+
+    def pop_front(self):
+        head = self.dummy.next
+        del self.key_to_prev[head.key]
+        self.dummy.next = head.next # skip head
+        self.key_to_prev[head.next.key] = self.dummy
+```
+
+---
+
+:orange_book: [4 · Ugly Number II](https://www.lintcode.com/problem/4/): using heapq from Python
+
+```
+import heapq
+
+class Solution:
+    """
+    @param n: An integer
+    @return: return a  integer as description.
+    """
+    def nth_ugly_number(self, n: int) -> int:
+        # using min-heap
+
+        heap = [1]
+        seen = set([1]) # avoid adding repeated numbers to heap
+        curr_ugly = 1
+
+        for _ in range(n):
+            curr_ugly = heapq.heappop(heap)
+            for factor in [2, 3, 5]:
+                new_ugly = curr_ugly * factor
+                if new_ugly not in seen:
+                    seen.add(new_ugly)
+                    heapq.heappush(heap, new_ugly)
+        
+        return curr_ugly
+```
 
 ---
 
@@ -2855,7 +3234,7 @@ class Solution:
 
 ---
 
-## Chapter 24: Dynamic Programming Typical Problems
+## Chapter 24: Dynamic Programming Typical Problems 1
 
 :green_book: [115 · Unique Paths II](https://www.lintcode.com/problem/115): Problem 114 but with obstacles, similar DP
 
@@ -2974,6 +3353,8 @@ class Solution:
 ```
 
 ---
+
+## Chapter 25: Dynamic Programming Typical Problems 2
 
 :orange_book: [92 · Backpack](https://www.lintcode.com/problem/92/): Two DP methods
 
