@@ -215,12 +215,23 @@
 
 :orange_book: [10 · String Permutation II](https://www.lintcode.com/problem/10/)
 
-:closed_book: [https://www.lintcode.com/problem/132/](https://www.lintcode.com/problem/132/)
+:closed_book: [132 · Word Search II](https://www.lintcode.com/problem/132/)
 
+:closed_book: [121 · Word Ladder II](https://www.lintcode.com/problem/121/): BFS + DFS
 
 ---
 
-## Chapter 21: TODO
+## Chapter 21: Hash Table and Heap
+
+:orange_book: [685 · First Unique Number in Data Stream](https://www.lintcode.com/problem/685/)
+
+:orange_book: [960 · First Unique Number in Data Stream II](https://www.lintcode.com/problem/960/)
+
+:orange_book: [657 · Insert Delete GetRandom O(1)](https://www.lintcode.com/problem/657/)
+
+:closed_book: [134 · LRU Cache](https://www.lintcode.com/problem/134/)
+
+:orange_book: [4 · Ugly Number II](https://www.lintcode.com/problem/4/): using heapq from Python
 
 ---
 
@@ -240,7 +251,7 @@
 
 ---
 
-## Chapter 24: Dynamic Programming Typical Problems
+## Chapter 24: Dynamic Programming Typical Problems 1
 
 :green_book: [115 · Unique Paths II](https://www.lintcode.com/problem/115): Problem 114 but with obstacles, similar DP
 
@@ -250,7 +261,7 @@
 
 ---
 
-## Chapter 25: Dynamic Programming Typical Problems
+## Chapter 25: Dynamic Programming Typical Problems 2
 
 :orange_book: [92 · Backpack](https://www.lintcode.com/problem/92/): Two DP methods
 
