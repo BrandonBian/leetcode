@@ -49,4 +49,4 @@
 
 ### 3.1 LintCode Chapter-by-Chapter Practice - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter-solutions.md)]
 
-### 3.2 LeetCode Top 100 - [Problems] | [Solutions]
+### 3.2 LeetCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/top100.md)] | [Solutions]
