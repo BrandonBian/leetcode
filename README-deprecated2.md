@@ -1,13 +1,18 @@
-# Algorithms & Data Structures - Table of Contents
-- **About**: this is my personal collection and study notes of [LeetCode](https://leetcode.com/problemset/all/) & [LintCode](https://www.lintcode.com/) problems - focusing on **Algorithms & Data Structures**
+# Table of Contents
+- **About**: this is my personal collection and study notes of [LeetCode](https://leetcode.com/problemset/all/) & [LintCode](https://www.lintcode.com/) problems - focusing on **Algorithms & Data Structures with Practice Problems and Solutions**
 - **LeetCode**: summarized according to my own understanding
 - **LintCode**: summarized while referencing [JiuZhang Algorithms](https://www.jiuzhang.com/)
 - **Ordering**: topics organized in alphabetical order
-- **Language**: solely **Python**
+- **Language**: solely **Python3**
 
 ---
 
 ## Section 1: Algorithms
+
+<!-- | ID | Algorithm | Study Guide | Typical Examples | Selected Problems & Solutions | 
+| -- | -- | -- | -- | -- | -- |
+| 1 | Binary Search | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md) | 
+ -->
 
 ### 1.1 Binary Search - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search-solutions.md)]
 - :white_check_mark: [A very good general template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md#white_check_mark-general-template---very-good-please-memorize)
@@ -18,14 +23,16 @@
 - :white_check_mark: [Calculating formulae in Python](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/gcd-lcm.md)
 - Solving **"total number of positive integers <= N which are divisible by a or b or c"** problems
 
-
-### 1.3 Recursion & Backtracking - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking-solutions.md)]
+### 1.3 DFS Recursion & Backtracking - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking-solutions.md)]
 - :white_check_mark: [A DFS / backtracking template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md#--backtracking-problem-solving-templates)
 - Solving **"combination / combination sum / permutations"** problems with **DFS & possibly removing duplicates**
 
 
 ### 1.4 Two Pointers - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers-solutions.md)]
 - Solving **"K-Sum / partitioning"** problems with **removing duplicates**
+
+
+### 1.5 Topological DFS and BFS
 
 ---
 
@@ -42,6 +49,8 @@
 
 ### 2.3 Linked List - [[Study Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md)] | [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list-solutions.md)]
 - Solving **"Cycle detection / cycle locating / slow-fast pointers/ dummy nodes / double pointers"** problems
+
+### 2.4 Binary Indexed Tree / Fenwick Tree
 
 ---
 
