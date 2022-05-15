@@ -1,4 +1,4 @@
-# LeetCode - Binary Tree & Binary Search Tree | Problems
+# LeetCode - Binary Tree & Binary Search Tree | Solutions
 * **Notations**: 
   * :heavy_check_mark: means **MUST DO (i.e., very important, typical, or good) problems** that should definitely be familiar with
   * :wavy_dash: means problems that are less typical
@@ -509,9 +509,109 @@ class Solution(object):
 
 :heavy_check_mark: :green_book: [700. Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
 
+```
+class Solution(object):
+    
+    def searchBST(self, root, val):
+        """
+        :type root: TreeNode
+        :type val: int
+        :rtype: TreeNode
+        """
+        if not root:
+            return None
+
+        if root.val == val:
+            return root
+
+        result = [None]
+        self.inorder(root, val, result)
+        
+        return result[0]
+    
+    def inorder(self, node, val, result):
+        
+        if node:
+            
+            self.inorder(node.left, val, result)
+            
+            if node.val == val:
+                result[0] = node
+                
+            self.inorder(node.right, val, result)
+```
+
+---
+
 :heavy_check_mark: :green_book: [653. Two Sum IV - Input is a BST](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/)
 
+```
+class Solution(object):
+    
+    # Reference Solution:
+    # https://leetcode.com/problems/two-sum-iv-input-is-a-bst/discuss/106134/Simple-Python-O(n)-Solution-with-Explanation
+    # This is basically tree traversal, storing node values of tree in a set and then simply finding 2 values in set that add upto target.
+    
+    def helper(self, node, elements, k):
+        if not node:
+            return False
+        
+        complement = k - node.val
+        if complement in elements:
+            return True
+        
+        elements.add(node.val)
+        
+        return self.helper(node.left, elements, k) or self.helper(node.right, elements, k)
+    
+    def findTarget(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: bool
+        """
+        
+        if not root:
+            return False
+        if not root.left and not root.right: # only one element
+            return False
+        
+        elements = set()
+        
+        return self.helper(root, elements, k)
+```
+
+---
+
 :heavy_check_mark: :green_book: [530. Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/): (using **in-order traversal** to traverse in ascending order)
+
+```
+class Solution(object):
+    
+    def getMinimumDifference(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        
+        previous = [float('inf')]
+        minimum = [float('inf')]
+
+        self.inorder(root, minimum, previous)
+        return minimum[0]
+
+        
+    def inorder(self, node, minimum, previous):
+        if node:
+            self.inorder(node.left, minimum, previous)
+            
+            minimum[0] = min(minimum[0], abs(node.val - previous[0]))
+            previous[0] = node.val
+            
+            self.inorder(node.right, minimum, previous)
+```
+
+---
 
 :heavy_check_mark: :orange_book: [450. Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/): (**deleting node** from BST)
 
