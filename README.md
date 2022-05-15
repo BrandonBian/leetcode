@@ -17,6 +17,7 @@
 | 4 | **Two Pointers** | "K-Sum / partitioning / sorting" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers-solutions.md) | -
 | 5 | **Topological DFS & BFS** | "path finding in a grid or matrix" | 
 | 6 | **Sorting Methods** | 
+| 7 | **Dynamic Programming** | 
 
 ---
 
