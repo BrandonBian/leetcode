@@ -32,27 +32,36 @@ def postorder(root):
   
 #######################################  
 
-def levelorder(root): # AKA: BFS
-  if not root:
-      return None
+    def levelOrder(self, root): # AKA: BFS
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
 
-  result = []
-  queue = [root]
+        if not root:
+            return []
+        
+        if not root.left and not root.right:
+            return [[root.val]]
+        
+        from collections import deque
+        
+        result = []
+        queue = deque([root])
+        
+        while queue:
+            
+            # store the values of all nodes in this level
+            result.append([node.val for node in queue])
+            
+            for _ in range(len(queue)): # for each node in queue
+                
+                node = queue.popleft()
 
-  while queue: # each iteration is a level
-
-      level = [] # the value of each node in this level
-
-      for i in range(len(queue)): # for each node in queue
-
-          node = queue.pop(0)
-          level.append(node.val)
-          if node.left:  queue.append(node.left)
-          if node.right: queue.append(node.right)
-
-      result.append(level) # save the values on this level
-
-  return result
+                if node.left:  queue.append(node.left)
+                if node.right: queue.append(node.right)
+            
+        return result
 ```
 - About **Top-down** and **Bottom-up** recursions: [link](https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/534/)
 
