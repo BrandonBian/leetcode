@@ -38,6 +38,11 @@
 
 ## Section 4: Auxiliary Problems & Solutions
 
-### 3.1 LintCode Chapter-by-Chapter Practice - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter-solutions.md)]
+### 4.1 LeetCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/top100.md)] | [Solutions]
 
-### 3.2 LeetCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/top100.md)] | [Solutions]
+
+### 4.2 LintCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/top100.md)] | [Solutions]
+
+
+### 4.3 LintCode Chapter-by-Chapter Practice - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter-solutions.md)]
+
