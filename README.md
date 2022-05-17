@@ -38,7 +38,7 @@
 
 ## Section 4: Auxiliary Problems & Solutions
 
-### 4.1 LeetCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/top100.md)] | [Solutions]
+### 4.1 LeetCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/top100.md)] | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/top100-solutions.md)
 
 
 ### 4.2 LintCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/top100.md)] | [Solutions]
