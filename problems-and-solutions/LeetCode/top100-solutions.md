@@ -451,4 +451,212 @@ class Solution(object):
 
 ---
 
+:green_book: [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/): Stack
+
+```
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        
+        brackets = {'(':')', '{':'}', '[':']'}
+        stack = []
+        
+        for idx, value in enumerate(s):
+            if value == '(' or value == '[' or value == '{':
+                stack.append(value)
+            else:
+                if len(stack) == 0: # If nothing in stack, definitely no match for this value
+                    return False
+                
+                val = stack.pop() # Obtain the top-most element in stack
+                
+                if brackets[val] != value:
+                    return False
+
+        return len(stack) == 0
+```
+
+---
+
+:green_book: [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/): Linked List + Two Pointers
+
+```
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        cur = dummy = ListNode()
+        
+        while list1 and list2:               
+            if list1.val < list2.val:
+                cur.next = list1
+                list1 = list1.next
+            else:
+                cur.next = list2
+                list2 = list2.next
+            
+            cur = cur.next
+                
+        if list1 or list2: # if there is anything left
+            cur.next = list1 if list1 else list2
+            
+        return dummy.next
+
+# [Note]:
+# For simplicity, we create a dummy node to which we attach nodes from lists. 
+# We iterate over lists using two-pointers and build up a resulting list so that values are monotonically increased.
+```
+
+---
+
+:orange_book: [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/): DFS for Combinations
+
+```
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+    
+        # Backtracking solution
+        
+        def backtracking(nOpen, nClose, path, ans):
+            if n == nClose:  # We have placed [n] number of ')'
+                ans.append(path)
+                return
+
+            if nOpen < n:  # Number of '(' up to `n`
+                backtracking(nOpen + 1, nClose, path + "(", ans)
+                
+            if nClose < nOpen:  # Number of ')' up to number of '('
+                backtracking(nOpen, nClose + 1, path + ")", ans)
+
+        ans = []
+        backtracking(0, 0, "", ans)
+        
+        return ans
+```
+
+---
+
+:closed_book: [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/): Linked List + Merge Sort
+
+```
+class Solution(object):
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        
+        if not lists:
+            return None
+        if len(lists) == 1:
+            return lists[0]
+        
+        # Merge Sort
+        
+        mid = len(lists) // 2
+        l, r = self.mergeKLists(lists[:mid]), self.mergeKLists(lists[mid:])
+        
+        return self.merge(l, r)
+    
+    def merge(self, l, r):
+        # merge [l] and [r] lists into one list in ascending order
+        
+        if not l:
+            return r
+        if not r:
+            return l
+        
+        dummy = p = ListNode()
+        
+        while l and r:
+            if l.val < r.val:
+                p.next = l
+                l = l.next
+            else:
+                p.next = r
+                r = r.next
+            p = p.next
+            
+        p.next = l or r
+        
+        return dummy.next
+```
+
+---
+
+:orange_book: [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/): Linked List + Two Pointers
+
+```
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        
+        # Reference Solution:
+        
+        # https://leetcode.com/problems/swap-nodes-in-pairs/discuss/1774318/Python3-I-HATE-LINKED-LISTS-shDsh-Not-Explained/1268978
+        # For visual guide: https://leetcode.com/problems/swap-nodes-in-pairs/discuss/1775033/swapping-nodes-not-just-the-values-visual-explanation-well-explained-c
+        
+        dummy = ListNode(None, head)
+        prev, cur = dummy, head
+        
+        while cur and cur.next:
+            prev.next = cur.next
+            cur.next = prev.next.next
+            prev.next.next = cur
+            
+            prev, cur = cur, cur.next
+            
+        return dummy.next
+```
+
+---
+
+:closed_book: [25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/): Linked List
+
+```
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        
+        # Ref: 
+        # https://leetcode.com/problems/reverse-nodes-in-k-group/discuss/11491/Succinct-iterative-Python-O(n)-time-O(1)-space
+        
+        # jump: used to connect last node in previous k-group to first node in following k-group
+        dummy = jump = ListNode(0)
+        
+        # l, r: define reversing range
+        l = r = head
+        dummy.next = head
+        
+        while True:
+            count = 0
+            
+            while r and count < k:   # use r to locate the range
+                r = r.next
+                count += 1
+            
+            if count == k:  # if size k satisfied, reverse the inner linked list
+                # Ref: https://leetcode.com/problems/reverse-nodes-in-k-group/discuss/11491/Succinct-iterative-Python-O(n)-time-O(1)-space/217945
+                pre, cur = r, l
+                
+                for _ in range(k):
+                    cur.next, cur, pre = pre, cur.next, cur
+                    
+                jump.next, jump, l = pre, l, r  # connect two k-groups
+                
+            else:
+                return dummy.next
+```
+
+---
+
+
+
 
