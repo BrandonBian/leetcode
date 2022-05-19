@@ -657,6 +657,414 @@ class Solution:
 
 ---
 
+:orange_book: [31. Next Permutation](https://leetcode.com/problems/next-permutation/): **Two Pointers**
 
+```
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        
+        # Ref: https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
+        # Follow the steps in Ref
+        
+        if len(nums) == 1:
+            return nums
+        
+        i = j = len(nums) - 1
+        
+        while i > 0 and nums[i - 1] >= nums[i]:
+            i -= 1
+        
+        # now [i] is at the start of the longest non-increasing suffix
+        
+        if i == 0: # in this case, the suffix is the entire string, reverse it (no larger possible permutation)
+            nums[:] = nums[::-1]
+            return
+        
+        pivot = i - 1
+        
+        while nums[j] <= nums[pivot]:
+            j -= 1
+            
+        # now nums[j] is the rightmost element that is larger than nums[pivot]
+        # swap with pivot
+        nums[pivot], nums[j] = nums[j], nums[pivot]
+        
+        # reverse the suffix portion
+        nums[i:] = nums[len(nums) - 1: i - 1: -1]
+        
+        return
+```
 
+---
 
+:closed_book: [32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/): **Stack** / Dynamic Programming
+
+```
+class Solution:
+    def longestValidParentheses(self, s: str) -> int:
+        
+        if len(s) <= 1:
+            return 0
+        
+        # stack will hold [indices] instead of the [parentheses]
+        # Ref: https://www.youtube.com/watch?v=VdQuwtEd10M
+        stack = [-1] # -1 here to account for the edge case in which given string is already valid
+        result = 0
+        
+        for i in range(len(s)):
+            char = s[i]
+            
+            if char == '(':
+                stack.append(i)
+            else:
+                stack.pop()
+                if not stack:
+                    stack.append(i)
+                else:
+                    length = i - stack[-1]
+                    result = max(result, length)
+        
+        return result
+```
+
+---
+
+:orange_book: [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/): Binary Search
+
+```
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        
+        left, right = 0, len(nums) - 1
+        
+        while left + 1 < right:
+            mid = (left + right) >> 1
+            
+            if nums[mid] == target:
+                return mid
+
+            if nums[mid] > nums[left]:
+                if nums[left] <= target <= nums[mid]:
+                    right = mid
+                else:
+                    left = mid
+            else:
+                if nums[mid] <= target <= nums[right]:
+                    left = mid
+                else:
+                    right = mid
+            
+        if nums[left] == target:
+            return left
+        if nums[right] == target:
+            return right
+        return -1
+```
+
+---
+
+:orange_book: [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/): Binary Search
+
+```
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        
+        # basic checking
+        if not nums:
+            return [-1, -1]
+
+        first_pos, last_pos = -1, -1
+
+        ####################################
+        # find first position (MINIMIZING) #
+        ####################################
+
+        def sufficient_minimize(num):
+            # find least number that is >= target
+            return num >= target
+
+        left, right = 0, len(nums) - 1
+
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            if sufficient_minimize(nums[mid]): # look left for smaller solution
+                right = mid
+            else:
+                left = mid
+
+        # for MINIMIZING position, check "left" first
+        if nums[left] == target:
+            first_pos = left
+        elif nums[right] == target:
+            first_pos = right
+
+        ###################################
+        # find last position (MAXIMIZING) #
+        ###################################
+
+        def sufficient_maximize(num):
+            # find max number that is <= target
+            return num <= target
+
+        left, right = 0, len(nums) - 1
+
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            if sufficient_maximize(nums[mid]): # look right for larger solution
+                left = mid
+            else:
+                right = mid
+
+        # for MAXIMIZING position, check "right" first
+
+        if nums[right] == target:
+            last_pos = right
+        elif nums[left] == target:
+            last_pos = left
+
+        ##########
+        # return #
+        ##########
+
+        return [first_pos, last_pos]
+```
+
+---
+
+:green_book: [35. Search Insert Position](https://leetcode.com/problems/search-insert-position/): Binary Search
+
+```
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        
+        # notice the len(nums) here instead of len(nums-1) for placing integer at end
+        left, right = 0, len(nums) 
+        
+        def feasible(num):
+            return num >= target
+        
+        while left + 1 < right:
+            mid = (left + right) >> 1
+            
+            if feasible(nums[mid]):
+                right = mid
+            else:
+                left = mid
+
+        if feasible(nums[left]):
+            return left
+        else:
+            return right
+```
+
+---
+
+:orange_book: [39. Combination Sum](https://leetcode.com/problems/combination-sum/): DFS for Combinations
+
+```
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+
+        def dfs(nums, target, path, ret):
+            
+            print("Path: " + str(path))
+            print("Candidates: " + str(nums))
+            print('')
+            
+            if target < 0:
+                return 
+            if target == 0:
+                ret.append(path)
+                return 
+            for i in range(len(nums)):
+                # not nums[i+1:] because we can reuse the same number
+                dfs(nums[i:], target-nums[i], path+[nums[i]], ret)
+                
+        ret = []
+        dfs(candidates, target, [], ret)
+        return ret
+```
+
+---
+
+:closed_book: [41. First Missing Positive](https://leetcode.com/problems/first-missing-positive/): Hash Table
+
+```
+class Solution(object):
+    def firstMissingPositive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        """
+        For nums with length n, the possible result is in the range of
+        [1 : n + 1], we want to know the smallest integer in the range 
+        of [1 : n] that is not in nums, if [1 : n] are all in nums,
+        the result is n + 1
+        
+        So those numbers not in [1 : n] are not useful and we can just
+        change them to be 0
+        
+        Then we go through nums, if nums[i] is in the range of 
+        [1 : n], we use index (nums[i] - 1) to record that we have
+        seen nums[i] by adding n + 1 to nums[nums[i] - 1]
+        
+        Finally we just need to find the first index i for which 
+        nums[i] is less than n + 1 (which means we never met number
+        i + 1 so we did not add n + 1 to nums[i])
+        """
+
+        # Solution according to: https://www.youtube.com/watch?v=8g78yfzMlao
+        
+        for i in range(len(nums)):
+            if nums[i] < 0:
+                nums[i] = 0
+                
+        # Our solution must be in [1, len(nums)], or len(nums) + 1 if all numbers present
+        # For each number in nums, map it to index [number - 1] to indicate its existence
+        # To do so, we change the number at [number - 1] as negative (to indicate it exists in nums)
+        # Since we already changed all negative numbers to 0, we don't worry about original negative numbers
+        # Each time we check a number in nums, we take absolute value so that the sign does not interfere
+        # If number at the index is 0, we need to change it to -(len + 1)
+        # because [len + 1] is the worst / greatest solution possible, its index [len] is out of bound
+            
+        for i in range(len(nums)):
+            val = abs(nums[i])
+            if 1 <= val <= len(nums):
+                if nums[val - 1] > 0:
+                    nums[val - 1] *= -1
+                elif nums[val - 1] == 0:
+                    nums[val - 1] = -1 * (len(nums) + 1)
+                
+        # Finally we check each possible solution, go to its mapped index [i - 1]
+        # If the value there is non-negative then this solution did not appear in the nums
+        # So we return it as the smallest missing positive integer
+        
+        for i in range(1, len(nums) + 1): # check all possible solutions in range
+            if nums[i - 1] >= 0: # it is not present in the nums
+                return i
+            
+        # If all solutions present, then the smallest missing positive integer is the next integer after the max of nums
+        return len(nums) + 1 
+```
+
+---
+
+:closed_book: [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/): Two Pointers
+
+```
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        
+        # Ref:
+        # https://leetcode.com/problems/trapping-rain-water/discuss/17391/Share-my-short-solution./185869
+        
+        if not height:
+            return 0
+        
+        left, right = 0, len(height) - 1
+        left_max, right_max = height[left], height[right]
+        result = 0
+        
+        while left <= right:
+            left_max = max(left_max, height[left])
+            right_max = max(right_max, height[right])
+            
+            if left_max < right_max: # we are limited by the max left height
+                result += left_max - height[left]
+                left += 1
+            else: # we are limited by the max right height
+                result += right_max - height[right]
+                right -= 1
+                
+        return result
+```
+
+---
+
+:orange_book: [55. Jump Game](https://leetcode.com/problems/jump-game/): Dynamic Programming
+
+```
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        
+        if not nums:
+            return False
+        
+        # dp[i] = the farthest index we can reach given allowed steps nums[0:i]
+        dp = [0 for _ in range(len(nums))]
+        
+        # initialization (the farthest position we can reach from nums[0] is the maximum jump length at this position = nums[0])
+        dp[0] = nums[0]
+        
+        for i in range(1, len(nums) - 1):
+            
+            if dp[i - 1] < i: # index i cannot be reached starting from any index in range of [0: i - 1]
+                return False  # we can never reach the end
+            
+            # the farthest position we can reach is either the same as before, 
+            # OR is the current position + the maximum jump length at this position
+            dp[i] = max(dp[i - 1], i + nums[i]) 
+            
+            if dp[i] >= len(nums) - 1: # we can already jump to the end
+                return True
+            
+        # see whether we can reach the end starting from any index in range of [0: len(nums) - 2]
+        return dp[len(nums) - 2] >= len(nums) - 1
+```
+
+---
+
+:orange_book: [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/): Greedy (1-D BFS + 2 Pointers)
+
+```
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        
+        # Ref:
+        # https://www.youtube.com/watch?v=dJ7sWiOoK7g
+        
+        n = len(nums)
+        if n == 1:
+            return 1
+        
+        result = 0
+        
+        # the window of search space
+        left, right = 0, 0
+        
+        while right < len(nums) - 1: # stop when our window's right boundary meets the end
+            farthest_idx = 0
+            
+            for i in range(left, right + 1): # we are considering the right index INCLUSIVE
+                farthest_from_i = i + nums[i] # the farthest position we can reach by jumping from position [i]
+                
+                # we are finding the global farthest position -> 
+                # i.e., farthest position we can reach from any position in window [left, right] (right inclusive)
+                farthest_idx = max(farthest_idx, farthest_from_i) 
+            
+            # update the window boundary (left moves to the right of right, right moves to the farthest index)
+            left = right + 1
+            right = farthest_idx
+            
+            result += 1 # we made a jump
+            
+        return result
+```
+
+---
