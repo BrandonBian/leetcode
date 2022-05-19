@@ -1041,7 +1041,7 @@ class Solution:
         
         n = len(nums)
         if n == 1:
-            return 1
+            return 0
         
         result = 0
         
