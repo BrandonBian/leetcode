@@ -1048,7 +1048,10 @@ class Solution:
         # the window of search space
         left, right = 0, 0
         
-        while right < len(nums) - 1: # stop when our window's right boundary meets the end
+        # stop when our window's right boundary meets the end
+        # cause when right == len(nums) - 1, we still have result += 1 even though we already reached the end
+        # so we are taking a redundant step
+        while right < len(nums) - 1: 
             farthest_idx = 0
             
             for i in range(left, right + 1): # we are considering the right index INCLUSIVE
