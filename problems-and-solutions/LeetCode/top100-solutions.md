@@ -1071,3 +1071,479 @@ class Solution:
 ```
 
 ---
+
+:orange_book: [46. Permutations](https://leetcode.com/problems/permutations/): DFS for Permutations
+
+```
+class Solution(object):
+    
+    def dfs(self, nums, path, res):
+
+        if not nums:
+            res.append(path)
+            return # backtracking
+        for i in range(len(nums)):
+            # nums[:i] + nums[i+1:] -> nums but leaving out i
+            self.dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
+    
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        
+        res = []
+        self.dfs(nums, [], res)
+        return res
+```
+
+---
+
+:orange_book: [48. Rotate Image](https://leetcode.com/problems/rotate-image/): Matrix + Math
+
+```
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        
+        # reverse up and down
+        l = 0
+        r = len(matrix) -1
+        while l < r:
+            matrix[l], matrix[r] = matrix[r], matrix[l]
+            l += 1
+            r -= 1
+            
+        # transpose 
+        for i in range(len(matrix)):
+            for j in range(i):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        
+        return matrix
+```
+
+---
+
+:orange_book: [49. Group Anagrams]([https://leetcode.com/problems/rotate-image/](https://leetcode.com/problems/group-anagrams/)): Hash Table
+
+```
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/group-anagrams/discuss/19202/5-line-Python-solution-easy-to-understand/262771
+        
+        hmap = collections.defaultdict(list)
+        
+        for this_str in strs:
+
+            # hash map for the 26 letters
+            array = [0] * 26
+            
+            for letter in this_str:
+                array[ord(letter) - ord('a')] += 1
+                
+            # array/list not hashable, so change to tuple
+            hmap[tuple(array)].append(this_str)
+
+        return hmap.values()
+```
+
+---
+
+:green_book: [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/): Kadane's Algorithm
+
+```
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        
+        if not nums:
+            return None
+        
+        # Kadane's Algorithm for Maximum Subarray problem
+        
+        curSum = maxSum = nums[0]
+        
+        for num in nums[1:]:
+            curSum = max(num,            # either this num
+                         curSum + num)   # OR this number plus the maximum subarray sum right before this element
+            maxSum = max(maxSum, curSum) # update maxSum (i.e., global maximum sum)
+
+        return maxSum
+```
+
+---
+
+:orange_book: [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/): Sorting
+
+```
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        
+        # sort based on the start of each interval
+        intervals.sort(key = lambda x: x[0])
+        
+        output = [intervals[0]]
+        
+        for start, end in intervals[1:]:
+            # output[-1] is the last interval, so output[-1][1] is the last end time
+            last_end = output[-1][1]
+            
+            if start <= last_end: # they are overlapping
+                # set the last ending time as the max of itself or the current end value
+                # consider the edge case of merging: [1, 5] & [2, 4]
+                output[-1][1] = max(output[-1][1], end)
+            
+            else:
+                output.append([start, end])
+                
+        return output
+```
+
+---
+
+:orange_book: [62. Unique Paths](https://leetcode.com/problems/unique-paths/): Dynamic Programming
+
+```
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        # Top-down DP
+
+        # def: dp[i][j] = # of unique paths to reach (i, j) from (0, 0)
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        
+        # initialize dp
+        for i in range(n): # the first row
+            dp[0][i] = 1
+        for j in range(m): # the first column
+            dp[j][0] = 1
+        
+        for i in range(1, m): # row
+            for j in range(1, n): # col
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        
+        return dp[m - 1][n - 1]
+```
+
+---
+
+:orange_book: [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/) | Dynamic Programming
+
+```
+class Solution(object):
+    def minPathSum(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        
+        # Idea: dynamic programming
+        # dp[i,j] = minimum sum to this location on grid
+            
+        dp = grid
+        nrows = len(grid)
+        ncols = len(grid[0])
+        
+        for i in range(1, ncols):
+            dp[0][i] += dp[0][i-1]
+        
+        for i in range(1, nrows):
+            dp[i][0] += dp[i-1][0]
+            
+        for row in range(1, nrows):
+            for col in range(1, ncols):
+                # comming from above (row - 1) or from the left (col - 1)
+                dp[row][col] += min(dp[row-1][col], dp[row][col-1])
+        
+        return dp[nrows-1][ncols-1]       
+```
+
+---
+
+:green_book: [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) | Dynamic Programming (Fibonacci)
+
+```
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        # Solution: https://leetcode.com/problems/climbing-stairs/discuss/25299/Basically-it's-a-fibonacci.
+        # Idea: Fibonacci
+        
+        # Special Cases
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
+    
+        # dp[i] = number of distinct ways to reach step i
+        dp = [0,1,2]
+        
+        for i in range(3, n+1):
+            dp.append(dp[i-2] + dp[i-1])
+        
+        return dp[n]
+```
+
+---
+
+:closed_book: [72. Edit Distance](https://leetcode.com/problems/edit-distance/): Dynamic Programming
+
+```
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        
+        # Ref: https://www.youtube.com/watch?v=We3YDTzNXEk
+        
+        if not word1 and not word2: # they are already the same empty string
+            return 0
+        if not word1:
+            return len(word2)
+        if not word2:
+            return len(word1)
+
+        # dp[i][j] = minimum number of operations required to convert s1[0..i-1] string to s2[0..j-1] string
+        m, n = len(word1), len(word2)
+        dp = [[float('inf') for _ in range(n + 1)] for _ in range(m + 1)]
+        
+        # initialization
+        for i in range(m): # the first column
+            dp[i][0] = i
+        for j in range(n): # the first row
+            dp[0][j] = j
+            
+        # dp
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if word1[i - 1] == word2[j - 1]:
+                    # if we are comparing the same character, look to top-left corner
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    # we find the minimum element from left / top / top-left corner
+                    # and then we add 1 to account for the operation of changing the current character
+                    dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+            
+        return dp[m][n] 
+```
+
+---
+
+:orange_book: [73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/) | Hashing (in-place)
+
+```
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        
+        # Ref: https://www.youtube.com/watch?v=T41rL0L3Pnw
+        
+        # we need an Space = O(1) solution, since we need to do in-place
+        # we use the first row and first col of matrix to record whether a 0 appeared
+        m, n = len(matrix), len(matrix[0])
+        
+        # still, we would need extra variables to deal with the first row and column
+        first_row_has_zero = False
+        first_col_has_zero = False
+        
+        for row in range(m):
+            for col in range(n):
+                if matrix[row][col] == 0:
+                    if row == 0:
+                        first_row_has_zero = True
+                    if col == 0:
+                        first_col_has_zero = True
+                    
+                    matrix[0][col] = 0 # record in first row
+                    matrix[row][0] = 0 # record in first col
+                    
+        # iterate through matrix to update the cell to be zero if it's in a zero row or col
+        # BUT leaving out the first row and first col, since we will be dealing with them last
+        for row in range(1, m):
+            for col in range(1, n):
+                if matrix[0][col] == 0 or matrix[row][0] == 0:
+                    matrix[row][col] = 0
+                    
+        # update the first row and col if they're zero
+        if first_row_has_zero:
+            for col in range(n):
+                matrix[0][col] = 0
+        
+        if first_col_has_zero:
+            for row in range(m):
+                matrix[row][0] = 0       
+```
+
+---
+
+:orange_book: [74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/): Binary Search (2-D coordinates -> 1-D)
+
+```
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        
+        # Reference
+        # https://leetcode.com/problems/search-a-2d-matrix/discuss/26201/A-Python-binary-search-solution-O(logn)
+        
+        rows, cols = len(matrix), len(matrix[0])
+        left, right = 0, rows * cols - 1
+        
+        while left + 1 < right:
+            mid = (left + right) >> 1
+
+            num = matrix[mid // cols][mid % cols] # transform 1D index into position in 2D array
+            
+            # then just classic binary search
+            if num == target:
+                return True
+            elif num < target:
+                left = mid
+            else:
+                right = mid
+        
+        if matrix[left // cols][left % cols] == target or matrix[right // cols][right % cols] == target:
+            return True
+        
+        return False
+```
+
+---
+
+:orange_book: [75. Sort Colors](https://leetcode.com/problems/sort-colors/): Counters / **Two Pointers (Partition)**
+
+```
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        
+        def partition(nums, k):
+            # point to the last element in the (< k) region (i.e., a barrier)
+            last_small_ptr = -1
+
+            for i in range(len(nums)):
+                if nums[i] < k:
+                    # the barrier moves one step
+                    last_small_ptr += 1
+
+                    # exchange
+                    nums[last_small_ptr], nums[i] = \
+                    nums[i], nums[last_small_ptr]
+
+        partition(nums, 1)
+        partition(nums, 2)
+
+        return nums
+        
+        
+#         if len(nums) == 1:
+#             return nums
+        
+#         nums_zero, nums_one, nums_two = 0, 0, 0
+        
+#         # count the number of each colors
+#         for i in range(len(nums)):
+#             if nums[i] == 0:
+#                 nums_zero += 1
+#             if nums[i] == 1:
+#                 nums_one += 1
+#             if nums[i] == 2:
+#                 nums_two += 1
+        
+#         # replace
+#         for i in range(len(nums)):
+#             if nums_zero != 0:
+#                 nums[i] = 0
+#                 nums_zero -= 1
+#             elif nums_one != 0:
+#                 nums[i] = 1
+#                 nums_one -= 1
+#             else:
+#                 nums[i] = 2
+#                 nums_two -= 1
+                
+#         return nums
+```
+
+---
+
+:closed_book: [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/): Two Pointers (Sliding Window)
+
+```
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        
+        # Ref:
+        # https://leetcode.com/problems/minimum-window-substring/discuss/226911/Python-two-pointer-sliding-window-with-explanation
+        
+        # we need to make sure all letters in [t] appeared their corresponding number of times
+        target_letter_counts = Counter(t)
+        target_length = len(t)
+        
+        # start and end of the sliding window
+        start, end = 0, 0
+        
+        min_window = ""
+        
+        # we first fix the [start] and move the [end] to the right
+        for end in range(len(s)):
+            # If we see a target letter, decrease the total target letter count
+            # We might have more than needed number for a specific character
+            # what we do is we dont count down target_length from then on when we see that element
+            
+            if target_letter_counts[s[end]] > 0:
+                target_length -= 1 # we used one letter from the target pool/string
+        
+            # Decrease the letter count for the current letter
+			# If the letter is not a target letter, the count just becomes -ve
+            # Yes, we can decrement an element not yet present in the Counter
+            target_letter_counts[s[end]] -= 1 # what this does makes all non-target characters negative as well
+            
+            # If all letters in the target are found
+            # try to contract the window by moving the [start] pointer forward
+            while target_length == 0:
+                window_length = end - start + 1
+                
+                if not min_window or window_length < len(min_window):
+                    # Note the new minimum window
+                    min_window = s[start : end + 1]
+                    
+                # Increase the letter count of the current letter
+                # we will increase this for all letters. but only the target elements have a chance to have positive counters
+                target_letter_counts[s[start]] += 1
+                
+                # If all target letters have been seen and now, a target letter is seen with count > 0
+                # what does this mean? one of the target characters that we use to validate the target is now out of the window
+                if target_letter_counts[s[start]] > 0:
+                    target_length += 1
+                
+                start += 1 # move the [start] pointer forward to further contract the window
+                
+        return min_window        
+```
+
+---
+
+
+
+
+
+
+
