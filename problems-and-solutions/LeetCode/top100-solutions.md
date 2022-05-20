@@ -1541,9 +1541,451 @@ class Solution:
 
 ---
 
+:orange_book: [78. Subsets](https://leetcode.com/problems/subsets/): DFS for Subsets (Combinations)
 
+```
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        
+        def dfs(candidates, target, path, res):
+            if target == 0:
+                res.append(path)
+                return
+            if target < 0:
+                return
+            
+            for i in range(len(candidates)):
+                dfs(candidates[i+1:], target - 1, path + [candidates[i]], res)
+        
+        candidates = nums
+        res = []
+        
+        for i in range(len(candidates) + 1):
+            dfs(candidates, i, [], res) # combinations for each length from [0, len(candidates)]
+                    
+        return res
+```
 
+---
 
+:orange_book: [79. Word Search](https://leetcode.com/problems/word-search/): DFS on Matrix
 
+```
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/word-search/discuss/747144/Python-dfs-backtracking-solution-explained
+        
+        # ind = index of the word we are at; i,j = position on board we are at
+        
+        def dfs(ind, i, j):
+            if self.Found: return        # early stop if word is found
 
+            if ind == k:
+                self.Found = True                # for early stopping
+                return 
+
+            if i < 0 or i >= m or j < 0 or j >= n: return  # we went outside of the board
+            
+            # check if current symbol on board is what we want in word
+            tmp = board[i][j]
+            if tmp != word[ind]: return
+
+            # indicate this position is visited
+            
+            board[i][j] = "#"
+            
+            # dfs on all neighbors
+            for x, y in [[0,-1], [0,1], [1,0], [-1,0]]:
+                dfs(ind + 1, i+x, j+y)
+            
+            # change the position back from "#"
+            board[i][j] = tmp
+            
+        self.Found = False
+        
+        m, n, k = len(board), len(board[0]), len(word)
+        
+        for row in range(m):
+            for col in range(n):
+                if self.Found: return True # early stop
+                dfs(0, row, col)
+
+        return self.Found
+```
+
+---
+
+:closed_book: [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/): Stack / **Plain Iteration**
+
+```
+class Solution(object):
+    def largestRectangleArea(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        
+        # Plain iterative solution (less efficient but easier to think of)
+        # Ref: https://leetcode.com/problems/largest-rectangle-in-histogram/discuss/28963/Python-solution-without-using-stack.-(with-explanation)
+        
+        n = len(heights)
+        if n == 1:
+            return heights[0]
+        
+        # left[i]: how many CONSECUTIVE bars to the left (including the bar at [i]) that is >= heights[i]
+        # right[i]: how many CONSECUTIVE bars to the right (including the bar at [i]) that is >= heights[i]
+        # then we have max rectangle containing bar[i] = height[i] * (left[i] + right[i] - 1)
+        
+        left = [1] * n
+        right = [1] * n
+        
+        # calculate left
+        for i in range(0, n): # [j] to the left of [i]
+            j = i - 1
+            while j >= 0 and heights[j] >= heights[i]:
+                j -= left[j]
+            left[i] = i - j
+        
+        # calculate right
+        for i in range(n-2, -1, -1): # [i] to the left of [j]
+            j = i + 1
+            while j < len(heights) and heights[i] <= heights[j]:
+                j += right[j] 
+            right[i] = j - i
+            
+        res = 0
+        
+        for i in range(n):
+            res = max(res, heights[i] * (left[i] + right[i] - 1))
+                
+        return res
+```
+
+---
+
+:closed_book: [85. Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/): Plain Iteration (using Solution to LeetCode 84)
+
+```
+class Solution:
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        # Ref: https://www.youtube.com/watch?v=g8bSdXCG-lA
+        
+        if not matrix or not matrix[0]:
+            return 0
+        if len(matrix) == len(matrix[0]) == 1: # only one element
+            return 0 if matrix[0][0] == '0' else 1
+        
+        m, n = len(matrix), len(matrix[0])
+        result = 0
+        
+        height = [0] * n
+    
+        for row in matrix:
+            for col in range(n):
+                height[col] = height[col] + 1 if row[col] == '1' else 0
+            
+            result = max(result, self.largestRectangleInHistogram(height))
+        
+        return result
+    
+    def largestRectangleInHistogram(self, heights):
+        # from LeetCode 84
+        
+        n = len(heights)
+        if n == 1:
+            return heights[0]
+        
+        left = [1] * n
+        right = [1] * n
+        
+        # calculate left
+        for i in range(0, n): # [j] to the left of [i]
+            j = i - 1
+            while j >= 0 and heights[j] >= heights[i]:
+                j -= left[j]
+            left[i] = i - j
+        
+        # calculate right
+        for i in range(n-2, -1, -1): # [i] to the left of [j]
+            j = i + 1
+            while j < len(heights) and heights[i] <= heights[j]:
+                j += right[j] 
+            right[i] = j - i
+            
+        res = 0
+        
+        for i in range(n):
+            res = max(res, heights[i] * (left[i] + right[i] - 1))
+                
+        return res
+```
+
+---
+
+:green_book: [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/): Binary Tree + DFS
+
+```
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        
+        # In-order: left, middle, right
+        # Post-order: left, right, middle
+        # Pre-order: middle, left, right
+        
+        # Special cases
+        if root is None:
+            return []
+        
+        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+```
+
+---
+
+:orange_book: [96. Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/): Binary Tree + Recursion + Dynamic Programming
+
+```
+class Solution(object):
+    
+    # dp[i] = number of unique BSTs for n nodes = numTrees(i)
+    dp = [0] * 20
+    
+    def numTrees(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/unique-binary-search-trees/discuss/1565543/C%2B%2BPython-5-Easy-Solutions-w-Explanation-or-Optimization-from-Brute-Force-to-DP-to-Catalan-O(N)
+        
+        
+        if n <= 1:
+            return 1
+        
+        if self.dp[n] != 0: # already calculated
+            return self.dp[n]
+        
+        for i in range(1, n + 1):
+            self.dp[n] += self.numTrees(i - 1) * self.numTrees(n - i)
+            
+        return self.dp[n]
+```
+
+---
+
+:orange_book: [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/): Binary Search Tree
+
+```
+class Solution(object):
+    
+    # Floor: all values must be larger than this
+    # Ceiling: all values must be smaller than this
+    def isValidBST(self, root, floor=float('-inf'), ceiling=float('inf')):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        
+        if not root: # no node is a valid BST
+            return True
+        
+        if root.val <= floor or root.val >= ceiling:
+            return False
+        
+        # in the left branch, root is the new ceiling; contrarily root is the new floor in right branch
+        return self.isValidBST(root.left, floor, root.val) and self.isValidBST(root.right, root.val, ceiling)
+```
+
+---
+
+:green_book: [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/) | Binary Tree
+
+```
+def isMirror(left, right):
+    # stop conditions
+    if left is None and right is None:
+        return True
+    if left is None or right is None:
+        return False
+    
+    if left.val == right.val:
+        # assume isMirror is perfect
+        outPair = isMirror(left.left, right.right)
+        inPair = isMirror(left.right, right.left)
+        return outPair and inPair
+    else:
+        return False
+    
+    
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        
+        # According to solution
+        # https://leetcode.com/problems/symmetric-tree/discuss/33050/Recursively-and-iteratively-solution-in-Python
+        if root is None:
+            return True
+        else:
+            return isMirror(root.left, root.right)
+```
+
+---
+
+:orange_book: [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/): Binary Tree + BFS (Queue)
+
+```
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+            
+        # Solution using BFS and Queues:
+        # https://leetcode.com/problems/binary-tree-level-order-traversal/discuss/1219538/Python-Simple-bfs-explained
+        
+        if not root:
+            return []
+        
+        if not root.left and not root.right:
+            return [[root.val]]
+        
+        from collections import deque
+        
+        result = []
+        queue = deque([root])
+        
+        while queue:
+            
+            # store the values of all nodes in this level
+            result.append([node.val for node in queue])
+            
+            for _ in range(len(queue)): # for each node in queue
+                
+                node = queue.popleft()
+
+                if node.left:  queue.append(node.left)
+                if node.right: queue.append(node.right)
+            
+        return result
+```
+
+---
+
+:green_book: [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/): Binary Tree (Top-down / Bottom-up)
+
+```
+def maxDepth_bottomUp(root):
+    
+    # stop conditions    
+    if not root:
+        return 0
+    
+    left_depth, right_depth = 0, 0
+    
+    # assuming maxDepth works perfectly
+    if root.left is not None:
+        left_depth = maxDepth_bottomUp(root.left)
+        
+    if root.right is not None:
+        right_depth = maxDepth_bottomUp(root.right)
+    
+    # go up one layer (+ 1 account for going up one layer)
+    return 1 + max(left_depth, right_depth)
+
+#####################################################################
+
+def maxDepth_topDown(root, current_level, max_level):
+    # stop conditions    
+    if not root:
+        return 0
+    
+    max_level[0] = max(max_level[0], current_level)
+        
+    maxDepth_topDown(root.left, current_level + 1, max_level)
+    maxDepth_topDown(root.right, current_level + 1, max_level)
+
+#####################################################################
+
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        
+        if root is None:
+            return 0
+
+        return maxDepth_bottomUp(root)
+	
+#         max_level = [0]
+#         maxDepth_topDown(root, 1, max_level)
+
+#         return max_level[0]
+```
+
+---
+
+:orange_book: [105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/): Binary Tree + Divide and Conquer
+
+```
+class Solution(object):
+    def buildTree(self, preorder, inorder):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: TreeNode
+        """
+        print(len(inorder))
+        print(len(preorder))
+        print('')
+        
+        # Reference 1:
+        # https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/discuss/34579/Python-short-recursive-solution./32946
+        
+        if len(inorder) == 0:
+            return None
+
+        if len(inorder) == 1: # only one element, construct a node for it
+            return TreeNode(preorder[0])
+        
+        rval = preorder[0]
+        root = TreeNode(rval)
+        
+        # Reference 2: 
+        # https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/discuss/34579/Python-short-recursive-solution.
+        # Looking at preorder traversal, the first value (node 1) must be the root.
+        # Then, we find the index of root within in-order traversal, and split into two sub problems.
+        inorder_rval_index = inorder.index(rval)
+        left_inorder = inorder[:inorder_rval_index]
+        right_inorder = inorder[inorder_rval_index+1:]
+        left_preorder = preorder[1: len(left_inorder) + 1]
+        right_preorder = preorder[1 + len(left_preorder):]
+        
+        root.left = self.buildTree(left_preorder, left_inorder)
+        root.right = self.buildTree(right_preorder, right_inorder)
+        
+        return root
+```
+
+---
 
