@@ -1989,3 +1989,714 @@ class Solution(object):
 
 ---
 
+:orange_book: [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/): Binary Tree + Pre-order Traversal
+
+```
+class Solution(object):
+    
+    def preorder(self, node):
+        if not node:
+            return []
+        return [node.val] + self.preorder(node.left) + self.preorder(node.right)
+    
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/1208004/Extremely-Intuitive-O(1)-Space-solution-with-Simple-explanation-Python
+        
+        if not root:
+            return None
+        
+        curr = root
+        
+        while curr:
+            if curr.left:
+                p = curr.left
+                while p.right:
+                    p = p.right # p is right-most point in left subtree
+                    
+                p.right = curr.right
+                curr.right = curr.left
+                curr.left = None
+            curr = curr.right
+```
+
+---
+
+:green_book: [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/): Two Pointers
+
+```
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        
+        # See Solution
+        # https://www.youtube.com/watch?v=1pkOgXD63yU
+        
+        if len(prices) < 2:
+            return 0
+        
+        l, r = 0, 1
+        max_profit = 0
+        
+        while r < len(prices):
+            
+            if prices[l] < prices[r]: # We are making profit (we can leave our left pointer here)
+                current_profit = prices[r] - prices[l]
+                max_profit = max(current_profit, max_profit)
+                
+            else: # We are losing money
+                l = r # Always want l to be minimum
+                
+            r += 1
+            
+        return max_profit
+```
+
+---
+
+:closed_book: [124. Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/): Binary Tree
+
+```
+class Solution(object):
+    
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.max_path = float("-inf") # placeholder to be updated
+        # Reference Solution:
+        # https://leetcode.com/problems/binary-tree-maximum-path-sum/discuss/603423/Python-Recursion-stack-thinking-process-diagram
+        
+        if not root.left and not root.right:
+            return root.val
+        
+        def get_max_gain(node):
+            
+            if node is None:
+                return 0
+            
+            # What is the max and 0 doing: 
+            # In case the subtree is all negative, then we should return 0 instead of negative numbers, ignoring that subtree
+            gain_on_left = max(get_max_gain(node.left), 0) # Read the part important observations
+            gain_on_right = max(get_max_gain(node.right), 0)  # Read the part important observations
+            
+            current_max_path = node.val + gain_on_left + gain_on_right # Read first three images of going down the recursion stack
+            self.max_path = max(self.max_path, current_max_path) # Read first three images of going down the recursion stack
+            
+            return node.val + max(gain_on_left, gain_on_right) # Read the last image of going down the recursion stack
+        
+        get_max_gain(root) # Starts the recursion chain
+        return(self.max_path)
+```
+
+---
+
+:orange_book: [128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/): Hash Table (Sets) 
+
+```
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        
+        nums = set(nums)
+        best = 0
+        
+        # Since we check each streak only once, this is overall O(n)
+        # "in" operation in set() seems to be O(1)
+        
+        for x in nums:
+            
+            if (x - 1) not in nums: # x is the start of a streak
+                
+                y = x + 1
+                
+                while y in nums: # test y = x+1, x+2, x+3, ... and stop at the first number y not in the set
+                    y += 1
+                
+                best = max(best, y - x)
+        
+        return best
+        
+```
+
+---
+
+:orange_book: [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/): DFS for backtracking
+
+```
+class Solution(object):
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
+        
+        # Reference solution
+        
+        def isPal(string):
+            return string == string[::-1] # string == its inverse
+        
+        def dfs(candidates, path, result):
+            if len(candidates) == 0:
+                result.append(path[:])
+                return
+            
+            for i in range(1, len(candidates)+1):
+                if isPal(candidates[:i]): # check first part before current index is palindrome
+                    dfs(candidates[i:], path+[candidates[:i]], result) # then we move on to check the rest part
+        
+        result = []
+        dfs(s, [], result)
+        
+        return result
+```
+
+---
+
+:green_book: [136. Single Number](https://leetcode.com/problems/single-number/) | Hash Table (Counters) / **Bit Manipulation**
+
+```
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+
+        # Solution 1: Time = O(n), Space = O(1)
+        
+        # Note that:
+        # A^A=0
+        # A^B^A=B
+        # (A^A^B) = (B^A^A) = (A^B^A) = B This shows that position doesn't matter.
+        # Similarly , if we see , a^a^a......... (even times)=0 and a^a^a........(odd times)=a
+        
+        combined = 0
+        
+        for num in nums:
+            combined ^= num
+            print(combined)
+        
+        return combined
+        
+        #######################################
+        
+        # Solution 2: Time = Space = O(n)
+        
+        # cnt = Counter(nums)
+    
+        # for val, freq in cnt.items():
+            # if freq == 1:
+            #     return val
+```
+
+---
+
+:orange_book: [138. Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/): Linked List + Hash Table (Dicts)
+
+```
+class Solution(object):
+    def copyRandomList(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/copy-list-with-random-pointer/discuss/373694/Python3-Dictionary
+        
+        if head is None: return None
+        
+        # build mapping of original node to it's copy
+        mapping = {}
+        cur = head
+        
+        while cur:
+            mapping[cur] = Node(cur.val, None, None)
+            cur = cur.next
+        cur = head
+        
+        while cur:
+            if cur.next:
+                mapping[cur].next = mapping[cur.next]
+            if cur.random:
+                mapping[cur].random = mapping[cur.random]
+            cur = cur.next
+        return mapping[head]
+        
+        # Another Reference Solution:
+        # https://leetcode.com/problems/copy-list-with-random-pointer/discuss/373694/Python3-Dictionary
+```
+
+---
+
+:orange_book: [139. Word Break](https://leetcode.com/problems/word-break/): Dynamic Programming
+
+```
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        
+        # Sample Solution:
+        # https://leetcode.com/problems/word-break/discuss/43808/Simple-DP-solution-in-Python-with-description
+        
+        # d[i] is True if there is a word in the dictionary that ends at ith index of s AND d is also True at the beginning of the word
+        
+        # e.g. Example 1 in given question
+        # d[3] is True because there is "leet" in the dictionary that ends at 3rd index of "leetcode"
+        # d[7] is True because there is "code" in the dictionary that ends at the 7th index of "leetcode" AND d[3] is True
+        
+        d = [False] * (len(s) + 1)
+        d[0] = True
+        
+        for i in range(len(s) + 1):
+            for word in wordDict:
+                # if this word ends at index [i] and there is already a word ending at [i - len(word)]
+                # we know that s[:i] can be made up of words in dictionary
+                if word == s[i - len(word) : i] and d[i - len(word)] == True:
+                    d[i] = True
+    
+        return d[-1]
+```
+
+---
+
+:green_book: [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/): Linked List (Fast & Slow Pointers)
+
+```
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+
+        if not head:
+            return False
+    
+        slow, fast = head, head # both starting from head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        
+        return False
+```
+
+---
+
+:orange_book: [142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/): Linked List (Fast & Slow Pointers)
+
+```
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        
+        slow = fast = head
+        
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+            
+            if slow == fast:
+                break
+                
+        else: # if not (fast and fast.next): return None
+            return None
+        
+        while head != slow:
+            head, slow = head.next, slow.next
+            
+        return head
+```
+
+---
+
+:orange_book: [146. LRU Cache](https://leetcode.com/problems/lru-cache/): Linked List + Hash Table (Dict)
+
+```
+class LinkedNode:
+    def __init__(self, key = None, val = None, next = None):
+        self.key = key
+        self.val = val
+        self.next = next
+
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.capacity = capacity
+        self.dummy = LinkedNode()
+        self.tail = self.dummy
+        self.key_to_prev = {} # <key, val> = <key, node that is before key's node>
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.key_to_prev: # key is not in cache
+            return -1
+        
+        self.kick(key) # key is just visited, so kick it to the end of linked list
+        return self.tail.val # key is not at tail
+        
+    def kick(self, key):
+        prev = self.key_to_prev[key]
+        key_node = prev.next
+
+        if key_node == self.tail: # if the node is already the tail node, do nothing
+            return
+
+        prev.next = key_node.next # skip key node
+        self.key_to_prev[key_node.next.key] = prev # prev node for the node after key node should be prev
+        key_node.next = None # break the connection between key node and the node after it
+
+        self.push_back(key_node) # put key node to the tail
+    
+    def push_back(self, node):
+        self.key_to_prev[node.key] = self.tail
+        self.tail.next = node
+        self.tail = node
+        
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        if key in self.key_to_prev:
+            self.kick(key) # because we just accessed it
+            self.tail.val = value # update its value
+            return 
+        
+        # if key is not present in cache
+        self.push_back(LinkedNode(key, value)) # create a new node for it and put to tail
+        
+        if len(self.key_to_prev) > self.capacity:
+            self.pop_front() # remove the least recently used element
+            
+    def pop_front(self):
+        head = self.dummy.next
+        del self.key_to_prev[head.key]
+        self.dummy.next = head.next # skip head
+        self.key_to_prev[head.next.key] = self.dummy
+```
+
+---
+
+:orange_book: [148. Sort List](https://leetcode.com/problems/sort-list/) | Linked List + Two Pointers + Merge Sort 
+
+```
+class Solution(object):
+    # Reference Solution:
+    # https://leetcode.com/problems/sort-list/discuss/46711/Python-easy-to-understand-merge-sort-solution/604660
+        
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return None
+        if not head.next:
+            return head
+        
+        # cut the list into two halves
+        
+        slow, fast = head, head.next
+        
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        
+        # [slow] points to the last node of the first half
+        # [second] points to the start of the second half
+        second = slow.next 
+        slow.next = None # seperating the two halves
+        
+        l = self.sortList(head)
+        r = self.sortList(second)
+        
+        return self.merge(l, r)
+        
+    def merge(self, l, r):
+        # merge two lists in ascending order
+            
+        if l is None:
+            return r
+        elif r is None:
+            return l
+            
+        dummy = ListNode(0)
+        head = dummy
+
+        while l and r:
+            if l.val <= r.val:
+                head.next = l
+                l = l.next
+            else:
+                head.next = r
+                r = r.next
+            head = head.next
+
+        head.next = l if r is None else r
+        return dummy.next
+```
+
+---
+
+:orange_book: [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/): Dynamic Programming
+
+```
+class Solution(object):
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        # Ref: https://www.youtube.com/watch?v=lXVy6YWFcRM
+        # observations:
+        # 1. if all positive, the product can only be increasing as we include more numbers
+        # 2. if there is negative or 0, the product will be more complicated
+        # So, we need to keep track of currentMin and currentMax
+        
+        result = max(nums)
+        curMin, curMax = 1, 1
+        
+        for num in nums:
+            
+            if num == 0: # we don't want to mess up the curMin and curMax, reset both to 1
+                curMin, curMax = 1, 1
+                continue
+            
+            # re-compute the current min and current max
+            prev_curMax = curMax
+            curMax = max(num * curMax, num * curMin, num)
+            curMin = min(num * prev_curMax, num * curMin, num)
+            
+            result = max(result, curMax, curMin)
+    
+        return result
+```
+
+---
+
+:orange_book: [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/: Binary Search
+
+```
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        
+        # binary search
+        left, right = 0, len(nums) - 1
+        
+        while left + 1 < right:
+            mid = (left + right) >> 1
+            
+            if nums[mid] >= nums[right]:
+                left = mid # go right
+            else:
+                right = mid # go left
+                
+        return min(nums[left], nums[right])
+```
+
+---
+
+:green_book: [155. Min Stack](https://leetcode.com/problems/min-stack/): Stack
+
+```
+class MinStack(object):
+
+    def __init__(self):
+        # Idea: using a list to mimic a stack
+        self.stack = []
+        self.min = [sys.maxint]
+        
+
+    def push(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        self.stack.append(val)
+        
+        if val <= self.min[-1]:
+            self.min.append(val)
+        
+
+    def pop(self):
+        """
+        :rtype: None
+        """
+        
+        if self.stack[-1] == self.min[-1]:
+            self.min.pop()
+            
+        self.stack.pop()
+        
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1]
+        
+
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        return self.min[-1]
+```
+
+---
+
+:green_book: [160. Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/): Linked List (Fast & Slow Pointers)
+
+```
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49798/Concise-python-code-with-comments/182352
+
+        # Concatenate list A and list B, if there's an intersection, there's a loop, so we need to find the start of the loop if there's any:
+
+        if not headA or not headB: return None
+
+        # Concatenate A and B
+        last = headA
+        while last.next: last = last.next
+        last.next = headB
+
+        # Find the start of the loop
+        fast = slow = headA
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+            if slow == fast: # If there is a loop
+                break
+        else: # there is no loop -> there is no intersection
+            last.next = None # Retain lists' original structures
+            return None
+        
+        while headA != slow:
+            slow, headA = slow.next, headA.next
+        last.next = None # Retain lists' original structures
+        
+        return headA
+```
+
+---
+
+:green_book: [160. Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/): Linked List (Fast & Slow Pointers)
+
+```
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49798/Concise-python-code-with-comments/182352
+
+        # Concatenate list A and list B, if there's an intersection, there's a loop, so we need to find the start of the loop if there's any:
+
+        if not headA or not headB: return None
+
+        # Concatenate A and B
+        last = headA
+        while last.next: last = last.next
+        last.next = headB
+
+        # Find the start of the loop
+        fast = slow = headA
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+            if slow == fast: # If there is a loop
+                break
+        else: # there is no loop -> there is no intersection
+            last.next = None # Retain lists' original structures
+            return None
+        
+        while headA != slow:
+            slow, headA = slow.next, headA.next
+        last.next = None # Retain lists' original structures
+        
+        # now headA == point of intersection == location of the cycle in concatenated list
+        return headA
+```
+
+---
+
+:green_book: [169. Majority Element](https://leetcode.com/problems/majority-element/): Hash Table (Counter)
+
+```
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        counter = Counter(nums)
+        
+        for key, val in counter.items():
+            if val > len(nums) // 2:
+                return key
+```
+
+---
+
+:orange_book: [189. Rotate Array](https://leetcode.com/problems/rotate-array/) | Array + Mathematics
+
+```
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        
+        n = len(nums)
+        k = k % n
+        
+        if k == 0:
+            return
+        
+        #           | (k = 3)
+        # [1, 2, 3, 4, 5, 6, 7]
+        # [5, 6, 7, 1, 2, 3, 4]
+        # [5, 6, 7] + [1, 2, 3, 4]
+        
+        # [rest of the elements] + [first (n - k) elements]
+        nums[:] = nums[n - k:] + nums[:n - k]
+```
+
+---
