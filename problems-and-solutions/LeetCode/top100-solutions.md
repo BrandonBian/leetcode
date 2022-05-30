@@ -2700,3 +2700,256 @@ class Solution:
 ```
 
 ---
+
+:orange_book: [198. House Robber](https://leetcode.com/problems/house-robber/) | Dynamic Programming
+
+```
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        
+        if not nums:
+            return 0
+        if len(nums) == 1: return nums[0]
+        if len(nums) == 2: return max(nums)
+        
+        # dp[i] = maximum loot we can get by considering up to house [i]
+        dp = [0 for _ in range(len(nums))]
+        
+        # initialization
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+        
+        for i in range(2, len(nums)):
+            
+            # At each sub problem
+            # We either include the current house for robber or not
+            # If we include it : then it means we rob the current house and leave the last house             
+            #     i.e rob the lastToLast house
+            # If we exclude it : then it means we rob the last house
+                
+            # if we include, max loot = max loot up to the last-to-last house + current house loot
+            include = nums[i] + dp[i - 2]
+            # if we exclude, max loot = max loot up to the last house
+            exclude = dp[i - 1]
+            
+            dp[i] = max(include, exclude)
+
+        return dp[len(nums) - 1] # equivalent to dp[-1]
+```
+
+---
+
+:orange_book: [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | DFS on Matrix
+
+```
+class Solution:
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        
+        # Ref: https://leetcode.com/problems/number-of-islands/discuss/56340/Python-Simple-DFS-Solution
+        
+        if not grid or not grid[0]:
+            return 0
+
+        result = 0
+        
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == '1': # if this position is an island
+                    self.dfs(grid, row, col) # dfs all directions from this position and mark as visited
+                    result += 1
+        
+        print(grid)
+        return result
+
+    def dfs(self, grid, row, col):
+        # check for out of bound or non-island conditions
+        if row < 0 or row >= len(grid) or col < 0 or col >= len(grid[0]) or grid[row][col] != '1':
+            return 
+
+        grid[row][col] = '#' # mark as visited
+        self.dfs(grid, row + 1, col)
+        self.dfs(grid, row - 1, col)
+        self.dfs(grid, row, col + 1)
+        self.dfs(grid, row, col - 1)
+```
+
+---
+
+:green_book: [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | Linked List
+
+```
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        
+        # YouTube Tutorial:
+        # https://youtu.be/XDO6I8jxHtA
+        
+        if not head:
+            return None
+        
+        if not head.next:
+            return head
+        
+        prev = None
+        while head:
+            curr = head
+            head = head.next
+            curr.next = prev
+            prev = curr
+            
+        return prev
+```
+
+---
+
+:orange_book: [207. Course Schedule](https://leetcode.com/problems/course-schedule/) (similar as [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)) | Graph (Adjacency Matrix) + BFS
+
+```
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # idea: find the in-degree of each node, 
+        # put each node with 0 in-degree into a queue as starting nodes
+        # Repeat: take one node from queue and decrement in-degree for connected nodes
+        # if we find a new node with 0 in-degree, add it to queue
+
+        # create an adjacency matrix (store neighboring nodes)
+        graph = [[] for i in range(numCourses)]
+        
+        # identify the in-degree of each node and construct adjacency matrix
+        in_degree = [0] * numCourses
+        for node_in, node_out in prerequisites:
+            graph[node_out].append(node_in)
+            in_degree[node_in] += 1
+
+        # put each node with in-degree = 0 into a queue
+        from collections import deque
+        queue = deque()
+
+        for i in range(numCourses):
+            if in_degree[i] == 0: # we can learn this class
+                queue.append(i)
+
+        topo_order = []
+
+        while queue:
+            now_pos = queue.popleft()
+            topo_order.append(now_pos)
+
+            # for each neighboring node, in-degree decrement by 1
+            for next_pos in graph[now_pos]:
+                in_degree[next_pos] -= 1
+                if in_degree[next_pos] == 0:
+                    queue.append(next_pos)
+
+        # return topological order if we have finished all required courses
+        return True if len(topo_order) == numCourses else False
+```
+
+---
+
+:orange_book: [208. Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | Trie (Prefix Tree) + Hash Table (DefaultDict)
+
+```
+class Trie:
+    
+    # Ref: https://www.youtube.com/watch?v=AXjmTQ8LEoI
+
+    def __init__(self):
+        
+        # <key, val> = <character, Trie Node>
+        # Note: defaultdict will create any items that you try to access (if it is not already present)
+        self.children = defaultdict(Trie)
+        self.end_of_word = False
+        
+    def insert(self, word: str) -> None:
+        cur = self
+        for c in word:
+            cur = cur.children[c]
+        cur.end_of_word = True
+        
+    def search(self, word: str) -> bool:
+        cur = self
+        for c in word:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return cur.end_of_word
+        
+    def startsWith(self, prefix: str) -> bool:
+        cur = self
+        for c in prefix:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return True
+```
+
+---
+
+:orange_book: [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) | Sorting (Quick Select)
+
+```
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        
+        # plain sorting: O(NlogN)
+        # return sorted(nums)[-k]
+        
+        # quick select: O(logN -> N)
+        # https://leetcode.com/problems/kth-largest-element-in-an-array/discuss/1019513/Python-QuickSelect-average-O(n)-explained
+        
+        if not nums:
+            return
+        pivot = random.choice(nums)
+        
+        left =  [x for x in nums if x > pivot]
+        mid  =  [x for x in nums if x == pivot]
+        right = [x for x in nums if x < pivot]
+        
+        L, M = len(left), len(mid)
+        
+        if k <= L:
+            return self.findKthLargest(left, k)
+        elif k > L + M:
+            return self.findKthLargest(right, k - L - M)
+        else:
+            # all elements here are equal, just return one of them
+            return mid[0]
+```
+
+---
+
+:orange_book: [221. Maximal Square](https://leetcode.com/problems/maximal-square/) | Dynamic Programming
+
+```
+class Solution:
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
+        
+        if not matrix or not matrix[0]:
+            return 0
+        
+        m, n = len(matrix), len(matrix[0])
+        
+        dp = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
+        result = 0
+        
+        for row in range(m):
+            for col in range(n):
+                if matrix[row][col] == '1':
+                    # be careful of the indexing since dp grid has additional row and column
+                    dp[row + 1][col + 1] = min(dp[row][col], dp[row + 1][col], dp[row][col + 1]) + 1
+                    result = max(result, dp[row + 1][col + 1])
+                    
+        # note that we want AREA
+        return result * result
+```
+
+---
