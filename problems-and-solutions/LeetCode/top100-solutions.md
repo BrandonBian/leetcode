@@ -3201,3 +3201,173 @@ class Solution:
 
 ---
 
+:green_book: [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/) | Two Pointers
+
+```
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        # Reference Solution:
+        # https://leetcode.com/problems/move-zeroes/discuss/72012/Python-short-in-place-solution-with-comments.
+        # Visualization: https://leetcode.com/problems/move-zeroes/discuss/72012/Python-short-in-place-solution-with-comments./1150489
+        
+        left = 0  # pointer to the left most position
+	
+	# move all non-zero elements to the front
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[left] = nums[i]
+                zero += 1
+                
+        # set rest of the digits to zero
+        while left < len(nums):
+            nums[left] = 0
+            left += 1
+        
+        return nums
+```
+
+---
+
+:orange_book: [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/) | **Binary Search** / **Linked List Cycle Location**
+
+- **Binary Search Solution: Time = O(logN)**
+
+```
+class Solution:
+    
+    # Ref :
+    # https://leetcode.com/problems/find-the-duplicate-number/discuss/1892921/Java-9-Approaches-Count-%2B-Hash-%2B-Sort-%2B-Binary-Search-%2B-Bit-%2B-Fast-Slow-Pointers
+    
+    def findDuplicate(self, nums: List[int]) -> int:
+        
+        # Solution: Binary Search O(logN)
+        
+        # binary search on integers of [1...n], which are all possible numbers in [nums]
+        # find the minimum (i.e., the only) repeated number
+        left, right = 1, len(nums) - 1
+        
+        while left < right:
+            mid = (left + right) >> 1
+            
+            # count the elements of the array which is less than or equal to [mid]
+            cnt = 0
+            
+            for num in nums:
+                if num <= mid:
+                    cnt += 1
+            
+            if cnt <= mid:
+                # repeated element in [mid, right]
+                left = mid + 1
+                
+            else:
+                # repeated element in [left, mid]
+                right = mid
+                
+        return left
+```
+
+- **Linked List Cycle Location: Time = O(n)**
+
+```
+class Solution:
+    
+    # Ref :
+    # https://leetcode.com/problems/find-the-duplicate-number/discuss/1892921/Java-9-Approaches-Count-%2B-Hash-%2B-Sort-%2B-Binary-Search-%2B-Bit-%2B-Fast-Slow-Pointers
+    
+    def findDuplicate(self, nums: List[int]) -> int:
+        
+        # Solution: Linked List Cycle Location
+        
+        # nums[i]: linked list node No.[i] pointing to the next node which is nums[i]
+        # e.g.: [1,3,4,2,2] in linked list format:
+        # 0->1
+        # 1->3
+        # 2->4
+        # 3->2
+        # 4->2
+        # 0->1->3->2->4->2->4->2->… (which contains a cycle)
+        
+        # for cycle location finding, see: https://leetcode.com/problems/linked-list-cycle-ii/
+        
+        slow = fast = 0
+        
+        while fast < len(nums) and nums[fast] < len(nums):
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            
+            if slow == fast: # they will meet eventually, no fear of infinite loop
+                break
+            
+        head = 0
+        
+        while head != slow:
+            head = nums[head]
+            slow = nums[slow]
+            
+        return head
+```
+
+---
+
+:closed_book: [295. Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) | Heap (heapq)
+
+```
+class MedianFinder:
+    
+    # Ref: https://www.youtube.com/watch?v=itmhHWaHupI
+
+    def __init__(self):
+        
+        # small heap is a max heap, all elements <= elements in large heap
+        self.small = []
+        
+        # large heap is a min heap, all elements >= elements in small heap
+        self.large = []
+        
+    def addNum(self, num: int) -> None:
+        
+        # by default add to small heap
+        # since Python heap is min heap by default, and we want max heap, we negate the added number
+        heapq.heappush(self.small, -1 * num)
+        
+        # make sure every element in small heap <= elements in large heap
+        if self.small and self.large and (-1 * self.small[0]) > self.large[0]:
+            # if there is some element in small heap > element in large heap
+            # pop the max element from the small heap and add to large heap
+            val = heapq.heappop(self.small)
+            heapq.heappush(self.large, -1 * val)
+            
+        # make sure the sizes of the two heaps are approximately equal
+        if len(self.small) > len(self.large) + 1:
+            # if size of small heap is more than one element larger than large heap
+            # pop the max element from the small heap and add to large heap
+            val = heapq.heappop(self.small)
+            heapq.heappush(self.large, -1 * val)
+        
+        if len(self.large) > len(self.small) + 1:
+            # if size of large heap is more than one element larger than small heap
+            # pop the min element from the large heap and add to small heap
+            val = heapq.heappop(self.large)
+            heapq.heappush(self.small, -1 * val)
+        
+    def findMedian(self) -> float:
+        
+        # see if the length is odd, return the max of small heap
+        if len(self.small) > len(self.large):
+            return -1 * self.small[0]
+        
+        # or the min of large heap
+        if len(self.large) > len(self.small):
+            return self.large[0]
+
+        # otherwise, the length is even, return mean of the middle two numbers
+        return (-1 * self.small[0] + self.large[0]) / 2
+```
+
+---
+
