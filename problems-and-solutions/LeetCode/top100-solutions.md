@@ -2953,3 +2953,251 @@ class Solution:
 ```
 
 ---
+
+:green_book: [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) | Binary Tree
+
+```
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        
+        # stop condition
+        if not root:
+            return None
+        
+        if not root.left and not root.right:
+            return root
+        
+        # assuming invertTree works perfectly
+        left = self.invertTree(root.left)
+        right = self.invertTree(root.right)
+        
+        # assuming left and right both inverted as required - go up one layer
+        root.left = right
+        root.right = left
+        
+        return root
+```
+
+---
+
+:orange_book: [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | BST + In-order Traversal
+
+```
+class Solution(object):
+    
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        
+        def inorder(node):
+            if node:
+                inorder(node.left)
+                self.result.append(node.val)
+                inorder(node.right)
+        
+        self.result = []
+        inorder(root)
+        
+        result = list(set(self.result))
+        
+        return result[k-1]
+```
+
+---
+
+:green_book: [234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) | Linked List (Reverse + Find Half)
+
+```
+class Solution(object):
+    def isPalindrome(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/palindrome-linked-list/discuss/64500/11-lines-12-with-restore-O(n)-time-O(1)-space
+        
+        # rev records the first half, need to set the same structure as fast, slow, hence later we have rev.next
+        rev = None
+
+        # initially slow and fast are the same, starting from head
+        slow = fast = head
+
+        while fast and fast.next:
+            # fast traverses faster and moves to the end of the list if the length is odd
+            fast = fast.next.next
+
+            # take it as a tuple being assigned (rev, rev.next, slow) = (slow, rev, slow.next), 
+            # hence the re-assignment of slow would not affect rev (rev = slow)
+            
+            # "rev, rev.next, slow = slow, rev, slow.next" is equivalent to:
+            temp1 = slow
+            temp2 = rev
+            temp3 = slow.next
+            rev = temp1 # current rev is the same as slow
+            rev.next = temp2 # next of rev is the previous rev
+            slow = temp3 # slow moves one step further
+
+        # When fast reaches the end or past the end, the slow will reach the middle or past the middle
+        if fast:
+            # fast is exactly at the end, move slow one step further for comparison (cross middle one)
+            slow = slow.next
+
+        # compare the reversed first half with the second half
+        while rev and rev.val == slow.val:
+            slow = slow.next
+            rev = rev.next
+
+        # if equivalent then rev become None, return True; otherwise return False 
+        return not rev
+```
+
+---
+
+:orange_book: [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | Binary Tree + LCA
+
+```
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        
+        # Reference Solution:
+        # YouTube: https://www.youtube.com/watch?v=py3R23aAPCA
+        
+        if not root: return None
+        if root == p or root == q: # looking for myself
+            return root
+        
+        left_LA = self.lowestCommonAncestor(root.left, p, q)
+        right_LA = self.lowestCommonAncestor(root.right, p, q)
+        
+        if left_LA and right_LA:
+            return root
+        if left_LA and not right_LA:
+            return left_LA
+        if right_LA and not left_LA:
+            return right_LA
+```
+
+---
+
+:orange_book: [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | Array (Prefix Sum)
+
+```
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        
+        # product of array except nums[i] = product of numbers to the left of nums[i] 
+        # * product of numbers to the right of nums[i]
+        
+        # left_product[i] = product of all elements to the left of index i
+        left_product = []
+        # right_product[i] = product of all elements to the right of index i
+        right_product = []    
+
+        # there is no element to the left of index 0
+        left_product.append(1)
+        # there is no element to the right of index len(nums) - 1
+        right_product.append(1)
+        
+        for i in range(1, len(nums)):
+            left_product.append(left_product[-1] * nums[i - 1])
+            
+        for i in range(len(nums) - 2, -1, -1):
+            right_product.append(right_product[-1] * nums[i + 1])
+            
+        right_product.reverse()
+
+        print(left_product)
+        print(right_product)
+        
+        answer = []
+        for i in range(len(nums)):
+            answer.append(left_product[i] * right_product[i])
+            
+        return answer
+```
+
+---
+
+:closed_book: [239. Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) | Sliding Window + Queue (Monotonic Queue)
+
+```
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        
+        # YouTube: https://www.youtube.com/watch?v=DfljaUwZsOk
+        
+        # monotonically decreasing queue: contains indices for nums
+        from collections import deque
+        queue = deque() 
+        
+        result = []
+       
+        for idx, num in enumerate(nums):
+            
+            # while the queue is not empty
+            # and that the right-most element in the queue < value that we are inserting
+            # remove the smaller elements from the queue -> since our goal is to keep a monotonically DECREASING queue
+            while queue and nums[queue[-1]] < num:
+                queue.pop() # pop from the right
+                
+            queue.append(idx)
+            
+            # remove first element if it's outside the window
+            if queue[0] == idx - k:
+                queue.popleft()
+                
+            # if window has k elements, we add to result
+            # first k-1 windows have < k elements because we start from empty window and add 1 element each iteration
+            if idx >= k - 1:
+                result.append(nums[queue[0]])
+        
+        return result
+```
+
+:orange_book: [240. Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/) | Matrix + Search
+
+```
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        
+        m, n = len(matrix), len(matrix[0])
+        
+        if m == 1 and n == 1:
+            return matrix[0][0] == target
+        
+        # we start our search from the top-right corner: matrix[0][n - 1]
+        row, col = 0, n - 1
+        
+        while row < m and col >= 0:
+            
+            # if matrix[row][col] < target, matrix[row][:col] < target, move downwards
+            if matrix[row][col] < target:
+                row += 1
+            
+            # if matrix[row][col] > target, matrix[row:][col] > target, move leftwards
+            elif matrix[row][col] > target:
+                col -= 1
+        
+            else:
+                return True
+            
+        return False
+```
+
+---
+
