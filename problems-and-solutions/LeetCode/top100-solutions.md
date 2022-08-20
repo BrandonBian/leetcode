@@ -3449,20 +3449,10 @@ class Solution(object):
         
         result = []
         for i in range(k):
-            _, num = heappop(maxHeap)
+            _, num = heappop(maxHeap) # popping the element with the smallest value at first position
             result.append(num)
         
-        return result
-        
-        
-        # Solution using Counter (not recommended)
-        result = []
-        cnt = Counter(nums)
-            
-        for key, val in cnt.most_common(k):
-            result.append(key)
-
-        return result       
+        return result   
 ```
 
 ---
