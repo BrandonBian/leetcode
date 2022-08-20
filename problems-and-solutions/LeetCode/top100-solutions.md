@@ -3371,3 +3371,98 @@ class MedianFinder:
 
 ---
 
+:orange_book: [300. Longest Increasing Subsequence]([https://leetcode.com/problems/find-median-from-data-stream/](https://leetcode.com/problems/longest-increasing-subsequence/)) | Dynamic Programming
+
+```
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # Reference Video: https://www.youtube.com/watch?v=CE2b_-XfVDk
+        
+        # dp[i] = longest increasing subsequence which ends at nums[i]
+        dp = [1] * len(nums)
+        
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+        
+        return max(dp)
+    
+        # Time: O(N^2), where N <= 2500 is the number of elements in array nums.
+        # Space: O(N)
+        
+```
+
+---
+
+:orange_book: [322. Coin Change](https://leetcode.com/problems/coin-change/) | Dynamic Programming
+
+```
+class Solution(object):
+    def coinChange(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        
+        # YouTube: https://www.youtube.com/watch?v=Y0ZqKpToTic
+        
+        # dp[i] = fewest number of coins you need to make up amount i
+        dp = [0] + [float('inf') for i in range(amount)]
+        
+        for i in range(1, amount + 1):
+            for coin in coins:
+                # considering how many coins
+                if i >= coin:
+                    dp[i] = min(dp[i], dp[i - coin] + 1)
+                    
+        if dp[-1] == float('inf'):
+            return -1
+        else:
+            return dp[-1]
+```
+
+---
+
+:orange_book: [322. Coin Change](https://leetcode.com/problems/coin-change/) | Hash Table (Counter) / **Max Heap**
+
+```
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        
+        # Solution using Max Heap (https://leetcode.com/problems/top-k-frequent-elements/discuss/1502514/C%2B%2BPython-2-solutions%3A-MaxHeap-Bucket-Sort-Clean-and-Concise)
+        
+        # Time: O(N + KlogN), heapify = O(N), heappop for k times = O(K logN)
+        cnt = Counter(nums)
+        maxHeap = [[-freq, num] for num, freq in cnt.items()]
+        heapify(maxHeap)
+        
+        result = []
+        for i in range(k):
+            _, num = heappop(maxHeap)
+            result.append(num)
+        
+        return result
+        
+        
+        # Solution using Counter (not recommended)
+        result = []
+        cnt = Counter(nums)
+            
+        for key, val in cnt.most_common(k):
+            result.append(key)
+
+        return result       
+```
+
+---
