@@ -29,6 +29,7 @@
 | 2 | **Hash Table** | "using Counter / Set / Dictionary / Hashing" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/hash-table.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/hash-table.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/hash-table-solutions.md) | :white_check_mark: [Using and Sorting Python Dictionary & Counter](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/hash-table.md#--python-dictionary-and-counters-and-how-to-sort-them)
 | 3 | **Linked List** | "Linked List cycle detection / cycle locating / slow-fast pointers / dummy nodes / double pointers" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list-solutions.md) | -
 | 4 | **Binary Indexed Tree / Fenwick Tree** |
+| 5 | **Heaps** |
 
 ---
 
