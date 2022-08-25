@@ -3429,7 +3429,7 @@ class Solution(object):
 
 ---
 
-:orange_book: [322. Coin Change](https://leetcode.com/problems/coin-change/) | Hash Table (Counter) / **Max Heap**
+:orange_book: [347. Top K Frequent Elements]([https://leetcode.com/problems/coin-change/](https://leetcode.com/problems/top-k-frequent-elements/)) | Hash Table (Counter) / **Max Heap**
 
 ```
 class Solution(object):
@@ -3453,6 +3453,370 @@ class Solution(object):
             result.append(num)
         
         return result   
+```
+
+---
+
+:orange_book: [394. Decode String](https://leetcode.com/problems/decode-string/) | Stack
+
+```
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = []
+        k = 0
+        current_string = ""
+        
+        for char in s:
+            if char == "[":
+                # finished parsing the k, save current string and k into stack
+                stack.append((current_string, k))
+                current_string = ""
+                k = 0
+            elif char == "]":
+                # multiply the current string and append to previous string
+                last_string, last_k = stack.pop()
+                current_string = last_string + last_k * current_string
+            elif char.isdigit():
+                # keep reading and finding the k that it represents
+                k = k * 10 + int(char)
+            else:
+                # this is a regular char, just append to current_string
+                current_string += char
+            
+        return current_string
+```
+
+---
+
+:orange_book: [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/) | Dynamic Programming | Hash Table (Sets)
+
+```
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        
+        # Ref: https://youtu.be/IsvocB5BJhw
+        
+        if sum(nums) % 2 == 1:
+            # sum must be even
+            return False
+        
+        dp = set() # total values we can get
+        dp.add(0) # guaranteed to have a sum of 0 (i.e., picking no element)
+        target = sum(nums) // 2
+        
+        for i in range(len(nums)):
+            nextDP = set() # note that you cannot modify dp during the following for loop
+            for t in dp:
+                if (t + nums[i]) == target: # we have already found a valid partition
+                    return True
+                nextDP.add(t + nums[i]) # adding new value to nextDP
+                nextDP.add(t) # add original value in dp
+            dp = nextDP
+            
+        return True if target in dp else False
+```
+
+---
+
+:orange_book: [437. Path Sum III](https://leetcode.com/problems/path-sum-iii/) | DFS with memorization
+
+```
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        
+        self.result = 0
+        self.cache = {0 : 1} # all the path sum and their frequencies
+        
+        def dfs(node, currPathSum, cache):
+            if not node:
+                return
+            currPathSum += node.val
+            oldPathSum = currPathSum - targetSum
+
+            self.result += self.cache.get(oldPathSum, 0) # how many different paths we can get
+            cache[currPathSum] = self.cache.get(currPathSum, 0) + 1
+            
+            dfs(node.left, currPathSum, cache)
+            dfs(node.right, currPathSum, cache)
+            
+            # when move to a different path, currPathSum no longer available, remove one
+            cache[currPathSum] -= 1
+            
+        if not root:
+            return 0
+        if not root.left and not root.right:
+            return 1 if root.val == targetSum else 0
+        
+        dfs(root, 0, self.cache)
+        
+        return self.result
+```
+
+---
+
+:orange_book: [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/) | Hashing + Sliding Window
+
+```
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        if len(s) < len(p):
+            return None
+        
+        hash_s, hash_p, result = [0] * 26, [0] * 26, []
+        
+        for char in p:
+            hash_p[ord(char) - ord('a')] += 1
+            
+        # first substring
+        for char in s[:len(p)]:
+            hash_s[ord(char) - ord('a')] += 1
+        if hash_s == hash_p:
+            result.append(0)
+        
+        # sliding window
+        for left in range(1, len(s) - len(p) + 1):
+            right = left + len(p) - 1
+            # remove one frequency of char to the left of left_ptr
+            hash_s[ord(s[left - 1]) - ord('a')] -= 1
+            # add one frequency of char at right_ptr
+            hash_s[ord(s[right]) - ord('a')] += 1
+            
+            if hash_s == hash_p:
+                result.append(left)
+        
+        return result
+```
+
+---
+
+:green_book: [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) | Binary Tree + DFS
+
+```
+class Solution:
+    
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        if not root.left and not root.right:
+            return 0
+        
+        self.result = 0
+        
+        def depth(node):
+            # calculate the length from this node to farthest leaf
+            if not node:
+                return 0
+            
+            left_height = depth(node.left)
+            right_height = depth(node.right)
+            self.result = max(self.result, left_height + right_height)
+            
+            return max(left_height, right_height) + 1
+        
+        depth(root)
+        return self.result
+```
+
+---
+
+:orange_book: [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | Prefix Sum + Dynamic Programming
+
+```
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        result = 0
+        prefixSum = 0 # contiguous subarray, so use prefix sum
+        d = {0: 1} # prefix sum, frequency
+        
+        for num in nums:
+            prefixSum += num
+            result += d.get(prefixSum - num, 0)
+            d[prefixSum] = d.get(prefixSum, 0) + 1
+        
+        return result
+```
+
+---
+
+:orange_book: [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/) | Dynamic Programming
+
+```
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        # dp[i][j] = whether s[i:j] is a palindrome
+        
+        result = 0
+        
+        # check for a window of size 1 (single char)
+        for i in range(n):
+            dp[i][i] = True
+            result += 1
+        
+        # check for a window of size 2
+        for i in range(n - 1):
+            if s[i] == s[i + 1]:
+                dp[i][i + 1] = True
+                result += 1
+               
+        # check for a window of size 3+
+        for size in range(3, n + 1):
+            for left in range(n - size + 1):
+                right = left + size - 1
+                if dp[left + 1][right - 1] == True and s[left] == s[right]:
+                    dp[left][right] = True
+                    result += 1
+        
+        return result
+```
+
+---
+
+:orange_book: [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | Stack
+
+```
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        # Ref: https://leetcode.com/problems/daily-temperatures/discuss/1574808/C%2B%2BPython-3-Simple-Solutions-w-Explanation-Examples-and-Images-or-2-Monotonic-Stack-Approaches
+        
+        answer = [0] * len(temperatures)
+        stack = [] # storing indices of temperatures
+        
+        for idx, temp in enumerate(temperatures):
+            while len(stack) > 0 and temp > temperatures[stack[-1]]:
+                answer[stack[-1]] = idx - stack[-1]
+                stack.pop()
+            
+            stack.append(idx)
+        
+        return answer
+```
+
+---
+
+:orange_book: [763. Partition Labels](https://leetcode.com/problems/partition-labels/) | Two Pointers
+
+```
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        rightmost = {val:idx for idx, val in enumerate(s)}
+        
+        result = []
+        left, right = 0, 0
+        
+        # 2 pointers
+        for idx, letter in enumerate(s):
+            right = max(right, rightmost[letter]) # find rightmost possible end for all iterated letter
+            
+            if idx == right:
+                result += [right - left + 1]
+                left = idx + 1 # reset left pointer to start of new section
+                
+        return result
+```
+
+---
+
+:orange_book: [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/) | Topological BFS on Grid/Matrix
+
+```
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+        
+        fresh = 0
+        rotten = deque() # for BFS on each rotten orange
+        
+        # first pass through the grid to get initialized info
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == 2:
+                    rotten.append((row, col))
+                elif grid[row][col] == 1:
+                    fresh += 1
+                
+        time = 0
+        
+        # while there is rotten in the queue and there is still fresh orange
+        while rotten and fresh > 0:
+            time += 1
+            
+            for _ in range(len(rotten)):
+                row, col = rotten.popleft()
+                for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                    new_row, new_col = row + dx, col + dy
+                    if new_row < 0 or new_row >= len(grid) or new_col < 0 or new_col >= len(grid[0]):
+                        continue
+                    if grid[new_row][new_col] == 0 or grid[new_row][new_col] == 2:
+                        continue
+                        
+                    fresh -= 1
+                    grid[new_row][new_col] = 2 # fresh orange becomes rotten
+                    rotten.append((new_row, new_col))
+                    
+        return time if fresh == 0 else -1
+```
+
+---
+
+:orange_book: [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Dynamic Programming
+
+```
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        m, n = len(text1), len(text2)
+        
+        # dp[i][j] = longest common subsequence of text2[:i], text1[:j]
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        
+        for i in range(n):
+            for j in range(m):
+                if text2[i] == text1[j]:
+                    dp[i + 1][j + 1] = dp[i][j] + 1
+                else:
+                    # get max from top or left element
+                    dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])
+                    
+        return dp[-1][-1]
+```
+
+---
+
+:orange_book: [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) | Matrix and Array Manipulation
+
+```
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        height = len(matrix)
+        width = len(matrix[0])
+        
+        top = 0
+        bottom = height - 1
+        left = 0
+        right = width - 1
+        
+        result = []
+        
+        while top <= bottom and left <= right:
+            for col in range(left, right + 1):
+                result.append(matrix[top][col])
+            top += 1
+                
+            for row in range(top, bottom + 1):
+                result.append(matrix[row][right])
+            right -= 1
+                
+            for col in range(right, left - 1, -1):
+                result.append(matrix[bottom][col])
+            bottom -= 1
+            
+            for row in range(bottom, top - 1, -1):
+                result.append(matrix[row][left])
+            left += 1
+            
+        return result[:height*width] # there may be redundant elements for in the central of the matrix
 ```
 
 ---
