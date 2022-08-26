@@ -1070,29 +1070,37 @@ class Solution:
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         
-        def feasible(element) -> bool:
+        rows, cols = len(matrix), len(matrix[0])
+        
+        def feasible(element):
             # there are at least k elements <= this element
-            count = k # number of elements <= this element
-            col = cols-1
+            # we want to minimize element
+            
+            count = 0
+            col = cols - 1
+            
             for row in range(rows):
                 while col >= 0 and matrix[row][col] > element:
                     col -= 1
-                count -= col + 1 
-                if count <= 0:
+                count += col + 1
+                if count >= k:
                     return True
             return False
-            
-        left, right = matrix[0][0], matrix[-1][-1]
-        rows, cols = len(matrix), len(matrix[0])
         
-        while left < right:
-            mid = left + (right - left) // 2
+        left, right = matrix[0][0], matrix[-1][-1]
+        
+        while left + 1 < right:
+            mid = (left + right) >> 1
+            
             if feasible(mid):
                 right = mid
             else:
-                left = mid + 1
+                left = mid
         
-        return left
+        if feasible(left):
+            return left
+        else:
+            return right
 ```
 
 :wavy_dash: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/): more complexed design of the feasible function (logic using **lcm & gcd**)
@@ -1107,26 +1115,27 @@ class Solution:
             return gcd(b, a % b)
         
         def lcm(a, b):
-            return (a*b) // gcd(a,b)
+            return (a * b) / gcd(a, b)
         
         def feasible(num):
-            # see if (magical number <= num) >= n
-            # count = the number of magic numbers <= num
-            count = num // a + num // b - num // _lcm
+            # there are at least [n] magical numbers
+            count = num // a + num // b - num // lcm(a, b)
             return count >= n
         
-        left, right = min(a, b), n * max(a, b)
-        _lcm = lcm(a, b)
+        left, right = min(a, b), max(a, b) * n
         
-        while left < right:
+        while left + 1 < right:
             mid = (left + right) >> 1
             
             if feasible(mid):
                 right = mid
             else:
-                left = mid + 1
-                
-        return left % (int(1e9) + 7)
+                left = mid
+        
+        if feasible(left):
+            return left % (int(1e9) + 7)
+        else:
+            return right % (int(1e9) + 7)
 ```
 
 ---
