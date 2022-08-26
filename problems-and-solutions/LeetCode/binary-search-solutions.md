@@ -180,6 +180,54 @@ class Solution:
 
 ---
 
+:heavy_check_mark: :orange_book: [81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/)
+
+```
+class Solution:
+    def search(self, nums: List[int], target: int) -> bool:
+        
+        # binary search on array index
+        
+        left, right = 0, len(nums) - 1
+        
+        while left + 1 < right:
+            
+            # shifting to remove duplicate elements
+            while left<right and nums[left] == nums[left+1]:
+                left+=1
+            while left<right and nums[right] == nums[right-1]:
+                right-=1
+            
+            mid = (left + right) >> 1
+            
+            if nums[mid] == target:
+                return True
+            
+            if nums[mid] > nums[right]:
+                # we are on the left side of the pivot
+                if nums[left] <= target <= nums[mid]:
+                    right = mid # go left
+                else:
+                    left = mid
+                
+            else:
+                # we are on the right side of the pivot
+                if nums[mid] <= target <= nums[right]:
+                    left = mid # go right
+                else:
+                    right = mid
+        
+        if nums[left] == target:
+            return True
+        if nums[right] == target:
+            return True
+        
+        return False
+```
+
+---
+
+
 :wavy_dash: :orange_book: [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/): array not sorted (but peaks present)
 
 ```
