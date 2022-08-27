@@ -615,15 +615,177 @@ class Solution(object):
 
 :heavy_check_mark: :orange_book: [450. Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/): (**deleting node** from BST)
 
+```
+def deleteNode(self, root, key):
+    
+    # Reference Solution:
+    # https://leetcode.com/problems/delete-node-in-a-bst/discuss/821420/Python-O(h)-solution-explained
+    
+    if not root:
+        return None
+
+    if root.val == key:
+        if not root.right: return root.left
+        if not root.left: return root.right
+            
+        if root.left and root.right:
+                
+            # go right one step and go to the left most node, replace current node value with that
+            temp = root.right
+            while temp.left: temp = temp.left
+                    
+            root.val = temp.val
+            root.right = self.deleteNode(root.right, root.val) # delete the replaced value from right tree
+                
+    elif root.val > key:
+        root.left = self.deleteNode(root.left, key)
+    else:
+        root.right = self.deleteNode(root.right, key)
+            
+    return root
+```
+---
+
 :heavy_check_mark: :orange_book: [669. Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/)
 
+```
+class Solution(object):
+    def trimBST(self, root, low, high):
+        """
+        :type root: TreeNode
+        :type low: int
+        :type high: int
+        :rtype: TreeNode
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/trim-a-binary-search-tree/discuss/107013/clear-python-solution
+        
+        if not root:
+            return None
+        
+        # If the val of current node is smaller than [low], abandon the left sub-tree and trim its right sub-tree
+        if low > root.val:
+            return self.trimBST(root.right, low, high)
+        
+        # If the val of current node is greater than [high], abandon the right sub-tree and trim its left sub-tree
+        elif high < root.val:
+            return self.trimBST(root.left, low, high)
+        
+        # Else, recursively trim its left and right sub-tree and return the root
+        root.left = self.trimBST(root.left, low, high)
+        root.right = self.trimBST(root.right, low, high)
+        
+        return root
+```
+---
 :heavy_check_mark: :orange_book: [701. Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/): (**inserting node** to BST)
+
+```
+def insertIntoBST(self, root, val):
+        """
+        :type root: TreeNode
+        :type val: int
+        :rtype: TreeNode
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/insert-into-a-binary-search-tree/discuss/180244/Python-4-line-clean-recursive-solution
+        
+        if not root:
+            return TreeNode(val)
+        
+        if root.val < val:
+            root.right = self.insertIntoBST(root.right, val)
+        else:
+            root.left = self.insertIntoBST(root.left, val)
+            
+        return root
+```
+
+---
 
 :wavy_dash: :green_book: [938. Range Sum of BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/): (using **in-order traversal** to traverse in ascending order, rather trivial)
 
+```
+class Solution(object):
+    def rangeSumBST(self, root, low, high):
+        """
+        :type root: TreeNode
+        :type low: int
+        :type high: int
+        :rtype: int
+        """
+        
+        result = []
+        
+        def inorder(node):
+            if node:
+                inorder(node.left)
+                if node.val >= low and node.val <= high:
+                    result.append(node.val)
+                inorder(node.right)
+                
+        inorder(root)
+        return sum(result)
+```
+
+---
+
 :wavy_dash: :orange_book: [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/): (using **in-order traversal** to traverse in ascending order)
 
+```
+class Solution(object):
+    
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        
+        def inorder(node):
+            if node:
+                inorder(node.left)
+                self.result.append(node.val)
+                inorder(node.right)
+        
+        self.result = []
+        inorder(root)
+        
+        result = list(set(self.result))
+        
+        return result[k-1]
+```
+
+---
+
 :wavy_dash: :orange_book: [1305. All Elements in Two Binary Search Trees](https://leetcode.com/problems/all-elements-in-two-binary-search-trees/): (using **in-order traversal** to traverse in ascending order, rather trivial)
+
+```
+class Solution(object):
+    def getAllElements(self, root1, root2):
+        """
+        :type root1: TreeNode
+        :type root2: TreeNode
+        :rtype: List[int]
+        """
+        
+        self.result = []
+        
+        def inorder(node):
+            if node:
+                inorder(node.left)
+                self.result.append(node.val)
+                inorder(node.right)
+                
+        inorder(root1)
+        inorder(root2)
+        
+        self.result.sort()
+        
+        return self.result
+```
 
 ---
 
@@ -631,11 +793,159 @@ class Solution(object):
 
 :heavy_check_mark: :green_book: [257. Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/): (**Standard Root-to-Leaf Paths Traversal**)
 
+```
+class Solution(object):
+    
+    # Reference Solution:
+    # https://leetcode.com/problems/binary-tree-paths/discuss/68272/Python-solutions-(dfs%2Bstack-bfs%2Bqueue-dfs-recursively).
+    
+    def dfs(self, node, path, result):
+        if not node.left and not node.right:
+            result.append(path + str(node.val))
+            return
+            
+        if node.left:
+            self.dfs(node.left, path + str(node.val) + '->', result)
+        if node.right:
+            self.dfs(node.right, path + str(node.val) + '->', result)
+    
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
+        
+        if not root:
+            return None
+        
+        result = []
+        
+        self.dfs(root, "", result)
+        
+        return result
+```
+
+---
+
 :heavy_check_mark: :green_book: [112. Path Sum](https://leetcode.com/problems/path-sum/): (**Standard Root-to-Leaf Paths Traversal**)
+
+```
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        
+        if not root:
+            return False
+        
+        self.found = False
+        
+        def dfs(node, path, result):
+            if not node.left and not node.right:
+                result = path + node.val
+                if result == targetSum:
+                    self.found = True
+                    return
+            
+            if node.left:
+                dfs(node.left, path + node.val, result)
+            if node.right:
+                dfs(node.right, path + node.val, result)
+        
+        dfs(root, 0, 0)
+        return self.found
+ ```
+ ---
 
 :heavy_check_mark: :orange_book: [437. Path Sum III](https://leetcode.com/problems/path-sum-iii/): (**Traversal: paths must go downwards, Using 2 DFS**)
 
+```
+class Solution(object):
+    
+    def pathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: int
+        """
+
+        # Reference Solution: 
+        # https://leetcode.com/problems/path-sum-iii/discuss/141424/Python-step-by-step-walk-through.-Easy-to-understand.-Two-solutions-comparison.-%3A-)
+        # Method: Brute-Force (2 DFS)
+        
+        # Idea: first DFS to visit each node of the tree
+        # for each visited node, run a DFS on its subtrees to find any paths that sum to target
+        
+        def search(node, target): # For a given node, search all its subtrees for paths that sum to target
+            if not node:
+                return
+            if target == node.val:
+                self.result += 1
+                # return (note that there is no return here)
+            
+            if node.left:
+                search(node.left, target - node.val)
+            if node.right:
+                search(node.right, target - node.val)
+        
+        def dfs(node): # For each node in tree, call search on it
+            if not node:
+                return
+            
+            search(node, targetSum)
+            dfs(node.left)
+            dfs(node.right)
+        
+        
+        if not root:
+            return 0
+        if not root.left and not root.right:
+            return 1 if root.val == targetSum else 0
+        
+        self.result = 0
+        
+        dfs(root)
+        
+        return self.result
+```
+
+---
+
 :heavy_check_mark: :closed_book: [124. Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/): (**Traversal: paths do not need to pass root**)
+
+```
+class Solution(object):
+    
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.max_path = float("-inf") # placeholder to be updated
+        # Reference Solution:
+        # https://leetcode.com/problems/binary-tree-maximum-path-sum/discuss/603423/Python-Recursion-stack-thinking-process-diagram
+        
+        if not root.left and not root.right:
+            return root.val
+        
+        def get_max_gain(node):
+            
+            if node is None:
+                return 0
+            
+            # What is the max and 0 doing: 
+            # In case the subtree is all negative, then we should return 0 instead of negative numbers, ignoring that subtree
+            gain_on_left = max(get_max_gain(node.left), 0) # Read the part important observations
+            gain_on_right = max(get_max_gain(node.right), 0)  # Read the part important observations
+            
+            current_max_path = node.val + gain_on_left + gain_on_right # Read first three images of going down the recursion stack
+            self.max_path = max(self.max_path, current_max_path) # Read first three images of going down the recursion stack
+            
+            return node.val + max(gain_on_left, gain_on_right) # Read the last image of going down the recursion stack
+        
+        get_max_gain(root) # Starts the recursion chain
+        return(self.max_path)
+```
+
+---
 
 :wavy_dash: :orange_book: [113. Path Sum II](https://leetcode.com/problems/path-sum/): a variation of 112 (**Standard Root-to-Leaf Paths Traversal**)
 
