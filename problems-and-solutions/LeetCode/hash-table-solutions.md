@@ -1,4 +1,4 @@
-# LeetCode - Hash Tables | Problems
+# LeetCode - Hash Tables | Solutions
 * **Note**: 
   * :heavy_check_mark: means **MUST DO (i.e., very important, typical, or good) problems** that should definitely be familiar with
   * :wavy_dash: means problems that are less typical
