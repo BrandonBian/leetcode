@@ -8,10 +8,12 @@
 
 ---
 
-:heavy_check_mark: :orange_book: [79. Word Search](https://leetcode.com/problems/word-search/)
+:heavy_check_mark: :orange_book: [79. Word Search](https://leetcode.com/problems/word-search/): DFS from each grid cell
 
-:heavy_check_mark: :orange_book: [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
+:heavy_check_mark: :orange_book: [200. Number of Islands](https://leetcode.com/problems/number-of-islands/): DFS from each island grid cell
 
-:heavy_check_mark: :orange_book: [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
+:heavy_check_mark: :orange_book: [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/): BFS from each rotten orange grid cell
+
+:heavy_check_mark: :orange_book: [417. Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/): DFS from each peripheral grid cells (that are adjacent to ocean)
 
 ---
