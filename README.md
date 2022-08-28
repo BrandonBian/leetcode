@@ -1,10 +1,29 @@
 # Table of Contents
 
+- **Section 0: Patterns**
 - **Section 1: Algorithms**
 - **Section 2: Data Structures**
 - **Section 3: Time & Space Complexities**
 - **Section 4: Auxiliary Collection of Problems & Solutions**
 
+---
+## Section 0: Patterns
+- Ref 1: [LeetCode Patterns](https://seanprashad.com/leetcode-patterns/)
+- Ref 2: [14 Patterns](https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed)
+
+| Condition | Algorithms to / can Use | Data Structures to / can Use |
+| -- | -- | -- |
+| Input array is sorted | Binary Search + Two Pointers | -- |
+| Asking for all permutations / subsets / combinations | DFS Backtracking | -- |
+| Finding the minimum / maximum / k-th position | Binary Search + Heap | -- |
+| Binary tree / binary search tree | BFS using queues + DFS using recursion | BT + BST |
+| Path finding on a grid / matrix | BFS using queues + DFS using recursion + Step towards directions | -- |
+| Linked list | Two Pointers + Dummy Node | Linked List |
+| K-Sum / partitioning | Two Pointers | -- |
+| Substring / subarray on linear structure | Sliding Window (Two Pointers) | -- |
+| Dealing with brackets | -- | Stack |
+| Finding occurrence of a certain pattern | -- | Hash Table (Dict, Counter) |
+| Maximum / minimum subarray / subset / options | Dynamic Programming | -- |
 ---
 
 ## Section 1: Algorithms
