@@ -947,11 +947,120 @@ class Solution(object):
 
 ---
 
-:wavy_dash: :orange_book: [113. Path Sum II](https://leetcode.com/problems/path-sum/): a variation of 112 (**Standard Root-to-Leaf Paths Traversal**)
+:wavy_dash: :orange_book: [113. Path Sum II](https://leetcode.com/problems/path-sum-ii/): a variation of 112 (**Standard Root-to-Leaf Paths Traversal**)
+
+```
+class Solution(object):
+    
+    def dfs(self, node, target, path, result):
+
+        if not node: # went too far
+            return
+        if target == node.val and not node.left and not node.right: # is a leaf node and path sums up to target
+            path += [node.val]
+            result.append(path)
+            return
+        
+        if node.left:
+            self.dfs(node.left, target - node.val, path + [node.val], result)
+        if node.right:
+            self.dfs(node.right, target - node.val, path + [node.val], result)
+             
+    
+    
+    def pathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: List[List[int]]
+        """
+        
+        if not root:
+            return None
+        
+        result = []
+        
+        self.dfs(root, targetSum, [], result)
+        
+        return result
+```
+
+---
 
 :wavy_dash: :orange_book: [129. Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/): a variation of 112 (**Standard Root-to-Leaf Paths Traversal**)
 
+```
+class Solution(object):
+    
+    def dfs(self, node, path, result):
+
+        if not node.left and not node.right: # arrived at a leaf
+            path += str(node.val)
+            result.append(path)
+            return
+            
+        if node.left:
+            self.dfs(node.left, path + str(node.val), result)
+        if node.right:
+            self.dfs(node.right, path + str(node.val), result)
+    
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        
+        if not root.left and not root.right:
+            return root.val
+        
+        result = []
+        summation = 0
+        
+        self.dfs(root, "", result)
+        
+        for num in result:
+            summation += int(num)
+            
+        return summation
+```
+
 :wavy_dash: :orange_book: [1457. Pseudo-Palindromic Paths in a Binary Tree](https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/): (**Standard Root-to-Leaf Paths Traversal + Palindrom checking**)
+
+```
+class Solution(object):
+    
+    def pseudoPalindromicPaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+    
+        self.paths = []
+        self.frequency = [0] * 10
+        self.result = 0
+        
+        def dfs(node, path):
+            if not node: # went too far
+                return
+            if not node.left and not node.right: # at a leaf node
+                path += [node.val]
+                # up to this point we obtained the root-to-leaf path, check for palindrome
+                # palindrom if at most one odd occurrence
+                for element in path:
+                    self.frequency[element] += 1
+                if sum(c % 2 == 1 for c in self.frequency) < 2:
+                    self.result += 1
+                self.frequency = [0] * 10
+                return
+            if node.left:
+                dfs(node.left, path + [node.val])
+            if node.right:
+                dfs(node.right, path + [node.val])
+                
+        dfs(root, [])
+
+        return self.result
+```
 
 ---
 
@@ -959,13 +1068,145 @@ class Solution(object):
 
 :heavy_check_mark: :orange_book: [105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
+```
+if len(inorder) == 0:
+    return None
+
+if len(inorder) == 1: # only one element, construct a node for it
+    return TreeNode(preorder[0])
+
+rval = preorder[0] # Obtain nodes from preorder - from LEFT to RIGHT
+root = TreeNode(rval)
+
+# Looking at preorder traversal, the first value (node 1) must be the root.
+# Then, we find the index of root within in-order traversal, and split into two sub problems.
+inorder_rval_index = inorder.index(rval)
+
+left_inorder = inorder[:inorder_rval_index]
+right_inorder = inorder[inorder_rval_index+1:]
+left_preorder = preorder[1: len(left_inorder) + 1]
+right_preorder = preorder[1 + len(left_preorder):]
+
+root.left = self.buildTree(left_preorder, left_inorder)
+root.right = self.buildTree(right_preorder, right_inorder)
+
+return root
+```
+
+---
+
 :heavy_check_mark: :orange_book: [106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+
+```
+if len(inorder) == 0:
+        return None
+if len(inorder) == 1:
+    return TreeNode(inorder[0])
+
+rval = postorder[-1] # Obtain nodes from preorder - from RIGHT to LEFT
+root = TreeNode(rval)
+
+inorder_rval_index = inorder.index(rval)
+
+left_inorder = inorder[:inorder_rval_index]
+right_inorder = inorder[inorder_rval_index+1:]
+left_postorder = postorder[:len(left_inorder)]
+right_postorder = postorder[len(left_postorder):-1]
+
+root.left = self.buildTree(left_inorder, left_postorder)
+root.right = self.buildTree(right_inorder, right_postorder)
+
+return root
+```
+
+---
 
 :heavy_check_mark: :orange_book: [889. Construct Binary Tree from Preorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/)
 
+```
+if len(preorder) == 0:
+    return None
+if len(preorder) == 1:
+    return TreeNode(preorder[0])
+
+rval = preorder[0]
+root = TreeNode(rval)
+
+val = preorder[1]
+postorder_idx = postorder.index(val)
+
+left_preorder = preorder[1:postorder_idx + 2]
+right_preorder = preorder[postorder_idx + 2:]
+
+left_postorder = postorder[: postorder_idx + 1]
+right_postorder = postorder[postorder_idx + 1:-1]
+
+root.left = self.constructFromPrePost(left_preorder, left_postorder)
+root.right = self.constructFromPrePost(right_preorder, right_postorder)
+
+return root
+```
+
+---
+
 :heavy_check_mark: :green_book: [108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
 
+```
+class Solution(object):
+    
+    def sortedArrayToBST(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: TreeNode
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/discuss/35223/An-easy-Python-solution
+        
+        if not nums:
+            return None
+        
+        mid_indx = len(nums) // 2
+        root = TreeNode(nums[mid_indx])
+        
+        root.left = self.sortedArrayToBST(nums[:mid_indx])
+        root.right = self.sortedArrayToBST(nums[mid_indx+1:])
+            
+        return root
+```
+
+---
+
 :wavy_dash: :orange_book: [1008. Construct Binary Search Tree from Preorder Traversal](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/)
+
+```
+class Solution(object):
+    def bstFromPreorder(self, preorder):
+        """
+        :type preorder: List[int]
+        :rtype: TreeNode
+        """
+    
+        if len(preorder) == 0:
+            return None
+        if len(preorder) == 1:
+            return TreeNode(preorder[0])
+
+        root_val = preorder[0]
+        root = TreeNode(root_val)
+
+        left_preorder, right_preorder = [], []
+        for i in range(1, len(preorder)):
+            if preorder[i] < root_val:
+                left_preorder.append(preorder[i])
+            else:
+                right_preorder.append(preorder[i])
+
+        root.left = self.bstFromPreorder(left_preorder)
+        root.right = self.bstFromPreorder(right_preorder)
+        
+        return root
+ ```
 
 ---
 
@@ -973,7 +1214,68 @@ class Solution(object):
 
 :heavy_check_mark: :orange_book: [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 
+```
+# Floor: all values must be larger than this
+# Ceiling: all values must be smaller than this
+def isValidBST(self, root, floor=float('-inf'), ceiling=float('inf')):
+    """
+    :type root: TreeNode
+    :rtype: bool
+    """
+
+    if not root: # no node is a valid BST
+        return True
+
+    if root.val <= floor or root.val >= ceiling:
+        return False
+
+    # in the left branch, root is the new ceiling; contrarily root is the new floor in right branch
+    return self.isValidBST(root.left, floor, root.val) and self.isValidBST(root.right, root.val, ceiling)
+```
+---
+
 :wavy_dash: :orange_book: [1361. Validate Binary Tree Nodes](https://leetcode.com/problems/validate-binary-tree-nodes/)
+
+```
+class Solution(object):
+    def validateBinaryTreeNodes(self, n, leftChild, rightChild):
+        """
+        :type n: int
+        :type leftChild: List[int]
+        :type rightChild: List[int]
+        :rtype: bool
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/validate-binary-tree-nodes/discuss/939381/Python:-clean-BFS-96-faster-TimeComplexity:-O(n)-Space-Complexity:-O(n)/794077
+        
+        indegree = [0] * n
+        
+        # Count the indegrees and outdegrees of each node
+        for l, r in zip(leftChild, rightChild):
+            if l != -1:
+                indegree[l] += 1
+                # if there are nodes that has more than 2+ parents, return false.
+                if indegree[l] > 1:
+                    return False
+            if r != -1:
+                indegree[r] += 1
+                if indegree[r] > 1:
+                    return False
+                
+        # a valid tree only has 1 root. 
+        if indegree.count(0) != 1:
+            return False
+        
+        # count nodes from root, if the total number is not n, it means there are islands, then return false.
+        root = indegree.index(0)
+        def count_nodes(root):
+            if root == -1:
+                return 0
+            return 1 + count_nodes(leftChild[root]) + count_nodes(rightChild[root])
+        
+        return count_nodes(root) == n
+```
 
 ---
 
@@ -981,22 +1283,191 @@ class Solution(object):
 
 :heavy_check_mark: :orange_book: [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 
-:wavy_dash: :green_book: [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/): basically the same as Problem 236
+```
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        
+        # Reference Solution:
+        # YouTube: https://www.youtube.com/watch?v=py3R23aAPCA
+        
+        if not root: return None
+        if root == p or root == q: # looking for myself
+            return root
+        
+        left_LA = self.lowestCommonAncestor(root.left, p, q)
+        right_LA = self.lowestCommonAncestor(root.right, p, q)
+        
+        if left_LA and right_LA:
+            return root
+        if left_LA and not right_LA:
+            return left_LA
+        if right_LA and not left_LA:
+            return right_LA
+```
+
+:wavy_dash: :green_book: [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/): basically the same as Problem 236
+
+```
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        
+        if not root:
+            return None
+        if root == p or root == q:
+            return root
+        
+        left_LA = self.lowestCommonAncestor(root.left, p, q)
+        right_LA = self.lowestCommonAncestor(root.right, p, q)
+        
+        if not left_LA: return right_LA
+        if not right_LA: return left_LA
+        
+        return root
+```
 
 ---
 
 ### 6. Miscellaneous Problems
 
-
 :heavy_check_mark: :orange_book: [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/): here is a very smart solution (using **pre-order** traversal)
 
+```
+class Solution(object):
+
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/1208004/Extremely-Intuitive-O(1)-Space-solution-with-Simple-explanation-Python
+        
+        if not root:
+            return None
+        
+        curr = root
+        
+        while curr:
+            if curr.left:
+                p = curr.left
+                while p.right:
+                    p = p.right # p is right-most point in left subtree
+                    
+                p.right = curr.right
+                curr.right = curr.left
+                curr.left = None
+            curr = curr.right
+        
+```
+---
 :wavy_dash: :orange_book: [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
+
+```
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        
+        if not root:
+            return 0
+        if not root.left and not root.left:
+            return 1
+        
+        left_num = self.countNodes(root.left)
+        right_num = self.countNodes(root.right)
+        
+        return 1 + left_num + right_num
+```
+
+---
 
 :wavy_dash: :orange_book: [662. Maximum Width of Binary Tree](https://leetcode.com/problems/maximum-width-of-binary-tree/): (using **BFS**)
 
+```
+class Solution(object):
+        
+    def widthOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        
+        # Reference Solution:
+        # https://leetcode.com/problems/maximum-width-of-binary-tree/discuss/106707/Python-Straightforward-BFS-and-DFS-solutions
+        
+        queue = [(root, 0, 0)]
+        cur_depth = left = ans = 0
+        for node, depth, pos in queue:
+            if node:
+                queue.append((node.left, depth+1, pos*2))
+                queue.append((node.right, depth+1, pos*2 + 1))
+                if cur_depth != depth: # we have reached a new level
+                    cur_depth = depth
+                    left = pos
+                ans = max(pos - left + 1, ans)
+
+        return ans
+```
+
 :wavy_dash: :orange_book: [958. Check Completeness of a Binary Tree](https://leetcode.com/problems/check-completeness-of-a-binary-tree/): (using **BFS, Level-order Traversal, Queue**)
 
+```
+class Solution:
+    def isCompleteTree(self, root: Optional[TreeNode]) -> bool:
+        
+        null = False
+
+        from collections import deque
+        queue = deque([root])
+        
+        # BFS level-order traverse, when we first encounter a NULL node, we see if there is any non-NULL node afterwards
+        while queue:
+            level = [node.val for node in queue]
+            if sum([val == -1 for val in level]) == len(level): # we have reached the last level
+                break
+
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                
+                if node.val == -1:
+                    null = True
+                else:
+                    if null == True:
+                        return False                    
+                
+                if node.left:
+                    queue.append(node.left)
+                else:
+                    queue.append(TreeNode(-1))
+                if node.right:
+                    queue.append(node.right)
+                else:
+                    queue.append(TreeNode(-1))
+                    
+        return True
+```
+---
 :wavy_dash: :green_book: [993. Cousins in Binary Tree](https://leetcode.com/problems/check-completeness-of-a-binary-tree/): (my solution using **BFS, Level-order Traversal, Queue**; reference solution using **DFS**)
+
+```
+
+```
+---
 
 :wavy_dash: :orange_book: [1026. Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/): (keeping track of the max and min value of each subtree)
 
