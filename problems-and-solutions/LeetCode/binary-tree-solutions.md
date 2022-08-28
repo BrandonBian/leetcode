@@ -1462,7 +1462,7 @@ class Solution:
         return True
 ```
 ---
-:wavy_dash: :green_book: [993. Cousins in Binary Tree](https://leetcode.com/problems/check-completeness-of-a-binary-tree/): (my solution using **BFS, Level-order Traversal, Queue**; reference solution using **DFS**)
+:wavy_dash: :green_book: [993. Cousins in Binary Tree](https://leetcode.com/problems/cousins-in-binary-tree/): (my solution using **BFS, Level-order Traversal, Queue**; reference solution using **DFS**)
 
 ```
 
