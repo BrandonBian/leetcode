@@ -12,7 +12,7 @@
 
 :heavy_check_mark: :orange_book: [148. Sort List](https://leetcode.com/problems/sort-list/): Merge sort on linked list
 
-:heavy_check_mark: :closed_book: [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/): TODO
+:heavy_check_mark: :closed_book: [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/): Merge sort on linked lists
 
 :wavy_dash: :closed_book: [315. Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/): Merge sort
 
