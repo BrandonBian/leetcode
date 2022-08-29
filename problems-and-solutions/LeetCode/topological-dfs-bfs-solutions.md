@@ -314,23 +314,34 @@ class Solution(object):
         :rtype: int
         """
         
-        # 1 (True if is a closed island), else 0 (False)
         def dfs(i, j):
-            if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]):
-                return 0
-            if grid[i][j] != 0:
-                return 1
+            if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]) or grid[i][j] != 0:
+                return
             
             grid[i][j] = 2
             
-            return dfs(i + 1, j) * dfs(i, j + 1) * dfs(i - 1, j) * dfs(i, j - 1)
+            for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                dfs(i + dx, j + dy)
         
         result = 0
+        m, n = len(grid), len(grid[0])
         
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
+        for i in range(m):
+            dfs(i, 0) # left 
+            dfs(i, n - 1) # right
+        
+        for i in range(n):
+            dfs(0, i) # top
+            dfs(m - 1, i) # bottom
+            
+        # now all islands connected to the periphery are marked as 2
+        # we now perform dfs to mark all connected islands, and count occurrence
+        
+        for i in range(m):
+            for j in range(n):
                 if grid[i][j] == 0:
-                    result += dfs(i, j)
+                    dfs(i, j)
+                    result += 1
                 
         return result
 ```
