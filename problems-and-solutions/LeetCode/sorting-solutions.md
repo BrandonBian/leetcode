@@ -72,7 +72,45 @@ class Solution:
 :heavy_check_mark: :closed_book: [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
 
 ```
-TODO
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        
+        if not lists:
+            return None
+        if len(lists) == 1:
+            return lists[0]
+        
+        mid = len(lists) // 2
+        
+        l = self.mergeKLists(lists[:mid])
+        r = self.mergeKLists(lists[mid:])
+        
+        return self.merge(l, r)
+    
+    def merge(self, left, right):
+        
+        if not left:
+            return right
+        if not right:
+            return left
+        
+        dummy = p = ListNode()
+        
+        while left and right:
+            if left.val < right.val:
+                p.next = left
+                left = left.next
+            else:
+                p.next = right
+                right = right.next
+            p = p.next
+        
+        if left:
+            p.next = left
+        if right:
+            p.next = right
+        
+        return dummy.next
 ```
 
 ---
