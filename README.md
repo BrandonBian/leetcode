@@ -35,7 +35,7 @@
 | 3 | **DFS Recursion & Backtracking** | "combination / combination sum / permutations / subsets" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking-solutions.md) | :white_check_mark: [A Template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md#--backtracking-problem-solving-templates)
 | 4 | **Two Pointers** | "K-Sum / partitioning / sorting" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers-solutions.md) | -
 | 5 | **Topological DFS & BFS** | "path finding in a grid or matrix" | - | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/topological-dfs-bfs.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/topological-dfs-bfs-solutions.md)
-| 6 | **Sorting Methods** | 
+| 6 | **Sorting Methods** | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/sorting.md) | Problems | Solutions
 | 7 | **Dynamic Programming** | 
 | 8 | **Prefix & Sufix Sum** | 
 ---
