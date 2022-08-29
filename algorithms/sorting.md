@@ -8,12 +8,15 @@
   * The brackets after each LeetCode problem: summarizes **relevant keypoints / algorithms** used in solving that problem
 
 - **LeetCode Problems**: [Full List](https://leetcode.com/problemset/all/?topicSlugs=sorting&page=1)
-- **Reference 1**: [Sliding Window Guide](https://leetcode.com/tag/two-pointers/discuss/1122776/Summary-of-Sliding-Window-Patterns-for-Subarray-Substring)
-- **Reference 2**: [When to use Two Pointers](https://leetcode.com/problems/subarray-sum-equals-k/discuss/301242/General-summary-of-what-kind-of-problem-can-cannot-solved-by-Two-Pointers)
+- **Reference 1**: [Sorting Alogrithms - GeeksforGeeks](https://www.geeksforgeeks.org/sorting-algorithms/)
+- **Reference 2**: [Python 3 Sorting Algorithms](https://leetcode.com/problems/sort-an-array/discuss/461394/Python-3-(Eight-Sorting-Algorithms)-(With-Explanation))
 
 ---
 
 ## Relevant Concepts
+
+![complexity](https://github.com/BrandonBian/LeetCode-Notes/blob/main/figures/sorting_complexity.png)
+
 
 - Example Problem: [912. Sort an Array](https://leetcode.com/problems/sort-an-array/)
 
