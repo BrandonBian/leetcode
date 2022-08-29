@@ -63,5 +63,107 @@ class Solution:
 
 ---
 
-
 ### - Merge Sort
+
+```
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        
+        # Merge Sort:
+        
+        # Divide into two equal halfs, and combine in a sorted manner
+        # Ref: https://www.geeksforgeeks.org/merge-sort/
+        
+        def merge_sort(array):
+            
+            if len(array) == 1:
+                return array
+
+            mid = len(array) // 2
+            L = array[:mid]
+            R = array[mid:]
+
+            L = merge_sort(L)
+            R = merge_sort(R)
+            
+            return merge(L, R)
+        
+        def merge(A, B):
+            i, j = 0, 0
+            merged = []
+            
+            while i < len(A) and j < len(B):
+                if A[i] <= B[j]:
+                    merged.append(A[i])
+                    i += 1
+                else:
+                    merged.append(B[j])
+                    j += 1
+            
+            if i < len(A):
+                merged += A[i:]
+            if j < len(B):
+                merged += B[j:]
+            
+            return merged
+        
+        return merge_sort(nums)
+```
+
+---
+
+### - Counting Sort
+
+```
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        
+        # Counting Sort:
+        
+        # Using counter and just replacing the values in the list
+        
+        def count_sort(array):
+            cnt = Counter(array)
+            result = []
+            
+            m, M = min(array), max(array)
+            
+            for i in range(m, M + 1):
+                if i in cnt:
+                    for _ in range(cnt[i]):
+                        result.append(i)
+            
+            return result
+        
+        return count_sort(nums)
+```
+
+---
+
+### - Heap Sort
+
+```
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        
+        # Heap Sort:
+        
+        # Using heapq
+        # Ref: https://docs.python.org/3/library/heapq.html#basic-examples
+        
+        def heap_sort(array):
+            import heapq
+            
+            result = []
+            heapq.heapify(nums)
+            
+            for i in range(len(nums)):
+                result.append(heappop(nums))
+                
+            return result
+            
+        return heap_sort(nums)
+
+```
+
+---
