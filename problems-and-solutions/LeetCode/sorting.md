@@ -18,6 +18,4 @@
 
 :wavy_dash: :closed_book: [493. Reverse Pairs](https://leetcode.com/problems/reverse-pairs/): Merge sort
 
-:wavy_dash: :closed_book: [327. Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/): Merge sort
-
 ---
