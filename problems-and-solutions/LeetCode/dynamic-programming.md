@@ -7,7 +7,7 @@
   * :closed_book: means **HARD problems** as defined by LeetCode
 
 ---
-# Problem List According to [LeetCode Post](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
+# Problem List According to [This LeetCode Post](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
 ## Minimum (Maximum) Path to Reach a Target
 
 - **Statement**
@@ -36,6 +36,10 @@ Choose minimum (maximum) path among all possible paths before the current state,
 
 :closed_book: [174. Dungeon Game](https://leetcode.com/problems/dungeon-game/):dp[i][j] = minimum health we need to start from this point and reach bottom-right
 
+:orange_book: [322. Coin Change](https://leetcode.com/problems/coin-change/): dp[i] = fewest number of coins needed to make up amount i
 
+:orange_book: [474. Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/): dp[i][j] = largest subset of strs such that there are at most [i] 0s and [j] 1s
+
+:orange_book: [650. 2 Keys Keyboard](https://leetcode.com/problems/2-keys-keyboard/): dp[i] = minimum number of operations to print A for [i] times
 
 ---
