@@ -24,6 +24,6 @@ Choose minimum (maximum) path among all possible paths before the current state,
 >> routes[i] = min(routes[i-1], routes[i-2], ... , routes[i-k]) + cost[i]
 ```
 
-:orange_book: [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/): dp[i,j] = minimum sum for path up to this location on grid
+:orange_book: [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/): dp[i,j] = minimum path sum from top left to position[i][j]
 
 ---
