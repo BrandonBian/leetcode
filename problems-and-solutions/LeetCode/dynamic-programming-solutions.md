@@ -130,8 +130,98 @@ class Solution:
 :closed_book: [174. Dungeon Game](https://leetcode.com/problems/dungeon-game/)
 
 ```
-https://leetcode.com/problems/dungeon-game/
+class Solution:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
+        
+        m, n = len(dungeon), len(dungeon[0])
+        
+        # dp[i][j] = minimum health we need to start from this point and reach bottom-right
+        
+        # additional row and column at bottom and right
+        dp = [[float('inf')] * (n + 1) for _ in range(m + 1)]
+        dp[m][n - 1] = 1;
+        dp[m - 1][n] = 1;
+
+        for row in range(m - 1, -1, -1):
+            for col in range(n - 1, -1, -1):
+                # get the minimum health from bottom or right, and minus current cell value
+                need = min(dp[row + 1][col], dp[row][col + 1]) - dungeon[row][col]
+                # if we do need health, record that; otherwise, 1 health is sufficient
+                dp[row][col] = need if need > 0 else 1
+                
+        return dp[0][0]
 ```
 
 ---
 
+:orange_book: [322. Coin Change](https://leetcode.com/problems/coin-change/)
+
+```
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        
+        # dp[i] = fewest number of coins needed to make up amount i
+        dp = [0] + [float('inf')] * amount
+        
+        for i in range(1, amount + 1):
+            # for each coin choice, we remove it from i and find min
+            # we add 1 for using this coin
+            try:
+                dp[i] = min(dp[i - coin] for coin in coins if coin <= i) + 1
+            except:
+                continue
+        
+        return dp[amount] if dp[amount] != float('inf') else -1
+```
+
+---
+
+
+:orange_book: [474. Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/)
+
+```
+class Solution:
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        
+        # dp[i][j] = largest subset of strs such that there are at most [i] 0s and [j] 1s
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+        
+        for str in strs:
+            zeros = str.count('0')
+            ones = str.count('1')
+            
+            # update cells that have at lest [zeros] 0s and [ones] 1s
+            for i in range(m, zeros - 1, -1):
+                for j in range(n, ones - 1, -1):
+                    # either leave the string be, or take it by adding 1 to the optimal solution of remains
+                    dp[i][j] = max(dp[i][j], dp[i - zeros][j - ones] + 1)
+        
+        return dp[m][n]
+```
+
+---
+
+:orange_book: [650. 2 Keys Keyboard](https://leetcode.com/problems/2-keys-keyboard/)
+
+```
+class Solution:
+    def minSteps(self, n: int) -> int:
+        
+        # dp[i] = minimum number of operations to print A for [i] times
+        # we can always copy and continually paste (1 copy + (i - 1) paste operations)
+        dp = [i for i in range(n + 1)]
+        dp[0] = 0
+        dp[1] = 0
+        
+        for i in range(2, n + 1):
+            for j in range(i - 1, 1, -1):
+                if i % j == 0:
+                    # getting [j] number of As (i.e., dp[j]), and copy it (+ 1)
+                    # paste [(i // j) - 1] times
+                    dp[i] = dp[j] + 1 + i // j - 1
+                    break
+        
+        return dp[n]
+```
+
+---
