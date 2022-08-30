@@ -26,4 +26,16 @@ Choose minimum (maximum) path among all possible paths before the current state,
 
 :orange_book: [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/): dp[i,j] = minimum path sum from top left to position[i][j]
 
+:green_book: [746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/): dp[i] = min cost to reach step i
+
+:orange_book: [120. Triangle](https://leetcode.com/problems/triangle/): dp[i][j] = minimum path sum from top to triangle[i][j]
+
+:orange_book: [221. Maximal Square](https://leetcode.com/problems/maximal-square/): dp[i][j] = maximum square side length we can achieve when reaching matrix[i][j]
+
+:orange_book: [279. Perfect Squares](https://leetcode.com/problems/perfect-squares/): dp[i] = least number of perfect square numbers that sum to i
+
+:closed_book: [174. Dungeon Game](https://leetcode.com/problems/dungeon-game/):dp[i][j] = minimum health we need to start from this point and reach bottom-right
+
+
+
 ---
