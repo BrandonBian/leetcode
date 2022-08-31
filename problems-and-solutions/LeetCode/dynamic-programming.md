@@ -8,7 +8,7 @@
 
 ---
 # Problem List According to [This LeetCode Post](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
-## Minimum (Maximum) Path to Reach a Target
+## Minimum (Maximum) Path / Cost to Reach a Target
 
 - **Statement**
 
@@ -49,5 +49,42 @@ Choose minimum (maximum) path among all possible paths before the current state,
 :orange_book: [983. Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/): dp[i] = minimum cost to fulfill travel plan up to day i
 
 :orange_book: [1049. Last Stone Weight II](https://leetcode.com/problems/last-stone-weight-ii/): 
+
+---
+
+## Number of Distinct / Unique Ways to Do Something
+
+- **Statement**
+
+```
+Given a target find a number of distinct ways to reach the target.
+```
+
+- **Approach**
+
+```
+Sum all possible ways to reach the current state.
+Generate sum for all values in the target and return the value for the target.
+
+>> routes[i] = routes[i-1] + routes[i-2], ... , + routes[i-k]
+```
+
+:orange_book: [62. Unique Paths](https://leetcode.com/problems/unique-paths/): dp[i][j] = number of unique paths from top-left to [i][j]
+
+:orange_book: [91. Decode Ways](https://leetcode.com/problems/decode-ways/): dp[i] = number of ways to decode the first i characters in s
+
+:green_book: [509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/): dp[i] = F(i) = the i-th fibonacci number
+
+:orange_book: [63. Unique Paths II](https://leetcode.com/problems/unique-paths-ii/): dp[i][j] = number of unique paths from top-left to reach[i][j]
+
+:green_book: [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/): dp[i] = number of distinct ways to reach step i
+
+:orange_book: [377. Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/): dp[i] = number of possible combinations that add up to i
+
+:orange_book: [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/): dp = set() # total values we can get
+
+:orange_book: [494. Target Sum](https://leetcode.com/problems/target-sum/): curstops = <key, val> = <target sum, number of ways to reach this sum>
+
+:orange_book: [1155. Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/): dp[i][j] = number of possible ways to reach target [j] with up to [i] dices
 
 ---
