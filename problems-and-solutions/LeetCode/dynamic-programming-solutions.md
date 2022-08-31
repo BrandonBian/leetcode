@@ -347,3 +347,247 @@ class Solution:
 ```
 
 ---
+
+:orange_book: [62. Unique Paths](https://leetcode.com/problems/unique-paths/)
+
+```
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        
+        # dp[i][j] = number of unique paths from top-left to [i][j]
+        dp = [[0] * n for _ in range(m)]
+        
+        # base case
+        for i in range(m):
+            # left column
+            dp[i][0] = 1
+        for i in range(n):
+            # top row
+            dp[0][i] = 1
+        
+        for row in range(1, m):
+            for col in range(1, n):
+                # you can come from either top or left
+                dp[row][col] = dp[row - 1][col] + dp[row][col - 1]
+        
+        return dp[m - 1][n - 1]
+```
+
+---
+
+:orange_book: [91. Decode Ways](https://leetcode.com/problems/decode-ways/)
+
+```
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        
+        # dp[i] = number of ways to decode the first i characters in s
+        dp = [0] * (len(s) + 1)
+        
+        # base case
+        dp[0] = 1
+        dp[1] = 0 if s[0] == '0' else 1
+        
+        for i in range(2, len(s) + 1):
+            if 0 < int(s[i - 1:i]) <= 9:
+                # one step jump
+                dp[i] += dp[i - 1]
+            if 10 <= int(s[i - 2:i]) <= 26:
+                # two steps jump
+                dp[i] += dp[i - 2]
+
+        return dp[len(s)]       
+```
+
+---
+
+:green_book: [509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
+
+```
+class Solution:
+    def fib(self, n: int) -> int:
+        
+        # dp[i] = F(i) = the i-th fibonacci number
+        dp = [0, 1, 1]
+        
+        for i in range(3, n + 1):
+            dp.append(dp[i - 1] + dp[i - 2])
+        
+        return dp[n]
+```
+
+---
+
+:orange_book: [63. Unique Paths II](https://leetcode.com/problems/unique-paths-ii/)
+
+```
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        
+        # dp[i][j] = number of unique paths from top-left to reach[i][j]
+        m, n = len(obstacleGrid), len(obstacleGrid[0])
+        dp = [[0] * n for _ in range(m)]
+        
+        # base cases
+        blocked = False
+        for i in range(m):
+            # left column
+            if obstacleGrid[i][0] == 0:
+                if blocked:
+                    dp[i][0] = 0
+                else:
+                    dp[i][0] = 1
+            else:
+                blocked = True
+                dp[i][0] = 0
+
+        blocked = False
+        for i in range(n):
+            # top row
+            if obstacleGrid[0][i] == 0:
+                if blocked:
+                    dp[0][i] = 0
+                else:
+                    dp[0][i] = 1
+            else:
+                blocked = True
+                dp[0][i] = 0
+        
+        for row in range(1, m):
+            for col in range(1, n):
+                if obstacleGrid[row][col] == 0:
+                    dp[row][col] = dp[row - 1][col] + dp[row][col - 1]
+        
+        return dp[m - 1][n - 1]
+```
+
+---
+
+
+:green_book: [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+
+```
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        
+        # dp[i] = number of distinct ways to reach step i
+        dp = [0, 1, 2]
+        
+        for i in range(3, n + 1):
+            dp.append(dp[i - 2] + dp[i - 1])
+        
+        return dp[n]
+```
+
+---
+
+:orange_book: [377. Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)
+
+```
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        
+        nums.sort()
+        
+        # dp[i] = number of possible combinations that add up to i
+        dp = [0] * (target + 1)
+        dp[0] = 1
+        
+        for i in range(1, target + 1):
+            for num in nums:
+                if num > i:
+                    break # we cannot add any valid combination
+                elif num == i:
+                    dp[i] += 1 # we can add one more valid combination (i.e., num itself)
+                else:
+                    dp[i] += dp[i - num]
+        
+        return dp[target]
+```
+
+---
+
+:orange_book: [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+
+```
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        
+        # Ref: https://youtu.be/IsvocB5BJhw
+        
+        if sum(nums) % 2 == 1:
+            # sum must be even
+            return False
+        
+        dp = set() # total values we can get
+        dp.add(0) # guaranteed to have a sum of 0 (i.e., picking no element)
+        target = sum(nums) // 2
+        
+        for i in range(len(nums)):
+            nextDP = set() # note that you cannot modify dp during the following for loop
+            for t in dp:
+                if (t + nums[i]) == target: # we have already found a valid partition
+                    return True
+                nextDP.add(t + nums[i]) # adding new value to nextDP
+                nextDP.add(t) # add original value in dp
+            dp = nextDP
+            
+        return True if target in dp else False
+```
+
+---
+
+:orange_book: [494. Target Sum](https://leetcode.com/problems/target-sum/)
+
+```
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        
+        # curstops = <key, val> = <target sum, number of ways to reach this sum>
+        curstops = defaultdict(int)
+        curstops[0] = 1
+        
+        for distance in nums:
+            # parepare a new map for the next iteration
+            nextstops = defaultdict(int)
+            
+            # for each iteration, update each possible sum and it's count
+            for stop in curstops:
+
+                # current to be positive (if we choose to + distance)
+                nextstops[stop + distance] += curstops[stop] # number of ways to reach this step/position
+                # current to be negative (if we choose to - distance)
+                nextstops[stop - distance] += curstops[stop] # number of ways to reach this step/position
+                
+            # assign the new map to be the current map
+            curstops = nextstops
+
+        return curstops[target]
+```
+
+---
+
+:orange_book: [1155. Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/)
+
+```
+class Solution:
+    def numRollsToTarget(self, n: int, k: int, target: int) -> int:
+        
+        # Ref: https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/discuss/770166/Evolve-from-brute-force-to-dp
+        
+        # dp[i][j] = number of possible ways to reach target [j] with up to [i] dices
+        dp = [[0] * (target + 1) for _ in range(n + 1)]
+        
+        dp[0][0] = 1
+        
+        for dice in range(1, n + 1):
+            for tar in range(1, target + 1):
+                for face in range(1, k + 1):
+                    if face <= tar:
+                        dp[dice][tar] += dp[dice - 1][tar - face]
+                        
+        return dp[n][target] % (int(1e9) + 7)
+```
+
+---
+
