@@ -225,3 +225,125 @@ class Solution:
 ```
 
 ---
+
+:closed_book: [871. Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops/)
+
+```
+class Solution(object):
+    def minRefuelStops(self, target, startFuel, stations):
+        """
+        :type target: int
+        :type startFuel: int
+        :type stations: List[List[int]]
+        :rtype: int
+        """
+        
+        # dp[i] = furthest distance we can get after [i] number of refueling stops
+        
+        dp = [startFuel] + [0] * len(stations)
+        
+        for i in range(len(stations)): 
+            # for every station, find out maximum distance we can reaching using this as a refuel point
+            for t in range(i, -1, -1):
+                # if current distance >= position of station (i.e., we can reach this station)
+                if dp[t] >= stations[i][0]:
+                    # then we can refuel
+                    dp[t + 1] = max(dp[t + 1], dp[t] + stations[i][1])
+        
+        for t, d in enumerate(dp):
+            if d >= target: return t
+        
+        return -1
+```
+
+---
+
+:orange_book: [931. Minimum Falling Path Sum](https://leetcode.com/problems/minimum-falling-path-sum/)
+
+```
+class Solution(object):
+    def minFallingPathSum(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: int
+        """
+        
+        # dp[i][j] = minimum sum of falling path up to matrix[i][j]
+        dp = matrix
+        
+        for row in range(1, len(matrix)):
+            for col in range(len(matrix[0])):
+                
+                if col == 0:
+                    # first column: coming from top or top right
+                    dp[row][col] += min(dp[row - 1][col], dp[row - 1][col + 1])
+                    
+                elif col == len(matrix[0]) - 1:
+                    # last column: coming from top or top left
+                    dp[row][col] += min(dp[row - 1][col], dp[row - 1][col - 1])
+                
+                else:
+                    # coming from top left, top, or top right
+                    dp[row][col] += min(dp[row - 1][col - 1], dp[row - 1][col], dp[row - 1][col + 1])
+                    
+        return min(dp[-1])
+```
+
+---
+
+:orange_book: [983. Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/)
+
+```
+class Solution(object):
+    def mincostTickets(self, days, costs):
+        """
+        :type days: List[int]
+        :type costs: List[int]
+        :rtype: int
+        """
+        
+        # dp[i] = minimum cost to fulfill travel plan up to day i
+        dp = [0 for _ in range(days[-1] + 1)] # for all days from 0 ... last day on plan
+        
+        travel_days = set(days)
+        
+        for i in range(days[-1] + 1):
+            if i not in travel_days: # if we are not traveling on this day, same cost as day before
+                dp[i] = dp[i - 1]
+            else: # if we are traveling on this day
+                
+                # a minimum of yesterday's cost plus single-day ticket, 
+                # or cost for 8 days ago plus 7-day pass, 
+                # or cost 31 days ago plus 30-day pass
+                dp[i] = min(dp[max(0, i - 1)] + costs[0],
+                            dp[max(0, i - 7)] + costs[1],
+                            dp[max(0, i - 30)] + costs[2])
+                
+        return dp[-1]
+```
+
+---
+
+:orange_book: [1049. Last Stone Weight II](https://leetcode.com/problems/last-stone-weight-ii/)
+
+```
+class Solution:
+    def lastStoneWeightII(self, stones: List[int]) -> int:
+        # partition the stones into two subsets, which have least difference in summation
+        # ref 1: https://leetcode.com/problems/last-stone-weight-ii/discuss/402213/Python-solution-based-on-0-1-Knapsack
+        # ref 2: https://leetcode.com/problems/last-stone-weight-ii/discuss/859641/Python3-DP-with-extensive-though-process-explanation-and-clean-code
+        
+        total_weight = sum(stones)
+        max_weight = total_weight // 2
+        
+        dp = [0] * (max_weight + 1)
+        
+        for stone in stones:
+            for weight in range(max_weight, -1, -1):
+                if weight >= stone:
+                    dp[weight] = max(dp[weight], dp[weight - stone] + stone)
+                    
+        return total_weight - 2 * dp[-1]
+```
+
+---
