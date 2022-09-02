@@ -6,6 +6,11 @@
   * :orange_book: means **MEDIUM problems** as defined by LeetCode
   * :closed_book: means **HARD problems** as defined by LeetCode
 
+
+- **Reference 1**: [DP Patterns - LeetCode](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
+- **Reference 2**: [DP Patterns - LeetCode - V2](https://leetcode.com/problems/target-sum/discuss/455024/DP-IS-EASY!-5-Steps-to-Think-Through-DP-Questions.)
+- **Reference 3**: [Top 5 DP Patterns - NeetCode YouTube](https://www.youtube.com/watch?v=mBNrRy2_hVs)
+- **Reference 4**: [DP Patterns Problems - NeetCode](https://docs.google.com/spreadsheets/d/1pEzcVLdj7T4fv5mrNhsOvffBnsUH07GZk7c2jD-adE0/edit#gid=0)
 ---
 # Problem List According to [This LeetCode Post](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
 ## 1. Minimum (Maximum) Path / Cost to Reach a Target
@@ -66,7 +71,7 @@ return dp[target]
 
 ---
 
-## Number of Distinct / Unique Ways to Do Something
+## 2. Number of Distinct / Unique Ways to Do Something
 
 - **Statement**
 
@@ -81,6 +86,22 @@ Sum all possible ways to reach the current state.
 Generate sum for all values in the target and return the value for the target.
 
 >> routes[i] = routes[i-1] + routes[i-2], ... , + routes[i-k]
+```
+
+- **Template**
+
+```
+# Some questions point out the number of repetitions, in that case, add one more loop to simulate every repetition.
+
+for (int i = 1; i <= target; ++i) {
+   for (int j = 0; j < ways.size(); ++j) {
+       if (ways[j] <= i) {
+           dp[i] += dp[i - ways[j]];
+       }
+   }
+}
+ 
+return dp[target]
 ```
 
 :orange_book: [62. Unique Paths](https://leetcode.com/problems/unique-paths/): dp[i][j] = number of unique paths from top-left to [i][j]
@@ -100,5 +121,13 @@ Generate sum for all values in the target and return the value for the target.
 :orange_book: [494. Target Sum](https://leetcode.com/problems/target-sum/): curstops = <key, val> = <target sum, number of ways to reach this sum>
 
 :orange_book: [1155. Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/): dp[i][j] = number of possible ways to reach target [j] with up to [i] dices
+
+:orange_book: [576. Out of Boundary Paths](https://leetcode.com/problems/out-of-boundary-paths/): dp[i][j][M] = number of ways to reach [i][j] from outside of grid using [M] moves maximum
+
+:orange_book: [673. Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/): two arrays for DP
+
+:orange_book: [688. Knight Probability in Chessboard](https://leetcode.com/problems/knight-probability-in-chessboard/): dp[k][i][j] = probability that the knight is at [i][j] after k steps
+
+:orange_book: [790. Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling/): 
 
 ---
