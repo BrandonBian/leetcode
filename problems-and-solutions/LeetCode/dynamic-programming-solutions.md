@@ -591,3 +591,123 @@ class Solution:
 
 ---
 
+:orange_book: [576. Out of Boundary Paths](https://leetcode.com/problems/out-of-boundary-paths/)
+
+```
+class Solution:
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+        
+        # Dynamic programming using tabulation
+        # Ref: https://leetcode.com/problems/out-of-boundary-paths/discuss/1293835/Short-and-Easy-Solution-w-Explanation-or-Optimization-from-Brute-Force
+        
+        # dp[i][j][M] = number of ways to move outside of grid from [i][j] using [M] moves maximum
+        dp = [[[0] * (maxMove + 1) for _ in range(n + 1)] for _ in range(m + 1)]
+        
+        def out_of_bound(i, j):
+            return not (0 <= i < m and 0 <= j < n)
+        
+        # iterate for all available moves
+        for move in range(1, maxMove + 1):
+            for i in range(m):
+                for j in range(n):
+                    # for each cell, try all 4 possible moves
+                    for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                        if out_of_bound(i + dx, j + dy): 
+                            dp[i][j][move] += 1
+                        else:
+                            # Note: reversed version is faster
+                            # dp[i][j][move] += dp[i + dx][j + dy][move - 1]
+                            dp[i + dx][j + dy][move] += dp[i][j][move - 1]
+                            
+        return dp[startRow][startColumn][maxMove] % int(1e9 + 7)
+```
+
+---
+
+:orange_book: [673. Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/)
+
+```
+class Solution:
+    def findNumberOfLIS(self, nums: List[int]) -> int:
+        
+        # length[i] = longest increasing subsequence length ending at nums[i]
+        # count[i] = number of paths with longest increasing subsequence length length[i]
+        
+        length = [1] * len(nums)
+        count = [1] * len(nums)
+        
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    # length[i] = max(length[j] + 1, length[i]) 
+                    # but we need to compute count also
+                    if length[i] == length[j]:
+                        length[i] = length[j] + 1
+                        count[i] = count[j]
+                    elif length[i] == length[j] + 1:
+                        count[i] += count[j]
+                        
+        max_length = max(length)
+        return sum([count[i] for i in range(len(nums)) if length[i] == max_length])
+```
+
+---
+
+:orange_book: [688. Knight Probability in Chessboard](https://leetcode.com/problems/knight-probability-in-chessboard/)
+
+```
+class Solution:
+    def knightProbability(self, n: int, k: int, row: int, column: int) -> float:
+        
+        # dp[k][i][j] = probability that the knight is at [i][j] after k steps
+        dp = [[[0] * n for _ in range(n)] for _ in range(k + 1)]
+        dp[0][row][column] = 1
+        
+        dirs = [(-2, -1), (-2, 1), (-1, -2), (-1, 2), (1, -2), (1, 2), (2, -1), (2, 1)]
+        
+        def out_of_range(i, j):
+            return not(0 <= i < n and 0 <= j < n)
+        
+        for k in range(1, k + 1):
+            for i in range(n):
+                for j in range(n):
+                    for dx, dy in dirs:
+                        x, y = i + dx, j + dy
+                        if out_of_range(x, y): continue
+                        # Note: reversed version is valid too
+                        # dp[k][i][j] += dp[k - 1][x][y] * 0.125
+                        dp[k][x][y] += dp[k - 1][i][j] * 0.125
+        
+        # return the summation of pobability at the last step of all cells
+        return sum(i for row in dp[-1] for i in row)
+```
+
+---
+
+:orange_book: [790. Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling/)
+
+```
+class Solution:
+    def numTilings(self, n: int) -> int:
+        
+        # Ref: https://leetcode.com/problems/domino-and-tromino-tiling/discuss/1620975/C%2B%2BPython-Simple-Solution-w-Images-and-Explanation-or-Optimization-from-Brute-Force-to-DP
+        
+        # dp[i][0]: number of ways to tile the grid till ith column (including ith column) and keeping no gap
+        # dp[i][1]: number of ways to completely tile the grid till ith column keeping a gap in i+1th column (a square protruding out)
+        
+        dp = [[0, 0] for _ in range(n + 2)]
+        
+        # dp[1][0] = 1, using T1
+        # dp[1][1] = 1, using T3 or T4
+        # dp[2][0] = 2, adding T1 to dp[1][0] or using T2 in pairs
+        # dp[2][1] = 2, adding T2 to dp[1][1] or adding T3/T4 to dp[1][0]    
+        dp[1], dp[2] = [1, 1], [2, 2]
+        
+        for i in range(3, n + 1):
+            dp[i][0] = dp[i - 1][0] + dp[i - 2][0] + 2 * dp[i - 2][1]
+            dp[i][1] = dp[i - 1][0] + dp[i - 1][1]
+        
+        return dp[n][0] % int(1e9 + 7)
+```
+
+---
