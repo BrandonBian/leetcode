@@ -13,8 +13,37 @@
 - **Reference 3**: [DP Patterns Problems - NeetCode](https://docs.google.com/spreadsheets/d/1pEzcVLdj7T4fv5mrNhsOvffBnsUH07GZk7c2jD-adE0/edit#gid=0)
 ---
 
-## Relevant Concepts
+## DP Patterns from [This LeetCode Post](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
+
+### 1. Minimum (Maximum) Path / Cost to Reach a Target
+
+- **Statement**
+
+```
+Given a target find minimum (maximum) cost / path / sum to reach the target.
+```
+
+- **Approach**
+
+```
+Choose minimum (maximum) path among all possible paths before the current state, then add value for the current state.
+
+>> routes[i] = min(routes[i-1], routes[i-2], ... , routes[i-k]) + cost[i]
+```
 
 
+- **Template**
+
+```
+for (int i = 1; i <= target; ++i) {
+   for (int j = 0; j < ways.size(); ++j) {
+       if (ways[j] <= i) {
+           dp[i] = min(dp[i], dp[i - ways[j]] + cost / path / sum) ;
+       }
+   }
+}
+ 
+return dp[target]
+```
 
 ---
