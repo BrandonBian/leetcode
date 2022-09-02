@@ -8,7 +8,7 @@
 
 ---
 # Problem List According to [This LeetCode Post](https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns)
-## Minimum (Maximum) Path / Cost to Reach a Target
+## 1. Minimum (Maximum) Path / Cost to Reach a Target
 
 - **Statement**
 
@@ -22,6 +22,20 @@ Given a target find minimum (maximum) cost / path / sum to reach the target.
 Choose minimum (maximum) path among all possible paths before the current state, then add value for the current state.
 
 >> routes[i] = min(routes[i-1], routes[i-2], ... , routes[i-k]) + cost[i]
+```
+
+- **Template**
+
+```
+for (int i = 1; i <= target; ++i) {
+   for (int j = 0; j < ways.size(); ++j) {
+       if (ways[j] <= i) {
+           dp[i] = min(dp[i], dp[i - ways[j]] + cost / path / sum) ;
+       }
+   }
+}
+ 
+return dp[target]
 ```
 
 :orange_book: [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/): dp[i,j] = minimum path sum from top left to position[i][j]
