@@ -711,3 +711,84 @@ class Solution:
 ```
 
 ---
+
+:orange_book: [935. Knight Dialer](https://leetcode.com/problems/knight-dialer/)
+
+```
+class Solution:
+    def knightDialer(self, n: int) -> int:
+        transitions = {
+            0: [4, 6],
+            1: [6, 8],
+            2: [7, 9],
+            3: [4, 8],
+            4: [0, 3, 9],
+            5: [],
+            6: [0, 1, 7],
+            7: [2, 6],
+            8: [1, 3],
+            9: [2, 4]
+        }
+        
+        # dp[i][j] = number of distinct numbers after [i] jumps, starting from digit [j]
+        dp = [[0] * 10 for _ in range(n)]
+        
+        # base case: jump = 0, only one
+        for i in range(10):
+            dp[0][i] = 1
+            
+        for i in range(1, n):
+            for d in range(10):
+                for from_pos in transitions[d]:
+                    # all the digits that can reach our current digit, from previous jump
+                    dp[i][d] += dp[i - 1][from_pos]
+        
+        result = 0
+        
+        for i in dp[-1]:
+            # we can start from any numeric cell
+            result += i
+        
+        return result % int(1e9 + 7)
+```
+
+---
+
+:closed_book: [801. Minimum Swaps To Make Sequences Increasing](https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/)
+
+```
+class Solution:
+    def minSwap(self, nums1: List[int], nums2: List[int]) -> int:
+        
+        # Ref: https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/discuss/640752/Python-DP-solution-with-explanations
+        
+        # YouTube: https://youtu.be/__yxFFRQAl8
+        
+        # we need 2 arrays to record the two possible actions taken at index i
+        # dp[0][i], min number of swaps up to i, if at i, we do nothing
+        # dp[1][i], min number of swaps up to i, if at i, we swap A[i] and B[i]
+        dp = [[float('inf')] * len(nums1) for _ in range(2)]
+        
+        # base case
+        dp[0][0] = 0 # we do nothing
+        dp[1][0] = 1 # we swap once
+        
+        for i in range(1, len(nums1)):
+            if nums1[i] > nums1[i - 1] and nums2[i] > nums2[i - 1]: # both arrays are increasing
+                # If at i, we choose to keep, i-1 will also have to keep to make it valid
+                dp[0][i] = dp[0][i - 1]
+                # If at i, we choose to swap, i-1 will also have to swap to make it valid 
+                # (we swap both i-1 and i to MAKE SURE this is 100% valid -> for next if statement) 
+                # and since we swap at i, we need to add one
+                dp[1][i] = dp[1][i - 1] + 1
+                
+            if nums1[i] > nums2[i - 1] and nums2[i] > nums1[i - 1]: # cross comparing
+                # If at i, we choose to keep
+                dp[0][i] = min(dp[0][i], dp[1][i - 1])
+                # If at i, we choose to swap
+                dp[1][i] = min(dp[1][i], dp[0][i - 1] + 1)
+        
+        return min(dp[0][len(nums1) - 1], dp[1][len(nums1) - 1])
+```
+
+---
