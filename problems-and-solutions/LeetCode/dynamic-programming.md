@@ -130,4 +130,8 @@ return dp[target]
 
 :orange_book: [790. Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling/): 
 
+:orange_book: [935. Knight Dialer](https://leetcode.com/problems/knight-dialer/): dp[i][j] = number of distinct numbers after [i] jumps, starting from digit [j]
+
+:closed_book: [801. Minimum Swaps To Make Sequences Increasing](https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/): 
+
 ---
