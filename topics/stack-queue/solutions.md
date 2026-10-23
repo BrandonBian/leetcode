@@ -12,12 +12,8 @@ All solutions are in Python 3.
 :heavy_check_mark: :green_book: [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/): push opening brackets; each closing bracket must match the top of the stack
 
 ```python
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
+class Solution:
+    def isValid(self, s: str) -> bool:
 
         brackets = {'(':')', '{':'}', '[':']'}
         stack = []
@@ -43,7 +39,7 @@ class Solution(object):
 :heavy_check_mark: :green_book: [155. Min Stack](https://leetcode.com/problems/min-stack/): a second stack keeps the running minimum
 
 ```python
-class MinStack(object):
+class MinStack:
 
     def __init__(self):
         # Idea: using a list to mimic a stack
@@ -51,21 +47,14 @@ class MinStack(object):
         self.min = [float('inf')]
 
 
-    def push(self, val):
-        """
-        :type val: int
-        :rtype: None
-        """
+    def push(self, val: int) -> None:
         self.stack.append(val)
 
         if val <= self.min[-1]:
             self.min.append(val)
 
 
-    def pop(self):
-        """
-        :rtype: None
-        """
+    def pop(self) -> None:
 
         if self.stack[-1] == self.min[-1]:
             self.min.pop()
@@ -73,17 +62,11 @@ class MinStack(object):
         self.stack.pop()
 
 
-    def top(self):
-        """
-        :rtype: int
-        """
+    def top(self) -> int:
         return self.stack[-1]
 
 
-    def getMin(self):
-        """
-        :rtype: int
-        """
+    def getMin(self) -> int:
         return self.min[-1]
 ```
 
@@ -183,12 +166,8 @@ class Solution:
 :heavy_check_mark: :closed_book: [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/): for each bar, count consecutive bars >= it on both sides (jumping by earlier counts)
 
 ```python
-class Solution(object):
-    def largestRectangleArea(self, heights):
-        """
-        :type heights: List[int]
-        :rtype: int
-        """
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
 
         # Plain iterative solution (less efficient but easier to think of)
         # Ref: https://leetcode.com/problems/largest-rectangle-in-histogram/discuss/28963/Python-solution-without-using-stack.-(with-explanation)

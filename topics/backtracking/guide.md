@@ -8,17 +8,17 @@
 - **Recursion - Reference 2**: [Notes Part I](https://drive.google.com/file/d/1qVhNzbXwCTuYRvIqmDMkLiaQlmFk7fze/view) & [Notes Part II](https://drive.google.com/file/d/15KBYehujM7F7dtWn3FkFfx2UKKnP7NM8/view)
 
 
-## - General Recursion Ideas
+## General Recursion Ideas
 - **Base case**: recursion stops and we backtrack when hitting this condition
 - **Hypothesis**: we call the function itself to make the problem smaller, assuming the function works perfectly
 - **Induction**: process the results when going up one layer in recursion backtracking
 
 
-## - Backtracking Problem Solving Templates
+## Backtracking Templates
 
 - **General Backtracking Questions and Template**: [link-1](https://leetcode.com/problems/combination-sum/discuss/429538/General-Backtracking-questions-solutions-in-Python-for-reference-%3A), [link-2](https://leetcode.com/problems/letter-combinations-of-a-phone-number/discuss/780232/Backtracking-Python-problems%2B-solutions-interview-prep)
 
-- **General Idea**: 
+- **General Idea**:
 1. Transform problem into a **tree problem**
 2. Use "candidates" to track the set of leaf nodes under current node
 3. Use "path" to track the path taken to reach the current node in the tree
@@ -35,8 +35,8 @@ def combine(n, target):
     # To remove duplicates, add this: candidates.sort()
     dfs(candidates, target, [], res)
     return res
-    
-########################################################################################################    
+
+########################################################################################################
 # Combinations: combinations of list [candidates] elements that form a size [target] window (See LeetCode 77)
 # All elements UNIQUE
 
@@ -45,21 +45,21 @@ def dfs(candidates, target, path, res):
     # target: our restriction (that the size of considered nodes should be equal to [target])
     # path: current path down the entire tree
     # res: to save all the paths
-    
-    if target < 0:  # backtracking WITHOUT appending the path to res (we went too far) 
-        return 
-        
+
+    if target < 0:  # backtracking WITHOUT appending the path to res (we went too far)
+        return
+
     if target == 0:
         res.append(path)
         return # backtracking AFTER appending path to res (we met target)
-        
+
     for i in range(len(candidates)):
         # Note the candidates[i+1:] here - we only consider candidates AFTER current node
         # effect: remove duplicates ([3,5] = [5,3]), and to remove itself ([3,3])
         # since nodes [:i] prior to i are already considered when traversing trees with root = prior nodes
         # also we don't want selections like [3,3] because that is combination of an element with itself, invalid
         dfs(candidates[i+1:], target-1, path+[candidates[i]], res)
-        
+
 ########################################################################################################
 # Combination Sum: UNIQUE combinations of list [candidates] that sum up to [target] (See LeetCode 39)
 # All elements UNIQUE, each number can be used unlimited times
@@ -69,20 +69,20 @@ def dfs(candidates, target, path, res):
     # target: our restriction (that the sum should be equal to [target])
     # path: current path down the entire tree
     # res: to save all the paths
-    
+
     if target < 0:  # backtracking WITHOUT appending the path to res (we went too far)
-        return  
-        
+        return
+
     if target == 0:
         res.append(path)
         return # backtracking AFTER appending path to res (we met target)
-        
+
     for i in range(len(candidates)):
         # Note the candidates[i:] here - we don't consider candidates prior to current node, but we can reuse current number
         # since those combinations / paths are already considered when traversing trees with root = prior nodes
         # to eliminate repetition, since we want UNIQUE combinations
         # which enforces each combination of candidates to run once (e.g., [3,5] = [5,3])
-        dfs(candidates[i:], target-candidates[i], path+[candidates[i]], res)  
+        dfs(candidates[i:], target-candidates[i], path+[candidates[i]], res)
 
 ########################################################################################################
 # Permutations: all permutations of list [candidates] (See LeetCode 46)
@@ -93,11 +93,11 @@ def dfs(candidates, path, res):
     # path: current path down the entire tree
     # res: to save all the paths
     # Note that we don't need a [target] to restrict the results
-    
+
     if not candidates:
         res.append(path)
         return # backtracking
-        
+
     for i in range(len(candidates)):
         # candidates[:i] + candidates[i+1:] -> all candidates but leaving out the i-th element
         # because we already included it into our path: path+[candidates[i]]

@@ -6,7 +6,7 @@
 
 ---
 
-## - Cycle Detection and Finding (with Slow / Fast Pointers)
+## Cycle Detection (Slow / Fast Pointers)
 - About **Slow / Fast Pointers for Cycle Finding**: (see LeetCode Problem 141, 142)
     - [A Proof](https://drive.google.com/file/d/1ypA196eeOnzWUTQGtOh5WpedPdM3FFDd/view)
     - [A Visual Explanation](https://leetcode.com/problems/linked-list-cycle-ii/discuss/1701128/C%2B%2BJavaPython-Slow-and-Fast-oror-Image-Explanation-oror-Beginner-Friendly)
@@ -14,9 +14,9 @@
 ![slow_fast_cycle](https://assets.leetcode.com/users/images/eb4e7e41-f0a8-4648-b145-23a9764fcd57_1642561451.2184958.png)
 
 ```python
-# Cycle Detection (return the begining of the cyle) - see LeetCode Problem 142
+# Cycle Detection (return the beginning of the cycle) - see LeetCode Problem 142
 
-class Solution(object):
+class Solution:
     def detectCycle(self, head):
         slow = fast = head
         while fast and fast.next:
@@ -30,7 +30,7 @@ class Solution(object):
 
 ---
 
-## - Miscellaneous Problems with Slow / Fast Pointers
+## More Slow / Fast Pointer Tricks
 
 - About **Slow / Fast Pointers for Finding Mid-node of Linked List**: (see LeetCode Problem 234)
 
@@ -48,15 +48,15 @@ while fast and fast.next:
 if fast:
     # fast is exactly at the end, move slow one step further for comparison (cross middle one)
     slow = slow.next
-    
+
 # now slow should be at the STARTING node of the SECOND half of the list
 ```
 
-- About **Slow / Fast Pointers for Fiding & Removing N-th Node from End of List**: (see LeetCode 19)
+- About **Slow / Fast Pointers for Finding & Removing N-th Node from End of List**: (see LeetCode 19)
 
 ```python
 fast = slow = head
-        
+
 for _ in range(n):
     fast = fast.next # Let fast move n-nodes ahead of slow
 
@@ -79,6 +79,6 @@ return head # return the modified list
 
 
 ---
-## - Miscellaneous Problems with Dummy Nodes & Double Pointers & Etc.
+## Dummy Nodes & Double Pointers
 
-See selected problem list.
+See the [dummy node, double pointer and reversal problems](problems.md#3-dummy-nodes-double-pointers--reversal).

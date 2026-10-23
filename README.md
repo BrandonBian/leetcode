@@ -24,10 +24,10 @@ Study notes for coding interviews (SDE and quant developer roles): pattern guide
 
 | Topic | Guide | Problems | :green_book: | :orange_book: | :closed_book: | Template to memorize |
 | --- | :-: | :-: | :-: | :-: | :-: | --- |
-| **Two Pointers & Sliding Window** | [Guide](topics/two-pointers/guide.md) | [Problems](topics/two-pointers/problems.md) | 2 | 7 | 2 | [2 Sum / K-Sum / partition](topics/two-pointers/guide.md#typical-examples--concepts) |
-| **Binary Search** | [Guide](topics/binary-search/guide.md) | [Problems](topics/binary-search/problems.md) | 4 | 18 | 6 | [General template](topics/binary-search/guide.md#white_check_mark-general-template---very-good-please-memorize) |
-| **Sorting** | [Guide](topics/sorting/guide.md) | [Problems](topics/sorting/problems.md) | 0 | 3 | 3 | [Quick / merge / counting / heap sort](topics/sorting/guide.md#--quick-sort) |
-| **Recursion & Backtracking** | [Guide](topics/backtracking/guide.md) | [Problems](topics/backtracking/problems.md) | 0 | 12 | 2 | [Combinations / permutations](topics/backtracking/guide.md#--backtracking-problem-solving-templates) |
+| **Two Pointers & Sliding Window** | [Guide](topics/two-pointers/guide.md) | [Problems](topics/two-pointers/problems.md) | 2 | 7 | 2 | [2 Sum / K-Sum / partition](topics/two-pointers/guide.md#typical-examples) |
+| **Binary Search** | [Guide](topics/binary-search/guide.md) | [Problems](topics/binary-search/problems.md) | 4 | 18 | 6 | [General template](topics/binary-search/guide.md#general-template-memorize-this) |
+| **Sorting** | [Guide](topics/sorting/guide.md) | [Problems](topics/sorting/problems.md) | 0 | 3 | 3 | [Quick / merge / counting / heap sort](topics/sorting/guide.md#quick-sort) |
+| **Recursion & Backtracking** | [Guide](topics/backtracking/guide.md) | [Problems](topics/backtracking/problems.md) | 0 | 12 | 2 | [Combinations / permutations](topics/backtracking/guide.md#backtracking-templates) |
 | **Graphs** (grid DFS / BFS, topological sort) | — | [Problems](topics/graphs/problems.md) | 2 | 7 | 1 | — |
 | **Dynamic Programming** | [Guide](topics/dynamic-programming/guide.md) | [Problems](topics/dynamic-programming/problems.md) | 4 | 31 | 5 | [The DP patterns](topics/dynamic-programming/guide.md) |
 | **Math** (GCD & LCM) | [Guide](topics/math/guide.md) | — | — | — | — | [GCD / LCM formulae](topics/math/guide.md#formulae) |
@@ -37,11 +37,11 @@ Study notes for coding interviews (SDE and quant developer roles): pattern guide
 | Topic | Guide | Problems | :green_book: | :orange_book: | :closed_book: | Template to memorize |
 | --- | :-: | :-: | :-: | :-: | :-: | --- |
 | **Arrays & Matrices** | — | [Problems](topics/arrays-matrix/problems.md) | 0 | 6 | 0 | — |
-| **Hash Tables** | [Guide](topics/hash-table/guide.md) | [Problems](topics/hash-table/problems.md) | 22 | 16 | 1 | [dict / Counter / sorting them](topics/hash-table/guide.md#--python-dictionary-and-counters-and-how-to-sort-them) |
-| **Linked Lists** | [Guide](topics/linked-list/guide.md) | [Problems](topics/linked-list/problems.md) | 7 | 8 | 1 | [Slow / fast pointers](topics/linked-list/guide.md#--cycle-detection-and-finding-with-slow--fast-pointers) |
+| **Hash Tables** | [Guide](topics/hash-table/guide.md) | [Problems](topics/hash-table/problems.md) | 22 | 16 | 1 | [dict / Counter / sorting them](topics/hash-table/guide.md#python-dict-and-counter-and-how-to-sort-them) |
+| **Linked Lists** | [Guide](topics/linked-list/guide.md) | [Problems](topics/linked-list/problems.md) | 7 | 8 | 1 | [Slow / fast pointers](topics/linked-list/guide.md#cycle-detection-slow--fast-pointers) |
 | **Stacks & Queues** | — | [Problems](topics/stack-queue/problems.md) | 2 | 2 | 4 | — |
 | **Heaps & Priority Queues** | — | [Problems](topics/heap/problems.md) | 0 | 1 | 1 | — |
-| **Binary Trees & BSTs** | [Guide](topics/binary-tree/guide.md) | [Problems](topics/binary-tree/problems.md) | 19 | 29 | 2 | [Traversals](topics/binary-tree/guide.md#--binary-tree-traversals-and-operations-usually-with-recursion) |
+| **Binary Trees & BSTs** | [Guide](topics/binary-tree/guide.md) | [Problems](topics/binary-tree/problems.md) | 19 | 29 | 2 | [Traversals](topics/binary-tree/guide.md#traversals-and-basic-operations) |
 | **Tries** | — | [Problems](topics/trie/problems.md) | 0 | 1 | 0 | — |
 
 ### Curated lists
@@ -106,7 +106,7 @@ Average-case costs in CPython.
 ## Roadmap
 
 - [x] Fix known bugs in solutions and guides
-- [ ] Move all code to the Python 3 style (`class Solution:` with type hints)
+- [x] Move all code to the Python 3 style (`class Solution:` with type hints)
 - [ ] Add the missing solutions (993, 1026, 1530, 865, 863, 1379 and most hash-table supplemental problems)
 - [ ] Write guides for the topics that only have problem lists (graphs, stacks & queues, heaps, tries, arrays)
 - [ ] New topics: intervals, greedy, bit manipulation, union-find, Fenwick tree

@@ -6,26 +6,26 @@
 - **Reference 1**: [Sliding Window Guide](https://leetcode.com/tag/two-pointers/discuss/1122776/Summary-of-Sliding-Window-Patterns-for-Subarray-Substring)
 - **Reference 2**: [When to use Two Pointers](https://leetcode.com/problems/subarray-sum-equals-k/discuss/301242/General-summary-of-what-kind-of-problem-can-cannot-solved-by-Two-Pointers)
 
-## Relevant Concepts
+## Concepts
 
-### - Characteristics of problems that can be solved with Two Pointers:
+### When Two Pointers Work
   - "If a wider scope of the sliding window is valid, the narrower scope of that wider scope is valid" must hold.
   - "If a narrower scope of the sliding window is invalid, the wider scope of that narrower scope is invalid" must hold.
 
-### - Types of Two Pointers: (see problems list below for more examples)
+### Types of Two Pointers
   - **Face-to-Face**: usually for problems of types "reverse, two sum, partition"
   - **Back-to-Back**: usually for problems of types "palindrome substring, find k-closest elements"
   - **Same-Direction**: usually for problems of types "sliding window, fast & slow pointers"
 
-### - Idea of [Sliding Window]:
+### Sliding Window
   - Keep a window `s[left : right + 1]` that satisfies the condition. Move `right` forward to grow it, and move `left` forward only when the window becomes invalid.
   - A hash map of what is inside the window (last seen index, or character counts) tells you in O(1) whether the window is still valid.
   - Walkthrough for [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) ([solution](../hash-table/solutions.md#lc-3)):
 
 ![sliding_window](../../assets/figures/sliding_window.png)
 
-## Typical Examples & Concepts
-### "Face-to-Face -> 2 Sum": :heavy_check_mark: :orange_book: [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+## Typical Examples
+### Face-to-Face → 2 Sum: [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 
 ```python
 # Goal: find the location of two elements that sum to target
@@ -49,7 +49,7 @@ while left_ptr < right_ptr:
 
 ---
 
-### "Face-to-Face -> 4 Sum -> reduce to 2 Sum & REMOVING DUPLICATES": :heavy_check_mark: :orange_book: [18. 4Sum](https://leetcode.com/problems/4sum/)
+### Face-to-Face → 4 Sum, Reduced to 2 Sum with Duplicate Removal: [18. 4Sum](https://leetcode.com/problems/4sum/)
 - **There is also a K-Sum Template**: [Link](https://leetcode.com/problems/4sum/discuss/8545/Python-140ms-beats-100-and-works-for-N-sum-(Ngreater2)/185194) (basically reducing K-Sum to 2-Sum with removing duplicates, but with better organization)
 ```python
 # idea: fix first 2 elements, reduce to 2 Sum problem, then 2 Sum on the rest
@@ -75,7 +75,7 @@ def find_two_sum(left, right, target, result, num1, num2):
             while left < right and nums[right] == nums[right + 1]: # already visited in prior loop
                 right -= 1
 
-nums.sort() # don't forget to sort first! 
+nums.sort() # don't forget to sort first!
 length = len(nums)
 result = []
 
@@ -102,7 +102,9 @@ return result
 
 ---
 
-### "Face-to-Face -> Partition": the quick-sort partition step (used in [75. Sort Colors](https://leetcode.com/problems/sort-colors/) and [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/))
+### Face-to-Face → Partition (the quick-sort partition step)
+
+Used in [75. Sort Colors](https://leetcode.com/problems/sort-colors/) and [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/).
 
 ```python
 # Goal: partition array such that all elements < k are moved to left, >= k moved to right, return partition index
@@ -118,10 +120,10 @@ def partition_array(self, nums: List[int], k: int) -> int:
     while left <= right:
 
         # find the numbers that are misplaced on either side
-        while left <= right and nums[left] < k: 
+        while left <= right and nums[left] < k:
             # stop when we found a nums[left] >= k, it is misplaced
             left += 1
-        while left <= right and nums[right] >= k: 
+        while left <= right and nums[right] >= k:
             # stop when we found a nums[right] < k, it is misplaced
             right -= 1
 

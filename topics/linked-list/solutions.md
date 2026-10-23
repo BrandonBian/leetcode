@@ -14,12 +14,8 @@ All solutions are in Python 3.
 - **Clever way of changing element to None after traversal**
 
 ```python
-class Solution(object):
-    def hasCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
 
         # Sample Solution: clever way of changing element to None after traversal
         # https://leetcode.com/problems/linked-list-cycle/discuss/44494/Except-ionally-fast-Python/240672
@@ -35,12 +31,8 @@ class Solution(object):
 - **Using slow/fast pointers (as in Study Guide)**
 
 ```python
-class Solution(object):
-    def hasCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
 
         if not head:
             return False
@@ -62,12 +54,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/): (using **slow/fast pointers**)
 
 ```python
-class Solution(object):
-    def detectCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
         slow = fast = head
 
@@ -95,12 +83,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/): (**Slow/Fast Pointers to divide list & reversing linked list**)
 
 ```python
-class Solution(object):
-    def isPalindrome(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
 
         # Reference Solution:
         # https://leetcode.com/problems/palindrome-linked-list/discuss/64500/11-lines-12-with-restore-O(n)-time-O(1)-space
@@ -146,12 +130,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [160. Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/): (**Slow/Fast Pointers for cycle detection & concatenating lists**)
 
 ```python
-class Solution(object):
-    def getIntersectionNode(self, headA, headB):
-        """
-        :type head1, head1: ListNode
-        :rtype: ListNode
-        """
+class Solution:
+    def getIntersectionNode(self, headA: Optional[ListNode], headB: Optional[ListNode]) -> Optional[ListNode]:
 
         # Reference Solution:
         # https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49798/Concise-python-code-with-comments/182352
@@ -188,13 +168,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/): (**Slow/Fast Pointers for finding N-th node from end of list**)
 
 ```python
-class Solution(object):
-    def removeNthFromEnd(self, head, n):
-        """
-        :type head: ListNode
-        :type n: int
-        :rtype: ListNode
-        """
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
 
         # Reference Solution:
         # https://leetcode.com/problems/remove-nth-node-from-end-of-list/discuss/8802/3-short-Python-solutions
@@ -314,12 +289,8 @@ class Solution:
 :heavy_check_mark: :orange_book: [24. Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/): (**Dummy Nodes** with a super helpful **visual guide**)
 
 ```python
-class Solution(object):
-    def swapPairs(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+class Solution:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
         # Reference Solution:
 
@@ -346,12 +317,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
 
 ```python
-class Solution(object):
-    def reverseList(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
         # YouTube Tutorial:
         # https://youtu.be/XDO6I8jxHtA
@@ -417,13 +384,8 @@ class Solution:
 :heavy_check_mark: :green_book: [203. Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/)
 
 ```python
-class Solution(object):
-    def removeElements(self, head, val):
-        """
-        :type head: ListNode
-        :type val: int
-        :rtype: ListNode
-        """
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
 
         if not head:
             return None
@@ -456,12 +418,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [328. Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/): (**Double Pointers**, one for odd elements and one for even elements)
 
 ```python
-class Solution(object):
-    def oddEvenList(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
         # idea: filter out list of odd nodes and list of even nodes, then merge
 
@@ -480,7 +438,7 @@ class Solution(object):
             odd.next = odd.next.next
             even.next = even.next.next
             # After these two ops, odd/even still points at its original place
-            # Therefore, we move them to the next node repectively
+            # Therefore, we move them to the next node respectively
             odd = odd.next
             even = even.next
 
@@ -495,13 +453,8 @@ class Solution(object):
 :wavy_dash: :orange_book: [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/): (**Double Pointers**, one for each linked list)
 
 ```python
-class Solution(object):
-    def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: ListNode
-        :type l2: ListNode
-        :rtype: ListNode
-        """
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
 
 
         first_ptr, second_ptr = l1, l2
@@ -559,12 +512,9 @@ class Solution(object):
 :wavy_dash: :green_book: [237. Delete Node in a Linked List](https://leetcode.com/problems/delete-node-in-a-linked-list/): A very down-voted trick question, BUT it seems to be a popular interview question
 
 ```python
-class Solution(object):
-    def deleteNode(self, node):
-        """
-        :type node: ListNode
-        :rtype: void Do not return anything, modify node in-place instead.
-        """
+class Solution:
+    def deleteNode(self, node: Optional[ListNode]) -> None:
+        """Do not return anything, modify node in-place instead."""
         # Replace the node with the value of the node after it
         # And then skip the next node
         # BUT we are leaving the next node hanging there, possible memory leak
@@ -593,22 +543,15 @@ class LinkedNode:
         self.val = val
         self.next = next
 
-class LRUCache(object):
+class LRUCache:
 
-    def __init__(self, capacity):
-        """
-        :type capacity: int
-        """
+    def __init__(self, capacity: int):
         self.capacity = capacity
         self.dummy = LinkedNode()
         self.tail = self.dummy
         self.key_to_prev = {} # <key, val> = <key, node that is before key's node>
 
-    def get(self, key):
-        """
-        :type key: int
-        :rtype: int
-        """
+    def get(self, key: int) -> int:
         if key not in self.key_to_prev: # key is not in cache
             return -1
 
@@ -633,12 +576,7 @@ class LRUCache(object):
         self.tail.next = node
         self.tail = node
 
-    def put(self, key, value):
-        """
-        :type key: int
-        :type value: int
-        :rtype: None
-        """
+    def put(self, key: int, value: int) -> None:
         if key in self.key_to_prev:
             self.kick(key) # because we just accessed it
             self.tail.val = value # update its value

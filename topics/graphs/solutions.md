@@ -97,12 +97,8 @@ class Solution:
 ```python
 DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
-class Solution(object):
-    def pacificAtlantic(self, heights):
-        """
-        :type heights: List[List[int]]
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
 
         # Explanation of idea:
         # https://leetcode.com/problems/pacific-atlantic-water-flow/discuss/1126938/Short-and-Easy-w-Explanation-and-diagrams-or-Simple-Graph-traversals-DFS-and-BFS
@@ -156,17 +152,13 @@ class Solution(object):
 ---
 
 <a id="lc-329"></a>
-:heavy_check_mark: :closed_book: [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/): DFS from each cell + memorization, DFS **with return value**
+:heavy_check_mark: :closed_book: [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/): DFS from each cell + memoization, DFS **with return value**
 
 ```python
 DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
-class Solution(object):
-    def longestIncreasingPath(self, matrix):
-        """
-        :type matrix: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
 
         if not matrix:
             return 0
@@ -213,12 +205,9 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/): DFS from each "O" cell in periphery
 
 ```python
-class Solution(object):
-    def solve(self, board):
-        """
-        :type board: List[List[str]]
-        :rtype: None Do not return anything, modify board in-place instead.
-        """
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """Do not return anything, modify board in-place instead."""
 
         def dfs(i, j):
             if 0 <= i < len(board) and 0 <= j < len(board[0]) and board[i][j] == 'O':
@@ -250,12 +239,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [695. Max Area of Island](https://leetcode.com/problems/max-area-of-island/): DFS from each '1' cell, DFS **with return value**
 
 ```python
-class Solution(object):
-    def maxAreaOfIsland(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
 
         self.max_area = 0
 
@@ -281,12 +266,8 @@ class Solution(object):
 :wavy_dash: :orange_book: [1254. Number of Closed Islands](https://leetcode.com/problems/number-of-closed-islands/): DFS from each '0' land cell, DFS **with return value**
 
 ```python
-class Solution(object):
-    def closedIsland(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def closedIsland(self, grid: List[List[int]]) -> int:
 
         def dfs(i, j):
             if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]) or grid[i][j] != 0:
@@ -326,15 +307,8 @@ class Solution(object):
 :wavy_dash: :green_book: [733. Flood Fill](https://leetcode.com/problems/flood-fill/): DFS from source cell
 
 ```python
-class Solution(object):
-    def floodFill(self, image, sr, sc, color):
-        """
-        :type image: List[List[int]]
-        :type sr: int
-        :type sc: int
-        :type color: int
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
 
         def dfs(i, j):
 
@@ -360,12 +334,8 @@ class Solution(object):
 :wavy_dash: :green_book: [463. Island Perimeter](https://leetcode.com/problems/island-perimeter/): DFS on any one land grid is sufficient
 
 ```python
-class Solution(object):
-    def islandPerimeter(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
 
         def dfs(i, j):
 

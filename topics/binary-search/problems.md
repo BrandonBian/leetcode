@@ -14,7 +14,7 @@
 
 :heavy_check_mark: :orange_book: [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/): array rotated at a pivot, find pivot and search on either side &nbsp;→ [solution](solutions.md#lc-33)
 
-:heavy_check_mark: :orange_book: [81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/): same as above but removing duplicates (similar as [this procedure](../two-pointers/guide.md#face-to-face---4-sum---reduce-to-2-sum--removing-duplicates-heavy_check_mark-orange_book-18-4sum)) &nbsp;→ [solution](solutions.md#lc-81)
+:heavy_check_mark: :orange_book: [81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/): same as above but removing duplicates (similar as [this procedure](../two-pointers/guide.md#face-to-face--4-sum-reduced-to-2-sum-with-duplicate-removal-18-4sum)) &nbsp;→ [solution](solutions.md#lc-81)
 
 :heavy_check_mark: :orange_book: [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/): compare nums[mid] with nums[right] to decide which half holds the minimum &nbsp;→ [solution](solutions.md#lc-153)
 
@@ -64,6 +64,6 @@
 
 :wavy_dash: :orange_book: [378. Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/): minimize element, s.t. there are at least k (k is given) elements <= this element &nbsp;→ [solution](solutions.md#lc-378)
 
-:wavy_dash: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/): more complexed design of the feasible function (logic using **lcm & gcd**) &nbsp;→ [solution](solutions.md#lc-878)
+:wavy_dash: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/): more complex design of the feasible function (logic using **lcm & gcd**) &nbsp;→ [solution](solutions.md#lc-878)
 
 :wavy_dash: :closed_book: [668. Kth Smallest Number in Multiplication Table](https://leetcode.com/problems/kth-smallest-number-in-multiplication-table/): minimize k, s.t. there are at least k (another variable given in question) values <= k &nbsp;→ [solution](solutions.md#lc-668)

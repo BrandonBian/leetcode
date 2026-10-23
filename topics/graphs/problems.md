@@ -14,7 +14,7 @@
 
 :heavy_check_mark: :orange_book: [417. Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/): DFS from each peripheral grid cells (that are adjacent to ocean) &nbsp;→ [solution](solutions.md#lc-417)
 
-:heavy_check_mark: :closed_book: [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/): DFS from each cell + memorization, DFS **with return value** &nbsp;→ [solution](solutions.md#lc-329)
+:heavy_check_mark: :closed_book: [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/): DFS from each cell + memoization, DFS **with return value** &nbsp;→ [solution](solutions.md#lc-329)
 
 :heavy_check_mark: :orange_book: [130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/): DFS from each "O" cell in periphery &nbsp;→ [solution](solutions.md#lc-130)
 

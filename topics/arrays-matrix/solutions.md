@@ -12,12 +12,9 @@ All solutions are in Python 3.
 :heavy_check_mark: :orange_book: [48. Rotate Image](https://leetcode.com/problems/rotate-image/): reverse the rows top-to-bottom, then transpose
 
 ```python
-class Solution(object):
-    def rotate(self, matrix):
-        """
-        :type matrix: List[List[int]]
-        :rtype: None Do not return anything, modify matrix in-place instead.
-        """
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """Do not return anything, modify matrix in-place instead."""
 
         # reverse up and down
         l = 0

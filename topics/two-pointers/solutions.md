@@ -103,12 +103,8 @@ class Solution:
 :heavy_check_mark: :orange_book: [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/): start from both ends and always move the shorter bar inwards
 
 ```python
-class Solution(object):
-    def maxArea(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
 
         # Reference Solution:
         # https://leetcode.com/problems/container-with-most-water/discuss/6110/Very-simple-O(n)-solution
@@ -137,12 +133,8 @@ class Solution(object):
 :heavy_check_mark: :closed_book: [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/): two pointers with running left_max / right_max; the smaller side decides the water level
 
 ```python
-class Solution(object):
-    def trap(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
+class Solution:
+    def trap(self, height: List[int]) -> int:
 
         # Ref:
         # https://leetcode.com/problems/trapping-rain-water/discuss/17391/Share-my-short-solution./185869
@@ -174,12 +166,9 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [75. Sort Colors](https://leetcode.com/problems/sort-colors/): two partition passes (< 1, then < 2), the quick-sort partition step
 
 ```python
-class Solution(object):
-    def sortColors(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: None Do not return anything, modify nums in-place instead.
-        """
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """Do not return anything, modify nums in-place instead."""
 
         def partition(nums, k):
             # point to the last element in the (< k) region (i.e., a barrier)
@@ -269,12 +258,9 @@ class Solution:
 :heavy_check_mark: :green_book: [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/): one pointing to the first non-replaced element, one pointing to non-zero elements, replace / swap
 
 ```python
-class Solution(object):
-    def moveZeroes(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: None Do not return anything, modify nums in-place instead.
-        """
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """Do not return anything, modify nums in-place instead."""
         # Reference Solution:
         # https://leetcode.com/problems/move-zeroes/discuss/72012/Python-short-in-place-solution-with-comments.
         # Visualization: https://leetcode.com/problems/move-zeroes/discuss/72012/Python-short-in-place-solution-with-comments./1150489
@@ -299,12 +285,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/): left pointer keeps the lowest price so far, right pointer scans for the best profit
 
 ```python
-class Solution(object):
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
 
         # See Solution
         # https://www.youtube.com/watch?v=1pkOgXD63yU

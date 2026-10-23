@@ -27,14 +27,13 @@ Choose minimum (maximum) path among all possible paths before the current state,
 
 - **Template**
 
-```cpp
-for (int i = 1; i <= target; ++i) {
-   for (int j = 0; j < ways.size(); ++j) {
-       if (ways[j] <= i) {
-           dp[i] = min(dp[i], dp[i - ways[j]] + cost / path / sum) ;
-       }
-   }
-}
+```python
+dp = [0] + [float('inf')] * target
+
+for i in range(1, target + 1):
+    for way in ways:
+        if way <= i:
+            dp[i] = min(dp[i], dp[i - way] + cost)  # cost / path / sum of taking this way
 
 return dp[target]
 ```
@@ -60,16 +59,15 @@ Generate sum for all values in the target and return the value for the target.
 
 - **Template**
 
-```cpp
+```python
 # Some questions point out the number of repetitions, in that case, add one more loop to simulate every repetition.
 
-for (int i = 1; i <= target; ++i) {
-   for (int j = 0; j < ways.size(); ++j) {
-       if (ways[j] <= i) {
-           dp[i] += dp[i - ways[j]];
-       }
-   }
-}
+dp = [1] + [0] * target  # one way to reach 0: take nothing
+
+for i in range(1, target + 1):
+    for way in ways:
+        if way <= i:
+            dp[i] += dp[i - way]
 
 return dp[target]
 ```

@@ -10,7 +10,7 @@
 - **Selected LeetCode Problems by others**: [List](https://leetcode.com/list/xls4oirv/)
 - **Conceptually**: Basically, **BINARY SEARCH splits the search space into two halves and only keep the half that probably has the search target and throw away the other half that would not possibly have the answer**. In this manner, we reduce the search space to half the size at every step, until we find the target. Binary Search helps us reduce the search time from linear O(n) to logarithmic **O(log n)**.
 
-## :white_check_mark: General Template - VERY GOOD, PLEASE MEMORIZE
+## General Template (memorize this)
 - **Can be used for solving: "Find Position / Minimum / Maximum / K-th" types of problems (see problems listed below)**
 
 ```python
@@ -33,7 +33,7 @@ def binary_search(nums):
 
     #######################
     # define search space #
-    #######################     
+    #######################
 
     # make sure to include the ENTIRE search space
     left, right = min(search_space), max(search_space)
@@ -64,7 +64,7 @@ def binary_search(nums):
 
     #################
     # find solution #
-    #################        
+    #################
 
     result = -1
 

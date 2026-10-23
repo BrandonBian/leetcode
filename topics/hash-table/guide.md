@@ -7,21 +7,22 @@
 - **Reference 2**: [List of Selected Problems in Study Guide](https://leetcode.com/list/504wrexe/)
 ---
 
-## - Python Dictionary and Counters (and how to sort them)
+## Python dict and Counter (and how to sort them)
 - **Using Python Counter()**:
 ```python
+from collections import Counter
+
 # Initialization
-cnt = Counter()
-    ... # Code to populate the counter (e.g., cnt[key] += value)
-    ... # Or to create counter directly from list (e.g., cnt = Counter(list))
+cnt = Counter()           # then populate it, e.g. cnt[key] += value
+cnt = Counter(nums)       # or build it directly from a list
 
 # Counter.items():
 for key, val in cnt.items():
-    ... # key is the element, val is its count
+    pass  # key is the element, val is its count
 
 # Counter.most_common(k):
 for key, val in cnt.most_common(k):
-    ... # key is the element, val is its count
+    pass  # the k most frequent elements, most frequent first
 ```
 
 - **Using sorted() / .sort() to sort major iterables (e.g., List & Counter & Dictionary)**:
@@ -30,10 +31,10 @@ for key, val in cnt.most_common(k):
 # Sorting Lists
 list1 = [3,5,6,1,7,4,4,5]
 
-s1 = sorted(list1) 
+s1 = sorted(list1)
 # s1 = [1, 3, 4, 4, 5, 5, 6, 7] (same as list1.sort())
 
-s2 = sorted(list1, reverse = True) 
+s2 = sorted(list1, reverse = True)
 # s2 = [7, 6, 5, 5, 4, 4, 3, 1] (same as list1.sort(reverse = True))
 
 ######################################################
@@ -62,7 +63,7 @@ list(dictionary.items())
 # Then proceed with the above method by sorting the tuples based on keys or values
 ```
 
-## - Selected LeetCode Core Problems: (with <key, val> implementation summary)
+## Core Hashing Techniques
 
 - **About Hashing A Pattern**: (see LeetCode Problem 290)
 

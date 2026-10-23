@@ -9,7 +9,7 @@ All solutions are in Python 3.
 ## 1. Minimum (Maximum) Path / Cost to Reach a Target
 
 <a id="lc-64"></a>
-:orange_book: [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/): dp[i,j] = minimum path sum from top left to position[i][j]
+:heavy_check_mark: :orange_book: [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/): dp[i,j] = minimum path sum from top left to position[i][j]
 
 ```python
 class Solution:
@@ -39,7 +39,7 @@ class Solution:
 ---
 
 <a id="lc-746"></a>
-:green_book: [746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/): dp[i] = min cost to reach step i
+:heavy_check_mark: :green_book: [746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/): dp[i] = min cost to reach step i
 
 ```python
 class Solution:
@@ -62,7 +62,7 @@ class Solution:
 ---
 
 <a id="lc-120"></a>
-:orange_book: [120. Triangle](https://leetcode.com/problems/triangle/): dp[i][j] = minimum path sum from top to triangle[i][j]
+:wavy_dash: :orange_book: [120. Triangle](https://leetcode.com/problems/triangle/): dp[i][j] = minimum path sum from top to triangle[i][j]
 
 ```python
 class Solution:
@@ -87,7 +87,7 @@ class Solution:
 ---
 
 <a id="lc-221"></a>
-:orange_book: [221. Maximal Square](https://leetcode.com/problems/maximal-square/): dp[i][j] = maximum square side length we can achieve when reaching matrix[i][j]
+:heavy_check_mark: :orange_book: [221. Maximal Square](https://leetcode.com/problems/maximal-square/): dp[i][j] = maximum square side length we can achieve when reaching matrix[i][j]
 
 ```python
 class Solution:
@@ -113,7 +113,7 @@ class Solution:
 ---
 
 <a id="lc-279"></a>
-:orange_book: [279. Perfect Squares](https://leetcode.com/problems/perfect-squares/): dp[i] = least number of perfect square numbers that sum to i
+:wavy_dash: :orange_book: [279. Perfect Squares](https://leetcode.com/problems/perfect-squares/): dp[i] = least number of perfect square numbers that sum to i
 
 ```python
 class Solution:
@@ -134,7 +134,7 @@ class Solution:
 ---
 
 <a id="lc-174"></a>
-:closed_book: [174. Dungeon Game](https://leetcode.com/problems/dungeon-game/): dp[i][j] = minimum health we need to start from this point and reach bottom-right
+:wavy_dash: :closed_book: [174. Dungeon Game](https://leetcode.com/problems/dungeon-game/): dp[i][j] = minimum health we need to start from this point and reach bottom-right
 
 ```python
 class Solution:
@@ -162,7 +162,7 @@ class Solution:
 ---
 
 <a id="lc-322"></a>
-:orange_book: [322. Coin Change](https://leetcode.com/problems/coin-change/): dp[i] = fewest number of coins needed to make up amount i
+:heavy_check_mark: :orange_book: [322. Coin Change](https://leetcode.com/problems/coin-change/): dp[i] = fewest number of coins needed to make up amount i
 
 ```python
 class Solution:
@@ -185,13 +185,8 @@ class Solution:
 - **Alternative: plain double loop over amounts and coins**
 
 ```python
-class Solution(object):
-    def coinChange(self, coins, amount):
-        """
-        :type coins: List[int]
-        :type amount: int
-        :rtype: int
-        """
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
 
         # YouTube: https://www.youtube.com/watch?v=Y0ZqKpToTic
 
@@ -213,7 +208,7 @@ class Solution(object):
 ---
 
 <a id="lc-474"></a>
-:orange_book: [474. Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/): dp[i][j] = largest subset of strs such that there are at most [i] 0s and [j] 1s
+:wavy_dash: :orange_book: [474. Ones and Zeroes](https://leetcode.com/problems/ones-and-zeroes/): dp[i][j] = largest subset of strs such that there are at most [i] 0s and [j] 1s
 
 ```python
 class Solution:
@@ -238,7 +233,7 @@ class Solution:
 ---
 
 <a id="lc-650"></a>
-:orange_book: [650. 2 Keys Keyboard](https://leetcode.com/problems/2-keys-keyboard/): dp[i] = minimum number of operations to print A for [i] times
+:wavy_dash: :orange_book: [650. 2 Keys Keyboard](https://leetcode.com/problems/2-keys-keyboard/): dp[i] = minimum number of operations to print A for [i] times
 
 ```python
 class Solution:
@@ -264,17 +259,11 @@ class Solution:
 ---
 
 <a id="lc-871"></a>
-:closed_book: [871. Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops/): dp[i] = furthest distance we can get after [i] number of refueling stops
+:wavy_dash: :closed_book: [871. Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops/): dp[i] = furthest distance we can get after [i] number of refueling stops
 
 ```python
-class Solution(object):
-    def minRefuelStops(self, target, startFuel, stations):
-        """
-        :type target: int
-        :type startFuel: int
-        :type stations: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
 
         # dp[i] = furthest distance we can get after [i] number of refueling stops
 
@@ -297,15 +286,11 @@ class Solution(object):
 ---
 
 <a id="lc-931"></a>
-:orange_book: [931. Minimum Falling Path Sum](https://leetcode.com/problems/minimum-falling-path-sum/): dp[i][j] = minimum sum of falling path up to matrix[i][j]
+:wavy_dash: :orange_book: [931. Minimum Falling Path Sum](https://leetcode.com/problems/minimum-falling-path-sum/): dp[i][j] = minimum sum of falling path up to matrix[i][j]
 
 ```python
-class Solution(object):
-    def minFallingPathSum(self, matrix):
-        """
-        :type matrix: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
 
         # dp[i][j] = minimum sum of falling path up to matrix[i][j]
         dp = matrix
@@ -330,16 +315,11 @@ class Solution(object):
 ---
 
 <a id="lc-983"></a>
-:orange_book: [983. Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/): dp[i] = minimum cost to fulfill travel plan up to day i
+:wavy_dash: :orange_book: [983. Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/): dp[i] = minimum cost to fulfill travel plan up to day i
 
 ```python
-class Solution(object):
-    def mincostTickets(self, days, costs):
-        """
-        :type days: List[int]
-        :type costs: List[int]
-        :rtype: int
-        """
+class Solution:
+    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
 
         # dp[i] = minimum cost to fulfill travel plan up to day i
         dp = [0 for _ in range(days[-1] + 1)] # for all days from 0 ... last day on plan
@@ -364,7 +344,7 @@ class Solution(object):
 ---
 
 <a id="lc-1049"></a>
-:orange_book: [1049. Last Stone Weight II](https://leetcode.com/problems/last-stone-weight-ii/)
+:wavy_dash: :orange_book: [1049. Last Stone Weight II](https://leetcode.com/problems/last-stone-weight-ii/)
 
 ```python
 class Solution:
@@ -391,7 +371,7 @@ class Solution:
 ## 2. Number of Distinct Ways to Do Something
 
 <a id="lc-62"></a>
-:orange_book: [62. Unique Paths](https://leetcode.com/problems/unique-paths/): dp[i][j] = number of unique paths from top-left to [i][j]
+:heavy_check_mark: :orange_book: [62. Unique Paths](https://leetcode.com/problems/unique-paths/): dp[i][j] = number of unique paths from top-left to [i][j]
 
 ```python
 class Solution:
@@ -419,7 +399,7 @@ class Solution:
 ---
 
 <a id="lc-91"></a>
-:orange_book: [91. Decode Ways](https://leetcode.com/problems/decode-ways/): dp[i] = number of ways to decode the first i characters in s
+:heavy_check_mark: :orange_book: [91. Decode Ways](https://leetcode.com/problems/decode-ways/): dp[i] = number of ways to decode the first i characters in s
 
 ```python
 class Solution:
@@ -446,7 +426,7 @@ class Solution:
 ---
 
 <a id="lc-509"></a>
-:green_book: [509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/): dp[i] = F(i) = the i-th fibonacci number
+:wavy_dash: :green_book: [509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/): dp[i] = F(i) = the i-th fibonacci number
 
 ```python
 class Solution:
@@ -464,7 +444,7 @@ class Solution:
 ---
 
 <a id="lc-63"></a>
-:orange_book: [63. Unique Paths II](https://leetcode.com/problems/unique-paths-ii/): dp[i][j] = number of unique paths from top-left to reach[i][j]
+:wavy_dash: :orange_book: [63. Unique Paths II](https://leetcode.com/problems/unique-paths-ii/): dp[i][j] = number of unique paths from top-left to reach[i][j]
 
 ```python
 class Solution:
@@ -510,7 +490,7 @@ class Solution:
 ---
 
 <a id="lc-70"></a>
-:green_book: [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/): dp[i] = number of distinct ways to reach step i
+:heavy_check_mark: :green_book: [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/): dp[i] = number of distinct ways to reach step i
 
 ```python
 class Solution:
@@ -531,16 +511,12 @@ class Solution:
 :heavy_check_mark: :orange_book: [96. Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/): dp[n] = sum(dp[i - 1] * dp[n - i]) over every root i (Catalan numbers), memoized
 
 ```python
-class Solution(object):
+class Solution:
 
     # dp[i] = number of unique BSTs for n nodes = numTrees(i)
     dp = [0] * 20
 
-    def numTrees(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
+    def numTrees(self, n: int) -> int:
 
         # Reference Solution:
         # https://leetcode.com/problems/unique-binary-search-trees/discuss/1565543/C%2B%2BPython-5-Easy-Solutions-w-Explanation-or-Optimization-from-Brute-Force-to-DP-to-Catalan-O(N)
@@ -561,7 +537,7 @@ class Solution(object):
 ---
 
 <a id="lc-377"></a>
-:orange_book: [377. Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/): dp[i] = number of possible combinations that add up to i
+:wavy_dash: :orange_book: [377. Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/): dp[i] = number of possible combinations that add up to i
 
 ```python
 class Solution:
@@ -588,7 +564,7 @@ class Solution:
 ---
 
 <a id="lc-416"></a>
-:orange_book: [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/): dp = set() # total values we can get
+:heavy_check_mark: :orange_book: [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/): dp = set() # total values we can get
 
 ```python
 class Solution:
@@ -619,7 +595,7 @@ class Solution:
 ---
 
 <a id="lc-494"></a>
-:orange_book: [494. Target Sum](https://leetcode.com/problems/target-sum/): curstops = <key, val> = <target sum, number of ways to reach this sum>
+:heavy_check_mark: :orange_book: [494. Target Sum](https://leetcode.com/problems/target-sum/): curstops = <key, val> = <target sum, number of ways to reach this sum>
 
 ```python
 class Solution:
@@ -630,7 +606,7 @@ class Solution:
         curstops[0] = 1
 
         for distance in nums:
-            # parepare a new map for the next iteration
+            # prepare a new map for the next iteration
             nextstops = defaultdict(int)
 
             # for each iteration, update each possible sum and it's count
@@ -650,7 +626,7 @@ class Solution:
 ---
 
 <a id="lc-1155"></a>
-:orange_book: [1155. Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/): dp[i][j] = number of possible ways to reach target [j] with up to [i] dices
+:wavy_dash: :orange_book: [1155. Number of Dice Rolls With Target Sum](https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/): dp[i][j] = number of possible ways to reach target [j] with up to [i] dices
 
 ```python
 class Solution:
@@ -675,7 +651,7 @@ class Solution:
 ---
 
 <a id="lc-576"></a>
-:orange_book: [576. Out of Boundary Paths](https://leetcode.com/problems/out-of-boundary-paths/): dp[i][j][M] = number of ways to reach [i][j] from outside of grid using [M] moves maximum
+:wavy_dash: :orange_book: [576. Out of Boundary Paths](https://leetcode.com/problems/out-of-boundary-paths/): dp[i][j][M] = number of ways to reach [i][j] from outside of grid using [M] moves maximum
 
 ```python
 class Solution:
@@ -709,7 +685,7 @@ class Solution:
 ---
 
 <a id="lc-673"></a>
-:orange_book: [673. Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/): two arrays for DP
+:wavy_dash: :orange_book: [673. Number of Longest Increasing Subsequence](https://leetcode.com/problems/number-of-longest-increasing-subsequence/): two arrays for DP
 
 ```python
 class Solution:
@@ -739,7 +715,7 @@ class Solution:
 ---
 
 <a id="lc-688"></a>
-:orange_book: [688. Knight Probability in Chessboard](https://leetcode.com/problems/knight-probability-in-chessboard/): dp[k][i][j] = probability that the knight is at [i][j] after k steps
+:wavy_dash: :orange_book: [688. Knight Probability in Chessboard](https://leetcode.com/problems/knight-probability-in-chessboard/): dp[k][i][j] = probability that the knight is at [i][j] after k steps
 
 ```python
 class Solution:
@@ -764,14 +740,14 @@ class Solution:
                         # dp[k][i][j] += dp[k - 1][x][y] * 0.125
                         dp[k][x][y] += dp[k - 1][i][j] * 0.125
 
-        # return the summation of pobability at the last step of all cells
+        # return the summation of probability at the last step of all cells
         return sum(i for row in dp[-1] for i in row)
 ```
 
 ---
 
 <a id="lc-790"></a>
-:orange_book: [790. Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling/)
+:wavy_dash: :orange_book: [790. Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling/)
 
 ```python
 class Solution:
@@ -800,7 +776,7 @@ class Solution:
 ---
 
 <a id="lc-935"></a>
-:orange_book: [935. Knight Dialer](https://leetcode.com/problems/knight-dialer/): dp[i][j] = number of distinct numbers after [i] jumps, starting from digit [j]
+:wavy_dash: :orange_book: [935. Knight Dialer](https://leetcode.com/problems/knight-dialer/): dp[i][j] = number of distinct numbers after [i] jumps, starting from digit [j]
 
 ```python
 class Solution:
@@ -843,7 +819,7 @@ class Solution:
 ---
 
 <a id="lc-801"></a>
-:closed_book: [801. Minimum Swaps To Make Sequences Increasing](https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/)
+:wavy_dash: :closed_book: [801. Minimum Swaps To Make Sequences Increasing](https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/)
 
 ```python
 class Solution:
@@ -888,13 +864,8 @@ class Solution:
 :heavy_check_mark: :orange_book: [139. Word Break](https://leetcode.com/problems/word-break/): dp[i] = True if some word ends at i and dp[i - len(word)] is True
 
 ```python
-class Solution(object):
-    def wordBreak(self, s, wordDict):
-        """
-        :type s: str
-        :type wordDict: List[str]
-        :rtype: bool
-        """
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
 
         # Sample Solution:
         # https://leetcode.com/problems/word-break/discuss/43808/Simple-DP-solution-in-Python-with-description
@@ -924,12 +895,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/): dp[i] = length of the longest increasing subsequence ending at nums[i], O(n^2)
 
 ```python
-class Solution(object):
-    def lengthOfLIS(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
         # Reference Video: https://www.youtube.com/watch?v=CE2b_-XfVDk
 
         # dp[i] = longest increasing subsequence which ends at nums[i]
@@ -1147,12 +1114,8 @@ class Solution:
 :heavy_check_mark: :orange_book: [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/): track both the current max and the current min product (a negative number swaps them)
 
 ```python
-class Solution(object):
-    def maxProduct(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
 
         # Ref: https://www.youtube.com/watch?v=lXVy6YWFcRM
         # observations:

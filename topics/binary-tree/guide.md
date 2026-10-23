@@ -8,31 +8,27 @@
 
 - **Reference 2**: [Study Guide - Concepts](https://leetcode.com/tag/binary-tree/discuss/1820334/Become-Master-in-Tree)
 
-## - Binary Tree Traversals and Operations (Usually with Recursion)
+## Traversals and Basic Operations
 - About **Binary Tree Traversals Algorithms**:
 
 ![tree](https://assets.leetcode.com/users/andvary/image_1556551007.png)
 ```python
 def preorder(root):
   return [root.val] + preorder(root.left) + preorder(root.right) if root else []
-  
-#######################################  
+
+#######################################
 
 def inorder(root):
   return  inorder(root.left) + [root.val] + inorder(root.right) if root else []
-  
-#######################################  
+
+#######################################
 
 def postorder(root):
   return  postorder(root.left) + postorder(root.right) + [root.val] if root else []
-  
-#######################################  
 
-def levelOrder(self, root): # AKA: BFS
-    """
-    :type root: TreeNode
-    :rtype: List[List[int]]
-    """
+#######################################
+
+def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]: # AKA: BFS
 
     if not root:
         return []
@@ -63,40 +59,40 @@ def levelOrder(self, root): # AKA: BFS
 
 ```python
 def maxDepth_bottomUp(root):
-    
-    # stop conditions    
+
+    # stop conditions
     if not root:
         return 0
-    
+
     left_depth, right_depth = 0, 0
-    
+
     # assuming maxDepth works perfectly
     if root.left is not None:
         left_depth = maxDepth_bottomUp(root.left)
-        
+
     if root.right is not None:
         right_depth = maxDepth_bottomUp(root.right)
-    
+
     # go up one layer (+ 1 account for going up one layer)
     return 1 + max(left_depth, right_depth)
 
 ###############################################################
 
 def maxDepth_topDown(root, current_level, max_level):
-    # stop conditions    
+    # stop conditions
     if not root:
         return 0
-    
+
     if current_level > max_level[0]:
         max_level[0] = current_level
-        
+
     maxDepth_topDown(root.left, current_level + 1, max_level)
     maxDepth_topDown(root.right, current_level + 1, max_level)
 ```
 
 ---
 
-## - Binary Search Trees (BSTs)
+## Binary Search Trees (BSTs)
 - **In-order Traversal**
 ```python
 result = []
@@ -108,66 +104,61 @@ def inorder(node):
         if node.val >= low and node.val <= high:
             result.append(node.val)
         inorder(node.right)
-    
+
 # result will have node values ordered in ascending order
 ```
 - **Deleting a Node from BST**
 ```python
 def deleteNode(self, root, key):
-    
+
     # Reference Solution:
     # https://leetcode.com/problems/delete-node-in-a-bst/discuss/821420/Python-O(h)-solution-explained
-    
+
     if not root:
         return None
 
     if root.val == key:
         if not root.right: return root.left
         if not root.left: return root.right
-            
+
         if root.left and root.right:
-                
+
             # go right one step and go to the left most node, replace current node value with that
             temp = root.right
             while temp.left: temp = temp.left
-                    
+
             root.val = temp.val
             root.right = self.deleteNode(root.right, root.val) # delete the replaced value from right tree
-                
+
     elif root.val > key:
         root.left = self.deleteNode(root.left, key)
     else:
         root.right = self.deleteNode(root.right, key)
-            
+
     return root
 
 ```
 - **Inserting a Node to BST**
 
 ```python
-def insertIntoBST(self, root, val):
-        """
-        :type root: TreeNode
-        :type val: int
-        :rtype: TreeNode
-        """
-        
+def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+
         # Reference Solution:
         # https://leetcode.com/problems/insert-into-a-binary-search-tree/discuss/180244/Python-4-line-clean-recursive-solution
-        
+
         if not root:
             return TreeNode(val)
-        
+
         if root.val < val:
             root.right = self.insertIntoBST(root.right, val)
         else:
             root.left = self.insertIntoBST(root.left, val)
-            
+
         return root
 ```
 
 ---
-### - Path Problems on BSTs
+### Path Problems
 
 - **A DFS path search on BSTs**: (see LeetCode 257)
 ```python
@@ -176,7 +167,7 @@ def dfs(self, node, path, result):
     if not node.left and not node.right: # we have arrived at a leaf node
         result.append(path + str(node.val))
         return
-            
+
     if node.left:
         self.dfs(node.left, path + str(node.val) + '->', result)
     if node.right:
@@ -185,7 +176,7 @@ def dfs(self, node, path, result):
 
 
 ---
-### - Construct Binary Trees
+### Construct Binary Trees
 
 - **In-order + Pre-order**: (see LeetCode 105)
 
@@ -271,18 +262,14 @@ return root
 
 
 ---
-### - Validate Binary Trees
+### Validate Binary Trees
 
 - **Validate Binary Tree**: (see LeetCode 98)
 
 ```python
 # Floor: all values must be larger than this
 # Ceiling: all values must be smaller than this
-def isValidBST(self, root, floor=float('-inf'), ceiling=float('inf')):
-    """
-    :type root: TreeNode
-    :rtype: bool
-    """
+def isValidBST(self, root: Optional[TreeNode], floor=float('-inf'), ceiling=float('inf')) -> bool:
 
     if not root: # no node is a valid BST
         return True
@@ -296,18 +283,12 @@ def isValidBST(self, root, floor=float('-inf'), ceiling=float('inf')):
 
 
 ---
-### - Lowest Common Ancestor (LCA) Problems
+### Lowest Common Ancestor (LCA)
 
 - **LCA of a Binary Tree**: [YouTube Tutorial](https://www.youtube.com/watch?v=py3R23aAPCA)
 
 ```python
-def lowestCommonAncestor(self, root, p, q):
-    """
-    :type root: TreeNode
-    :type p: TreeNode
-    :type q: TreeNode
-    :rtype: TreeNode
-    """
+def lowestCommonAncestor(self, root: Optional[TreeNode], p: Optional[TreeNode], q: Optional[TreeNode]) -> Optional[TreeNode]:
 
     if not root: return None
     if root == p or root == q: # looking for myself
@@ -326,7 +307,7 @@ def lowestCommonAncestor(self, root, p, q):
 
 
 ---
-### - Miscellaneous Problems
+### Miscellaneous
 
 - **Flatten BST to sort of a "linked list"**: (see LeetCode 114)
 
@@ -346,7 +327,7 @@ while curr:
         p.right = curr.right
         curr.right = curr.left
         curr.left = None
-    curr = curr.right      
+    curr = curr.right
 ```
 
 - **Find Positions of Nodes in BST with BFS + Queue**: (see LeetCode 662 & 993)

@@ -70,12 +70,8 @@ class Solution:
 :heavy_check_mark: :orange_book: [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/): <key, val> = <char, index it is last seen> (**Sliding Window & Two Pointers**)
 
 ```python
-class Solution(object):
-    def lengthOfLongestSubstring(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
 
         # Reference Solution:
         # https://leetcode.com/problems/longest-substring-without-repeating-characters/discuss/347818/Python3%3A-sliding-window-O(N)-with-explanation
@@ -109,12 +105,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/): <key, val> = <hash array for 26 letters, words belonging to this hash> (using **collections.defaultdict(list)**)
 
 ```python
-class Solution(object):
-    def groupAnagrams(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: List[List[str]]
-        """
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
 
         # Reference Solution:
         # https://leetcode.com/problems/group-anagrams/discuss/19202/5-line-Python-solution-easy-to-understand/262771
@@ -171,13 +163,8 @@ class Solution:
 :heavy_check_mark: :green_book: [290. Word Pattern](https://leetcode.com/problems/word-pattern/): (creating a **hashed pattern list** for an input)
 
 ```python
-class Solution(object):
-    def wordPattern(self, pattern, s):
-        """
-        :type pattern: str
-        :type s: str
-        :rtype: bool
-        """
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
 
         # Hash the pattern
         hashed_pattern1, seen, counter, mapping = [], set(), 0, {}
@@ -215,13 +202,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [350. Intersection of Two Arrays II](https://leetcode.com/problems/intersection-of-two-arrays-ii/): (using **Counter()**)
 
 ```python
-class Solution(object):
-    def intersect(self, nums1, nums2):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: List[int]
-        """
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
 
         counts = Counter(nums1)
         result = []
@@ -240,14 +222,9 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/): (**hashed pattern list & two pointers & sliding window**)
 
 ```python
-class Solution(object):
+class Solution:
 
-    def findAnagrams(self, s, p):
-        """
-        :type s: str
-        :type p: str
-        :rtype: List[int]
-        """
+    def findAnagrams(self, s: str, p: str) -> List[int]:
 
         # Take a look at this:
         # https://leetcode.com/problems/find-all-anagrams-in-a-string/discuss/1738052/A-very-deep-EXPLANATION-oror-Solved-without-using-HashTable
@@ -283,15 +260,11 @@ class Solution(object):
 ---
 
 <a id="lc-525"></a>
-:heavy_check_mark: :orange_book: [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/): <key, val> = <count, index at which this count is reached> (**predfix sum**)
+:heavy_check_mark: :orange_book: [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/): <key, val> = <count, index at which this count is reached> (**prefix sum**)
 
 ```python
-class Solution(object):
-    def findMaxLength(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def findMaxLength(self, nums: List[int]) -> int:
 
         # Reference Solution:
         # https://leetcode.com/problems/contiguous-array/discuss/99655/Python-O(n)-Solution-with-Visual-Explanation
@@ -321,13 +294,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/): <key, val> = <prefix sum, frequency> (using **prefix sum & defaultdict(int) /  Counter()**)
 
 ```python
-class Solution(object):
-    def subarraySum(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
 
         # the empty subarray has a sum of 0
         # <key, val> = <sum, frequency>
@@ -349,12 +317,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [594. Longest Harmonious Subsequence](https://leetcode.com/problems/longest-harmonious-subsequence/): <key, val> = <number, frequency> (using **Counter()**)
 
 ```python
-class Solution(object):
-    def findLHS(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def findLHS(self, nums: List[int]) -> int:
 
         if len(nums) == 1:
             return 0
@@ -381,12 +345,8 @@ class Solution(object):
 :heavy_check_mark: :closed_book: [41. First Missing Positive](https://leetcode.com/problems/first-missing-positive/): a very clever way of using index to record frequency, using input list as extra memory
 
 ```python
-class Solution(object):
-    def firstMissingPositive(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
 
         # This is O(NlogN) not O(N)
         # A better solution:
@@ -462,12 +422,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [136. Single Number](https://leetcode.com/problems/single-number/): XOR everything, pairs cancel out (a ^ a = 0)
 
 ```python
-class Solution(object):
-    def singleNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
 
         # Solution 1: Time = O(n), Space = O(1)
 
@@ -501,12 +457,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [169. Majority Element](https://leetcode.com/problems/majority-element/): <key, val> = <number, frequency> (using **Counter()**)
 
 ```python
-class Solution(object):
-    def majorityElement(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
 
         counter = Counter(nums)
 
@@ -521,12 +473,8 @@ class Solution(object):
 :heavy_check_mark: :green_book: [1636. Sort Array by Increasing Frequency](https://leetcode.com/problems/sort-array-by-increasing-frequency/): (my solution **sorting defaultdict(int) by key using sorted(dict.items())**)
 
 ```python
-class Solution(object):
-    def frequencySort(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
+class Solution:
+    def frequencySort(self, nums: List[int]) -> List[int]:
 
         if len(nums) == 1:
             return nums
@@ -553,15 +501,10 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [1679. Max Number of K-Sum Pairs](https://leetcode.com/problems/max-number-of-k-sum-pairs/): (a clever way using **Counter()**)
 
 ```python
-class Solution(object):
-    def maxOperations(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
 
-        # Refrence solution
+        # Reference solution
         # https://leetcode.com/problems/max-number-of-k-sum-pairs/discuss/1022699/Python-Short-Counter-solution-%2B-Oneliner-explained
 
         cnt = Counter(nums)

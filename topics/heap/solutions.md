@@ -12,13 +12,8 @@ All solutions are in Python 3.
 :heavy_check_mark: :orange_book: [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/): Counter, then pop k items from a max-heap of (-freq, num)
 
 ```python
-class Solution(object):
-    def topKFrequent(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: List[int]
-        """
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
 
         # Solution using Max Heap (https://leetcode.com/problems/top-k-frequent-elements/discuss/1502514/C%2B%2BPython-2-solutions%3A-MaxHeap-Bucket-Sort-Clean-and-Concise)
 

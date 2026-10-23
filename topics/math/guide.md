@@ -4,22 +4,22 @@
 
 Practice: both examples below are solved with binary search, see [1201](../binary-search/solutions.md#lc-1201) and [878](../binary-search/solutions.md#lc-878) in the Binary Search solutions.
 
-## **Formulae**
+## Formulae
 
 ```python
 def gcd(a, b) -> int:
     if b == 0:
         return a
     return gcd(b, a % b)
-    
+
 def lcm(a, b) -> int:
      return (a * b) // gcd(a, b)
 ```
 
 
-## **Related Questions & Concepts**
+## Counting with Inclusion-Exclusion
 
-### Example 1: :orange_book: [1201. Ugly Number III](https://leetcode.com/problems/ugly-number-iii/)
+### Example 1: [1201. Ugly Number III](https://leetcode.com/problems/ugly-number-iii/)
 
 ![lcm](../../assets/figures/lcm.png)
 
@@ -40,7 +40,7 @@ total = num//a + num//b + num//c - num//ab - num//ac - num//bc + num//abc
 ```
 ---
 
-### Example 2: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/)
+### Example 2: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/)
 
 **F(N) = (total number of positive integers <= N which are divisible by a or b.)**
 

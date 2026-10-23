@@ -186,7 +186,7 @@ class Solution:
 ---
 
 <a id="lc-81"></a>
-:heavy_check_mark: :orange_book: [81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/): same as above but removing duplicates (similar as [this procedure](../two-pointers/guide.md#face-to-face---4-sum---reduce-to-2-sum--removing-duplicates-heavy_check_mark-orange_book-18-4sum))
+:heavy_check_mark: :orange_book: [81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/): same as above but removing duplicates (similar as [this procedure](../two-pointers/guide.md#face-to-face--4-sum-reduced-to-2-sum-with-duplicate-removal-18-4sum))
 
 ```python
 class Solution:
@@ -1117,7 +1117,7 @@ class Solution:
 ---
 
 <a id="lc-878"></a>
-:wavy_dash: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/): more complexed design of the feasible function (logic using **lcm & gcd**)
+:wavy_dash: :closed_book: [878. Nth Magical Number](https://leetcode.com/problems/nth-magical-number/): more complex design of the feasible function (logic using **lcm & gcd**)
 
 ```python
 class Solution:

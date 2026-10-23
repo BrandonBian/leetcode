@@ -99,7 +99,7 @@ The 100 problems LeetCode selected as most frequently asked (list snapshot from 
 | 347 | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | :orange_book: | Hash Table (Counter) / **Max Heap** | [Heaps & Priority Queues](../topics/heap/solutions.md#lc-347) |
 | 394 | [Decode String](https://leetcode.com/problems/decode-string/) | :orange_book: | Stack | [Stacks & Queues](../topics/stack-queue/solutions.md#lc-394) |
 | 416 | [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/) | :orange_book: | Hash Table (Sets) | [Dynamic Programming](../topics/dynamic-programming/solutions.md#lc-416) |
-| 437 | [Path Sum III](https://leetcode.com/problems/path-sum-iii/) | :orange_book: | DFS with memorization | [Binary Trees & BSTs](../topics/binary-tree/solutions.md#lc-437) |
+| 437 | [Path Sum III](https://leetcode.com/problems/path-sum-iii/) | :orange_book: | DFS with memoization | [Binary Trees & BSTs](../topics/binary-tree/solutions.md#lc-437) |
 | 438 | [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/) | :orange_book: | Hashing + Sliding Window | [Hash Tables](../topics/hash-table/solutions.md#lc-438) |
 | 543 | [Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) | :green_book: | Binary Tree + DFS | [Binary Trees & BSTs](../topics/binary-tree/solutions.md#lc-543) |
 | 560 | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | :orange_book: | Prefix Sum + Dynamic Programming | [Hash Tables](../topics/hash-table/solutions.md#lc-560) |

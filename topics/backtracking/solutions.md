@@ -12,13 +12,8 @@ All solutions are in Python 3.
 :heavy_check_mark: :orange_book: [77. Combinations](https://leetcode.com/problems/combinations/): (**Backtracking for Combinations**)
 
 ```python
-class Solution(object):
-    def combine(self, n, k):
-        """
-        :type n: int
-        :type k: int
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
 
         # See the combinations template in guide.md
 
@@ -43,13 +38,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [39. Combination Sum](https://leetcode.com/problems/combination-sum/): (**Backtracking for Combination Sum**)
 
 ```python
-class Solution(object):
-    def combinationSum(self, candidates, target):
-        """
-        :type candidates: List[int]
-        :type target: int
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
 
         # Reference Solution: (DFS)
         # https://leetcode.com/problems/combination-sum/discuss/16510/Python-dfs-solution.
@@ -83,7 +73,7 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [46. Permutations](https://leetcode.com/problems/permutations/): (**Backtracking for Permutations**)
 
 ```python
-class Solution(object):
+class Solution:
 
     def dfs(self, nums, path, res):
 
@@ -94,11 +84,7 @@ class Solution(object):
             # nums[:i] + nums[i+1:] -> nums but leaving out i
             self.dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
 
-    def permute(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
+    def permute(self, nums: List[int]) -> List[List[int]]:
 
         res = []
         self.dfs(nums, [], res)
@@ -111,12 +97,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [78. Subsets](https://leetcode.com/problems/subsets/): running combinations for lengths from [0, len(nums)] (**Backtracking for Subsets / Power Set**)
 
 ```python
-class Solution(object):
-    def subsets(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
 
         def dfs(candidates, target, path, res):
             if target == 0:
@@ -145,12 +127,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [47. Permutations II](https://leetcode.com/problems/permutations-ii/): elements in given number array may not be unique, need to **remove duplicates**
 
 ```python
-class Solution(object):
-    def permuteUnique(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
 
         # Note: numbers in nums may not be unique
         # Reference solution:
@@ -182,12 +160,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [90. Subsets II](https://leetcode.com/problems/subsets-ii/): elements in given number array may not be unique, need to **remove duplicates**
 
 ```python
-class Solution(object):
-    def subsetsWithDup(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
 
         def dfs(candidates, target, path, result):
             if target == 0:
@@ -213,13 +187,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [40. Combination Sum II](https://leetcode.com/problems/combination-sum-ii/): need to **remove duplicates**, each number can only be used once
 
 ```python
-class Solution(object):
-    def combinationSum2(self, candidates, target):
-        """
-        :type candidates: List[int]
-        :type target: int
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
 
         def dfs(candidates, target, path, result):
             if target == 0:
@@ -245,13 +214,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [216. Combination Sum III](https://leetcode.com/problems/combination-sum-iii/): fixed length, each number can only be used once
 
 ```python
-class Solution(object):
-    def combinationSum3(self, k, n):
-        """
-        :type k: int
-        :type n: int
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
 
         # numbers from 1 to 9
 
@@ -281,12 +245,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
 
 ```python
-class Solution(object):
-    def letterCombinations(self, digits):
-        """
-        :type digits: str
-        :rtype: List[str]
-        """
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
 
         maps = {"2": "abc", "3": "def", "4":"ghi", "5":"jkl", "6":"mno", "7":"pqrs", "8":"tuv", "9":"wxyz"}
 
@@ -316,12 +276,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
 
 ```python
-class Solution(object):
-    def generateParenthesis(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
 
         # Backtracking solution
 
@@ -346,13 +302,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [79. Word Search](https://leetcode.com/problems/word-search/)
 
 ```python
-class Solution(object):
-    def exist(self, board, word):
-        """
-        :type board: List[List[str]]
-        :type word: str
-        :rtype: bool
-        """
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
 
         # Reference Solution:
         # https://leetcode.com/problems/word-search/discuss/747144/Python-dfs-backtracking-solution-explained
@@ -401,12 +352,8 @@ class Solution(object):
 :heavy_check_mark: :orange_book: [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/): a similar method as the DFS template above
 
 ```python
-class Solution(object):
-    def partition(self, s):
-        """
-        :type s: str
-        :rtype: List[List[str]]
-        """
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
 
         # Reference solution
         #
@@ -434,12 +381,8 @@ class Solution(object):
 :heavy_check_mark: :closed_book: [51. N-Queens](https://leetcode.com/problems/n-queens/)
 
 ```python
-class Solution(object):
-    def solveNQueens(self, n):
-        """
-        :type n: int
-        :rtype: List[List[str]]
-        """
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
 
         if n == 1:
             return [["Q"]]
@@ -472,12 +415,9 @@ class Solution(object):
 :heavy_check_mark: :closed_book: [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
 
 ```python
-class Solution(object):
-    def solveSudoku(self, board):
-        """
-        :type board: List[List[str]]
-        :rtype: None Do not return anything, modify board in-place instead.
-        """
+class Solution:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """Do not return anything, modify board in-place instead."""
 
         # Reference solution
         # https://leetcode.com/problems/sudoku-solver/discuss/294215/Simple-concise-clear-Python-solution

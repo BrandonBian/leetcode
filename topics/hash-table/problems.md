@@ -20,7 +20,7 @@
 
 :heavy_check_mark: :orange_book: [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/): (**hashed pattern list & two pointers & sliding window**) &nbsp;→ [solution](solutions.md#lc-438)
 
-:heavy_check_mark: :orange_book: [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/): <key, val> = <count, index at which this count is reached> (**predfix sum**) &nbsp;→ [solution](solutions.md#lc-525)
+:heavy_check_mark: :orange_book: [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/): <key, val> = <count, index at which this count is reached> (**prefix sum**) &nbsp;→ [solution](solutions.md#lc-525)
 
 :heavy_check_mark: :orange_book: [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/): <key, val> = <prefix sum, frequency> (using **prefix sum & defaultdict(int) /  Counter()**) &nbsp;→ [solution](solutions.md#lc-560)
 

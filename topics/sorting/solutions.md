@@ -202,12 +202,8 @@ class Solution:
 :heavy_check_mark: :orange_book: [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/): sort by start; merge while start <= last end
 
 ```python
-class Solution(object):
-    def merge(self, intervals):
-        """
-        :type intervals: List[List[int]]
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
 
         # sort based on the start of each interval
         intervals.sort(key = lambda x: x[0])
