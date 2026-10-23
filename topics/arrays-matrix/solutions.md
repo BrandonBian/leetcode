@@ -215,9 +215,6 @@ class Solution:
 
         right_product.reverse()
 
-        print(left_product)
-        print(right_product)
-
         answer = []
         for i in range(len(nums)):
             answer.append(left_product[i] * right_product[i])

@@ -302,12 +302,12 @@ def isValidBST(self, root, floor=float('-inf'), ceiling=float('inf')):
 
 ```python
 def lowestCommonAncestor(self, root, p, q):
-        """
-        :type root: TreeNode
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: TreeNode
-        """
+    """
+    :type root: TreeNode
+    :type p: TreeNode
+    :type q: TreeNode
+    :rtype: TreeNode
+    """
 
     if not root: return None
     if root == p or root == q: # looking for myself
@@ -317,7 +317,7 @@ def lowestCommonAncestor(self, root, p, q):
     right_LA = self.lowestCommonAncestor(root.right, p, q)
 
     if left_LA and right_LA:
-            return root
+        return root
     if left_LA and not right_LA:
         return left_LA
     if right_LA and not left_LA:

@@ -48,7 +48,7 @@ class MinStack(object):
     def __init__(self):
         # Idea: using a list to mimic a stack
         self.stack = []
-        self.min = [sys.maxint]
+        self.min = [float('inf')]
 
 
     def push(self, val):

@@ -13,7 +13,7 @@ def gcd(a, b) -> int:
     return gcd(b, a % b)
     
 def lcm(a, b) -> int:
-     return (a * b) / gcd(a, b)
+     return (a * b) // gcd(a, b)
 ```
 
 
@@ -35,7 +35,8 @@ ac = lcm(a,c)
 bc = lcm(b,c)
 abc = lcm(a,bc)
 
-total = F(num) = num//a + num//b + num//c - num//ab - num//ac - num//bc + num//abc
+# F(num): count of positive integers <= num divisible by a, b or c
+total = num//a + num//b + num//c - num//ab - num//ac - num//bc + num//abc
 ```
 ---
 
@@ -44,5 +45,6 @@ total = F(num) = num//a + num//b + num//c - num//ab - num//ac - num//bc + num//a
 **F(N) = (total number of positive integers <= N which are divisible by a or b.)**
 
 ```python
-total = F(num) = num // a + num // b - num // lcm(a, b)
+# F(num): count of positive integers <= num divisible by a or b
+total = num // a + num // b - num // lcm(a, b)
 ```

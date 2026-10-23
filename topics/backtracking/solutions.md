@@ -63,10 +63,6 @@ class Solution(object):
         # Alternative (using nums[i:] instead of index, which is cleaner):
         def dfs(nums, target, path, ret):
 
-            print("Path: " + str(path))
-            print("Candidates: " + str(nums))
-            print('')
-
             if target < 0:
                 return
             if target == 0:
@@ -306,7 +302,7 @@ class Solution(object):
 
 
         if len(digits) == 0:
-            return None
+            return []
 
         res = []
 
@@ -467,7 +463,6 @@ class Solution(object):
                     DFS(queens+[q], xy_dif+[p-q], xy_sum+[p+q])
         result = []
         DFS([],[],[])
-        print(result)
         return [ ["."*i + "Q" + "."*(n-i-1) for i in sol] for sol in result]
 ```
 

@@ -340,7 +340,7 @@ class Solution:
             return gcd(b, a % b)
 
         def lcm(a, b) -> int:
-             return (a * b) / gcd(a, b)
+             return (a * b) // gcd(a, b)
 
         def sufficient(num) -> bool:
             # check whether there are at least n ugly numbers <= num
@@ -489,7 +489,7 @@ class Solution:
 <a id="lc-287"></a>
 :heavy_check_mark: :orange_book: [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/): binary search on the value range counting nums <= mid, or Floyd cycle detection on i -> nums[i]
 
-- **Binary Search Solution: Time = O(logN)**
+- **Binary Search Solution: Time = O(n log n)** (log n rounds, each counting all n numbers)
 
 ```python
 class Solution:
@@ -499,7 +499,7 @@ class Solution:
 
     def findDuplicate(self, nums: List[int]) -> int:
 
-        # Solution: Binary Search O(logN)
+        # Solution: Binary Search O(n log n)
 
         # binary search on integers of [1...n], which are all possible numbers in [nums]
         # find the minimum (i.e., the only) repeated number
@@ -953,7 +953,6 @@ class Solution:
             else:
                 left = mid + 1
 
-        print(left)
         min_val = left
         result = []
 
@@ -1130,7 +1129,7 @@ class Solution:
             return gcd(b, a % b)
 
         def lcm(a, b):
-            return (a * b) / gcd(a, b)
+            return (a * b) // gcd(a, b)
 
         def feasible(num):
             # there are at least [n] magical numbers

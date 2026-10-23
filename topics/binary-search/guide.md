@@ -69,19 +69,19 @@ def binary_search(nums):
     result = -1
 
     # for MINIMIZING problem, check "left" first
-    # result = minimum element that satisfies the sufficient() condition function
+    # result = minimum element that satisfies the feasible() condition function
 
-    if sufficient(left):
+    if feasible(left):
         result = left
-    elif sufficient(right):
+    elif feasible(right):
         result = right
 
     # for MAXIMIZING problem, check "right" first
-    # result = maximum element that satisfies the sufficient() condition function
+    # result = maximum element that satisfies the feasible() condition function
 
-    if sufficient(right):
+    if feasible(right):
         result = right
-    elif sufficient(left):
+    elif feasible(left):
         result = left
 
     # return result

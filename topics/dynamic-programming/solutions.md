@@ -310,20 +310,19 @@ class Solution(object):
         # dp[i][j] = minimum sum of falling path up to matrix[i][j]
         dp = matrix
 
+        n = len(matrix[0])
+
         for row in range(1, len(matrix)):
-            for col in range(len(matrix[0])):
+            for col in range(n):
 
-                if col == 0:
-                    # first column: coming from top or top right
-                    dp[row][col] += min(dp[row - 1][col], dp[row - 1][col + 1])
+                # coming from top, top left (if not first column), or top right (if not last column)
+                best = dp[row - 1][col]
+                if col > 0:
+                    best = min(best, dp[row - 1][col - 1])
+                if col < n - 1:
+                    best = min(best, dp[row - 1][col + 1])
 
-                elif col == len(matrix[0]) - 1:
-                    # last column: coming from top or top left
-                    dp[row][col] += min(dp[row - 1][col], dp[row - 1][col - 1])
-
-                else:
-                    # coming from top left, top, or top right
-                    dp[row][col] += min(dp[row - 1][col - 1], dp[row - 1][col], dp[row - 1][col + 1])
+                dp[row][col] += best
 
         return min(dp[-1])
 ```
@@ -1031,9 +1030,9 @@ class Solution:
         dp = [[float('inf') for _ in range(n + 1)] for _ in range(m + 1)]
 
         # initialization
-        for i in range(m): # the first column
+        for i in range(m + 1): # the first column
             dp[i][0] = i
-        for j in range(n): # the first row
+        for j in range(n + 1): # the first row
             dp[0][j] = j
 
         # dp

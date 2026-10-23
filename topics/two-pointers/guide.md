@@ -80,7 +80,7 @@ length = len(nums)
 result = []
 
 if len(nums) < 4:
-    return None
+    return []
 
 for i in range(0, len(nums) - 3): # fix the first (least) element
 

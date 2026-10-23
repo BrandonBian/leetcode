@@ -105,7 +105,9 @@ Average-case costs in CPython.
 
 ## Roadmap
 
-- [ ] Fix known bugs in a few solutions and move all code to the Python 3 style (`class Solution:` with type hints)
+- [x] Fix known bugs in solutions and guides
+- [ ] Move all code to the Python 3 style (`class Solution:` with type hints)
+- [ ] Add the missing solutions (993, 1026, 1530, 865, 863, 1379 and most hash-table supplemental problems)
 - [ ] Write guides for the topics that only have problem lists (graphs, stacks & queues, heaps, tries, arrays)
 - [ ] New topics: intervals, greedy, bit manipulation, union-find, Fenwick tree
 - [ ] Math & probability for quant developer interviews

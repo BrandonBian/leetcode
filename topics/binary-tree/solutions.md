@@ -50,7 +50,7 @@ class Solution(object):
         # Pre-order: node -> left -> right
 
         if not root:
-            return None
+            return []
         if not root.left and not root.right:
             return [root.val]
 
@@ -82,7 +82,7 @@ class Solution(object):
         # Post-order: left -> right -> node
 
         if not root:
-            return None
+            return []
         if not root.left and not root.right:
             return [root.val]
 
@@ -149,7 +149,7 @@ class Solution(object):
         # Reference: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/discuss/749036/Python-Clean-BFS-solution-explained
 
         if not root:
-            return None
+            return []
 
         if not root.left and not root.right:
             return [[root.val]]
@@ -190,7 +190,7 @@ class Solution(object):
         """
 
         if not root:
-            return None
+            return []
 
         if not root.left and not root.right:
             return [[root.val]]
@@ -290,11 +290,6 @@ class Solution(object):
         left_height = self.depth(root.left, diameter) # max number of edges from this node to a leaf in the left subtree
         right_height = self.depth(root.right, diameter) # max number of edges from this node to a leaf in the right subtree
         diameter[0] = max(diameter[0], left_height + right_height)
-
-#         print("Node Value: ", root.val)
-#         print("Left Height: ", left_height)
-#         print("Right Height: ", right_height)
-#         print('')
 
         # assuming left_height, right_height calculated as requested - go up one layer
         return 1 + max(left_height, right_height) # The +1 to account for the edge between the root and the subtree
@@ -486,7 +481,7 @@ class Solution(object):
         """
 
         if not root:
-            return None
+            return []
 
         if not root.left and not root.right:
             return [root.val]
@@ -772,9 +767,8 @@ class Solution(object):
         self.result = []
         inorder(root)
 
-        result = list(set(self.result))
-
-        return result[k-1]
+        # in-order traversal of a BST is already sorted
+        return self.result[k-1]
 ```
 
 ---
@@ -837,7 +831,7 @@ class Solution(object):
         """
 
         if not root:
-            return None
+            return []
 
         result = []
 
@@ -1036,7 +1030,7 @@ class Solution(object):
         """
 
         if not root:
-            return None
+            return []
 
         result = []
 
@@ -1560,7 +1554,7 @@ class Solution(object):
 
         if not root:
             return 0
-        if not root.left and not root.left:
+        if not root.left and not root.right:
             return 1
 
         left_num = self.countNodes(root.left)

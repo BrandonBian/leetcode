@@ -153,10 +153,10 @@ class Solution:
             import heapq
             
             result = []
-            heapq.heapify(nums)
-            
-            for i in range(len(nums)):
-                result.append(heappop(nums))
+            heapq.heapify(array)
+
+            for _ in range(len(array)):
+                result.append(heapq.heappop(array))
                 
             return result
             

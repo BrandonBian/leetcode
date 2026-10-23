@@ -38,7 +38,7 @@ class Solution:
 
 
         if len(nums) < 3:
-            return None
+            return []
 
         nums.sort()
         length = len(nums)
@@ -360,7 +360,7 @@ class Solution:
                 target_length -= 1 # we used one letter from the target pool/string
 
             # Decrease the letter count for the current letter
-			# If the letter is not a target letter, the count just becomes -ve
+            # If the letter is not a target letter, the count just becomes -ve
             # Yes, we can decrement an element not yet present in the Counter
             target_letter_counts[s[end]] -= 1 # what this does makes all non-target characters negative as well
 

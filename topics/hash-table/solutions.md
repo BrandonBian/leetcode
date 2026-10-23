@@ -43,7 +43,7 @@ class Solution:
         nums_.sort() # sorting a tuple will sort based on the first element (i.e., number not index)
         left, right = 0, len(nums_) - 1
 
-        while left <= right:
+        while left < right:
             if nums_[left][0] + nums_[right][0] > target:
                 right -= 1
             elif nums_[left][0] + nums_[right][0] < target:
@@ -85,16 +85,13 @@ class Solution(object):
         output = 0
 
         for r in range(len(s)):
-            """
-            If s[r] not in seen, we can keep increasing the window size by moving right pointer
-            """
+            # If s[r] not in seen, we can keep increasing the window size by moving right pointer
             if s[r] not in seen:
                 output = max(output,r-l+1) # take current window size and compare with max
-            """
-            There are two cases if s[r] in seen:
-            case1: s[r] is inside the current window, we need to change the window by moving left pointer to seen[s[r]] + 1.
-            case2: s[r] is not inside the current window, we can keep increase the window
-            """
+
+            # There are two cases if s[r] in seen:
+            # case1: s[r] is inside the current window, we need to change the window by moving left pointer to seen[s[r]] + 1.
+            # case2: s[r] is not inside the current window, we can keep increase the window
             else:
                 if seen[s[r]] < l: # outside of current window, keep increasing window
                     output = max(output,r-l+1) # take current window size and compare with max
@@ -135,7 +132,7 @@ class Solution(object):
             # array/list not hashable, so change to tuple
             hmap[tuple(array)].append(this_str)
 
-        return hmap.values()
+        return list(hmap.values())
 ```
 
 ---
@@ -256,7 +253,7 @@ class Solution(object):
         # https://leetcode.com/problems/find-all-anagrams-in-a-string/discuss/1738052/A-very-deep-EXPLANATION-oror-Solved-without-using-HashTable
 
         if len(s) < len(p):
-            return None
+            return []
 
         hash_s, hash_p, result = [0] * 26, [0] * 26, []
 
@@ -484,7 +481,6 @@ class Solution(object):
 
         for num in nums:
             combined ^= num
-            print(combined)
 
         return combined
 

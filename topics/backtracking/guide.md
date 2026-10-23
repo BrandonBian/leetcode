@@ -33,7 +33,7 @@ def combine(n, target):
     res = []
     candidates = range(1, n+1) # Or the array of input numbers as given in the question
     # To remove duplicates, add this: candidates.sort()
-    dfs(candidates, target, 0, [], res)
+    dfs(candidates, target, [], res)
     return res
     
 ########################################################################################################    
@@ -88,7 +88,7 @@ def dfs(candidates, target, path, res):
 # Permutations: all permutations of list [candidates] (See LeetCode 46)
 # All elements UNIQUE
 
-def dfs(self, candidates, path, res):
+def dfs(candidates, path, res):
     # candidates: leaf nodes under current node
     # path: current path down the entire tree
     # res: to save all the paths
@@ -101,11 +101,11 @@ def dfs(self, candidates, path, res):
     for i in range(len(candidates)):
         # candidates[:i] + candidates[i+1:] -> all candidates but leaving out the i-th element
         # because we already included it into our path: path+[candidates[i]]
-        self.dfs(candidates[:i]+candidates[i+1:], path+[candidates[i]], res)
+        dfs(candidates[:i]+candidates[i+1:], path+[candidates[i]], res)
 
 ########################################################################################################
 
-# If we have NON-UNIQUE candidates, REMOVE DUPLICATES by inserting the following code inside the for loop and before self.dfs():
+# If we have NON-UNIQUE candidates, REMOVE DUPLICATES by inserting the following code inside the for loop and before dfs():
 # "if i > 0 and candidates[i] == candidates[i-1]: continue" to skip duplicate subtrees
 # ALSO: don't forget to SORT the candidates in ascending order before running the dfs (see the base function above)
 ```
