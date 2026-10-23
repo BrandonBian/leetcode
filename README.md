@@ -1,70 +1,112 @@
-# Table of Contents
+# LeetCode Notes
 
-- **Section 0: Patterns**
-- **Section 1: Algorithms**
-- **Section 2: Data Structures**
-- **Section 3: Time & Space Complexities**
-- **Section 4: Auxiliary Collection of Problems & Solutions**
+Study notes for coding interviews (SDE and quant developer roles): pattern guides with reusable templates, curated problem lists, and commented Python 3 solutions, organized by topic.
 
----
-## Section 0: Patterns
-- Ref 1: [LeetCode Patterns](https://seanprashad.com/leetcode-patterns/)
-- Ref 2: [14 Patterns](https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed)
-
-| Condition | Algorithms to / can Use | Data Structures to / can Use |
-| -- | -- | -- |
-| Input array is sorted | Binary Search + Two Pointers | -- |
-| Asking for all permutations / subsets / combinations | DFS Backtracking | -- |
-| Finding the minimum / maximum / k-th position | Binary Search + Heap | -- |
-| Binary tree / binary search tree | BFS using queues + DFS using recursion | BT + BST |
-| Path finding on a grid / matrix | BFS using queues + DFS using recursion + Step towards directions | -- |
-| Linked list | Two Pointers + Dummy Node | Linked List |
-| K-Sum / partitioning | Two Pointers | -- |
-| Substring / subarray on linear structure | Sliding Window (Two Pointers) | -- |
-| Dealing with brackets | -- | Stack |
-| Finding occurrence of a certain pattern | -- | Hash Table (Dict, Counter) |
-| Maximum / minimum subarray / subset / options | Dynamic Programming | -- |
+![Python 3](https://img.shields.io/badge/language-Python%203-3776AB?logo=python&logoColor=white)
+![Problems](https://img.shields.io/badge/problems-231-orange)
+![Topics](https://img.shields.io/badge/topics-14-blue)
 
 ---
 
-## Section 1: Algorithms
+## How to use this repo
 
-| ID | Algorithm | When To Use | Study Guide | Problems | Solutions | Important Key Points
-| -- | -- | -- | -- | -- | -- | -- |
-| 1 | **Binary Search** | "minimizing / maximizing / find K-th position" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-search-solutions.md) | :white_check_mark: [A Template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/binary-search.md#white_check_mark-general-template---very-good-please-memorize)
-| 2 | **Greatest Common Divisor (GCD) & Least Common Multiple (LCM)** | "total number of positive integers <= N which are divisible by a or b or c" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/gcd-lcm.md) | - | - | :white_check_mark: [Calculation Formulae in Python](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/gcd-lcm.md)
-| 3 | **DFS Recursion & Backtracking** | "combination / combination sum / permutations / subsets" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/recursion-backtracking-solutions.md) | :white_check_mark: [A Template](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/recursion-backtracking.md#--backtracking-problem-solving-templates)
-| 4 | **Two Pointers** | "K-Sum / partitioning / sorting" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/two-pointers.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/two-pointers-solutions.md) | -
-| 5 | **Topological DFS & BFS** | "path finding in a grid or matrix" | - | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/topological-dfs-bfs.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/topological-dfs-bfs-solutions.md)
-| 6 | **Sorting Methods** | - | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/algorithms/sorting.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/sorting.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/sorting-solutions.md)
-| 7 | **Dynamic Programming** | - | Merged with Problems | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/dynamic-programming.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/dynamic-programming-solutions.md)
-| 8 | **Prefix & Sufix Sum** | 
----
+1. **Learn the pattern.** Read a topic's **guide** for the idea and the template to memorize.
+2. **Practice.** Work through the topic's **problem list**. Start with the :heavy_check_mark: must-do problems; each line has a one-line hint.
+3. **Check your work.** Each problem links to its **solution**, with the reasoning written as comments in the code.
 
-## Section 2: Data Structures
-
-| ID | Data Structure | Common Topics / Applications | Study Guide | Problems | Solutions | Important Key Points
-| -- | -- | -- | -- | -- | -- | -- |
-| 1 | **Binary Tree & Binary Search Trees** | "BT and BST traversal / deleting & inserting node / root-to-leaf DFS / construction / validation" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/binary-tree.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-tree.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/binary-tree-solutions.md) | :white_check_mark: [Traversal Templates](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/binary-tree.md#--binary-tree-traversals-and-operations-usually-with-recursion)
-| 2 | **Hash Table** | "using Counter / Set / Dictionary / Pattern Hashing" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/hash-table.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/hash-table.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/hash-table-solutions.md) | :white_check_mark: [Using and Sorting Python Dictionary & Counter](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/hash-table.md#--python-dictionary-and-counters-and-how-to-sort-them)
-| 3 | **Linked List** | "Linked List cycle detection / cycle locating / slow-fast pointers / dummy nodes / double pointers" | [Guide](https://github.com/BrandonBian/LeetCode-Notes/blob/main/data-structures/linked-list.md) | [Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list.md) | [Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/linked-list-solutions.md) | -
-| 4 | **Binary Indexed Tree / Fenwick Tree** |
-| 5 | **Heaps** |
-| 6 | **Trie / Prefix Tree** |
+**Legend:** :heavy_check_mark: must-do &nbsp;·&nbsp; :wavy_dash: less typical &nbsp;·&nbsp; :green_book: Easy &nbsp;·&nbsp; :orange_book: Medium &nbsp;·&nbsp; :closed_book: Hard
 
 ---
 
-## Section 3: Time & Space Complexities
+## Topics
+
+### Algorithms
+
+| Topic | Guide | Problems | :green_book: | :orange_book: | :closed_book: | Template to memorize |
+| --- | :-: | :-: | :-: | :-: | :-: | --- |
+| **Two Pointers & Sliding Window** | [Guide](topics/two-pointers/guide.md) | [Problems](topics/two-pointers/problems.md) | 2 | 7 | 2 | [2 Sum / K-Sum / partition](topics/two-pointers/guide.md#typical-examples--concepts) |
+| **Binary Search** | [Guide](topics/binary-search/guide.md) | [Problems](topics/binary-search/problems.md) | 4 | 18 | 6 | [General template](topics/binary-search/guide.md#white_check_mark-general-template---very-good-please-memorize) |
+| **Sorting** | [Guide](topics/sorting/guide.md) | [Problems](topics/sorting/problems.md) | 0 | 3 | 3 | [Quick / merge / counting / heap sort](topics/sorting/guide.md#--quick-sort) |
+| **Recursion & Backtracking** | [Guide](topics/backtracking/guide.md) | [Problems](topics/backtracking/problems.md) | 0 | 12 | 2 | [Combinations / permutations](topics/backtracking/guide.md#--backtracking-problem-solving-templates) |
+| **Graphs** (grid DFS / BFS, topological sort) | — | [Problems](topics/graphs/problems.md) | 2 | 7 | 1 | — |
+| **Dynamic Programming** | [Guide](topics/dynamic-programming/guide.md) | [Problems](topics/dynamic-programming/problems.md) | 4 | 31 | 5 | [The DP patterns](topics/dynamic-programming/guide.md) |
+| **Math** (GCD & LCM) | [Guide](topics/math/guide.md) | — | — | — | — | [GCD / LCM formulae](topics/math/guide.md#formulae) |
+
+### Data Structures
+
+| Topic | Guide | Problems | :green_book: | :orange_book: | :closed_book: | Template to memorize |
+| --- | :-: | :-: | :-: | :-: | :-: | --- |
+| **Arrays & Matrices** | — | [Problems](topics/arrays-matrix/problems.md) | 0 | 6 | 0 | — |
+| **Hash Tables** | [Guide](topics/hash-table/guide.md) | [Problems](topics/hash-table/problems.md) | 22 | 16 | 1 | [dict / Counter / sorting them](topics/hash-table/guide.md#--python-dictionary-and-counters-and-how-to-sort-them) |
+| **Linked Lists** | [Guide](topics/linked-list/guide.md) | [Problems](topics/linked-list/problems.md) | 7 | 8 | 1 | [Slow / fast pointers](topics/linked-list/guide.md#--cycle-detection-and-finding-with-slow--fast-pointers) |
+| **Stacks & Queues** | — | [Problems](topics/stack-queue/problems.md) | 2 | 2 | 4 | — |
+| **Heaps & Priority Queues** | — | [Problems](topics/heap/problems.md) | 0 | 1 | 1 | — |
+| **Binary Trees & BSTs** | [Guide](topics/binary-tree/guide.md) | [Problems](topics/binary-tree/problems.md) | 19 | 29 | 2 | [Traversals](topics/binary-tree/guide.md#--binary-tree-traversals-and-operations-usually-with-recursion) |
+| **Tries** | — | [Problems](topics/trie/problems.md) | 0 | 1 | 0 | — |
+
+### Curated lists
+
+- [**LeetCode Top 100**](lists/leetcode-top-100.md): LeetCode's list of the 100 most frequently asked problems, with links to each solution in its topic folder.
 
 ---
 
-## Section 4: Auxiliary Problems & Solutions
+## Pattern cheat sheet
 
-### 4.1 LeetCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/top100.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LeetCode/top100-solutions.md)]
+If the problem says this, try these first.
 
+| The problem involves… | Try | Topic |
+| --- | --- | --- |
+| A sorted array | Binary search, two pointers | [Binary Search](topics/binary-search/guide.md), [Two Pointers](topics/two-pointers/guide.md) |
+| A minimum / maximum / k-th value that is easy to *check* | Binary search on the answer | [Binary Search](topics/binary-search/guide.md) |
+| All permutations / subsets / combinations | DFS backtracking | [Backtracking](topics/backtracking/guide.md) |
+| A binary tree or BST | DFS recursion, BFS with a queue | [Binary Trees](topics/binary-tree/guide.md) |
+| Path finding / flooding on a grid | DFS or BFS from the cells | [Graphs](topics/graphs/problems.md) |
+| Dependencies or an order of tasks | Topological sort | [Graphs](topics/graphs/problems.md) |
+| A linked list | Slow / fast pointers, dummy node | [Linked Lists](topics/linked-list/guide.md) |
+| K-Sum / partitioning | Two pointers | [Two Pointers](topics/two-pointers/guide.md) |
+| A substring / subarray with a constraint | Sliding window | [Two Pointers](topics/two-pointers/guide.md) |
+| Subarray sums | Prefix sums + hash map | [Hash Tables](topics/hash-table/problems.md) |
+| Brackets or nested structure | Stack | [Stacks & Queues](topics/stack-queue/problems.md) |
+| Next greater / smaller element, window maximum | Monotonic stack / deque | [Stacks & Queues](topics/stack-queue/problems.md) |
+| Top k / running median | Heap | [Heaps](topics/heap/problems.md) |
+| Counting things / matching a pattern | Hash table (`dict`, `Counter`) | [Hash Tables](topics/hash-table/guide.md) |
+| Prefix lookups on many words | Trie | [Tries](topics/trie/problems.md) |
+| Max / min / count over choices, subarrays or subsequences | Dynamic programming | [DP](topics/dynamic-programming/guide.md) |
 
-### 4.2 LintCode Top 100 - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/top100.md)] | [Solutions]
+Further reading: [LeetCode Patterns](https://seanprashad.com/leetcode-patterns/) · [14 Patterns to Ace Any Coding Interview](https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed)
 
+<details>
+<summary><b>Python time complexity quick reference</b></summary>
 
-### 4.3 LintCode Chapter-by-Chapter Practice - [[Problems](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter.md)] | [[Solutions](https://github.com/BrandonBian/LeetCode-Notes/blob/main/problems-and-solutions/LintCode/chapter-by-chapter-solutions.md)]
+Average-case costs in CPython.
 
+| Structure | Operation | Cost |
+| --- | --- | --- |
+| `list` | index, `append`, `pop()` | O(1) |
+| `list` | `insert(0, x)`, `pop(0)`, `x in lst`, slicing | O(n) |
+| `list` | `sort()`, `sorted()` | O(n log n) |
+| `dict` / `set` | get, set, delete, `x in d` | O(1) |
+| `collections.deque` | `append`, `appendleft`, `pop`, `popleft` | O(1) |
+| `heapq` | `heappush`, `heappop` | O(log n) |
+| `heapq` | `heapify` | O(n) |
+| `heapq` | `nlargest(k, …)`, `nsmallest(k, …)` | O(n log k) |
+| `bisect` | `bisect_left`, `bisect_right` | O(log n) |
+| `bisect` | `insort` | O(n) |
+| `str` | `+=` in a loop | O(n²) total, use `''.join(parts)` |
+
+</details>
+
+---
+
+## Resources
+
+- [Competitive Programmer's Handbook](resources/books/Competitive%20Programmer's%20Handbook.pdf), Antti Laaksonen
+- [LeetCode 101: A LeetCode Grinding Guide (C++ Version)](resources/books/LeetCode%20101%20-%20A%20LeetCode%20Grinding%20Guide%20%28C++%20Version%29.pdf), Chang Gao
+
+## Roadmap
+
+- [ ] Fix known bugs in a few solutions and move all code to the Python 3 style (`class Solution:` with type hints)
+- [ ] Write guides for the topics that only have problem lists (graphs, stacks & queues, heaps, tries, arrays)
+- [ ] New topics: intervals, greedy, bit manipulation, union-find, Fenwick tree
+- [ ] Math & probability for quant developer interviews
+- [ ] C++ solutions
